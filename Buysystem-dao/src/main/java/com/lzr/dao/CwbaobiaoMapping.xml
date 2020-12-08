@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.CwbaobiaoMapping">
+
+<!-- custom -->
+    <!-- 在这里写你的自定义代码,每次生成.xml文件都会保留这一段代码 -->
+
+
+<!-- /custom -->
+
+
+    <!-- resultMap映射 -->
+    <resultMap id="CwbaobiaoMap" type="Cwbaobiao">
+        <id column="cwbbid" property="cwbbid"/>
+        <result column="cwname" property="cwname"/>
+        <result column="money" property="money"/>
+        <result column="type" property="type"/>
+        <result column="time" property="time"/>
+    </resultMap>
+
+    <!-- 查询所有方法 -->
+    <select id="queryAll" resultMap="CwbaobiaoMap">
+       select money,cwbbid,time,type,cwname from cwbaobiao;
+    </select>
+
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="CwbaobiaoMap">
+       select money,cwbbid,time,type,cwname from cwbaobiao where cwbbid = #{cwbbid};
+    </select>
+
+    <!-- 根据Cwbaobiao条件查询数据方法 -->
+    <select id="query" resultMap="CwbaobiaoMap">
+        select money,cwbbid,time,type,cwname 
+        from cwbaobiao 
+        <where>
+            <if test="cwbbid != null"> and cwbbid = #{cwbbid}</if>
+            <if test="cwname != null"> and cwname = #{cwname}</if>
+            <if test="money != null"> and money = #{money}</if>
+            <if test="type != null"> and type = #{type}</if>
+            <if test="time != null"> and time = #{time}</if> 
+        </where>
+    </select>
+
+    <!-- 根据Cwbaobiao条件模糊查询数据方法 -->
+    <select id="queryLike" resultMap="CwbaobiaoMap">
+        select money,cwbbid,time,type,cwname 
+        from cwbaobiao 
+        <where>
+            <if test="cwbbid != null"> and cwbbid like concat('%',#{cwbbid},'%')</if>
+            <if test="cwname != null"> and cwname like concat('%',#{cwname},'%')</if>
+            <if test="money != null"> and money like concat('%',#{money},'%')</if>
+            <if test="type != null"> and type like concat('%',#{type},'%')</if>
+            <if test="time != null"> and time like concat('%',#{time},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据Cwbaobiao条件查询数据方法,限制显示条数 -->
+    <select id="queryLimit" resultMap="CwbaobiaoMap">
+        select money,cwbbid,time,type,cwname 
+        from cwbaobiao 
+        <where>
+            <if test="Cwbaobiao.cwbbid != null"> and cwbbid = #{Cwbaobiao.cwbbid}</if>
+            <if test="Cwbaobiao.cwname != null"> and cwname = #{Cwbaobiao.cwname}</if>
+            <if test="Cwbaobiao.money != null"> and money = #{Cwbaobiao.money}</if>
+            <if test="Cwbaobiao.type != null"> and type = #{Cwbaobiao.type}</if>
+            <if test="Cwbaobiao.time != null"> and time = #{Cwbaobiao.time}</if> 
+        </where>
+        limit #{startIndex},#{pageSize};
+    </select>
+
+    <!-- 根据Cwbaobiao条件模糊查询数据方法,限制显示条数 -->
+    <select id="queryLikeLimit" resultMap="CwbaobiaoMap">
+        select money,cwbbid,time,type,cwname 
+        from cwbaobiao 
+        <where>
+            <if test="Cwbaobiao.cwbbid != null"> and cwbbid like concat('%',#{Cwbaobiao.cwbbid},'%')</if>
+            <if test="Cwbaobiao.cwname != null"> and cwname like concat('%',#{Cwbaobiao.cwname},'%')</if>
+            <if test="Cwbaobiao.money != null"> and money like concat('%',#{Cwbaobiao.money},'%')</if>
+            <if test="Cwbaobiao.type != null"> and type like concat('%',#{Cwbaobiao.type},'%')</if>
+            <if test="Cwbaobiao.time != null"> and time like concat('%',#{Cwbaobiao.time},'%')</if> 
+        </where>
+        limit #{startIndex},#{pageSize};
+    </select>
+
+    <!-- 根据Cwbaobiao条件获取数据总条数方法 -->
+    <select id="queryCount" resultType="int">
+        select count(1) from cwbaobiao 
+        <where>
+            <if test="cwbbid != null"> and cwbbid = #{cwbbid}</if>
+            <if test="cwname != null"> and cwname = #{cwname}</if>
+            <if test="money != null"> and money = #{money}</if>
+            <if test="type != null"> and type = #{type}</if>
+            <if test="time != null"> and time = #{time}</if> 
+        </where>
+    </select>
+
+    <!-- 根据Cwbaobiao模糊查询数据总条数方法 -->
+    <select id="queryLikeCount" resultType="int">
+        select count(1) from cwbaobiao 
+        <where>
+            <if test="cwbbid != null"> and cwbbid like concat('%',#{cwbbid},'%')</if>
+            <if test="cwname != null"> and cwname like concat('%',#{cwname},'%')</if>
+            <if test="money != null"> and money like concat('%',#{money},'%')</if>
+            <if test="type != null"> and type like concat('%',#{type},'%')</if>
+            <if test="time != null"> and time like concat('%',#{time},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据Cwbaobiao插入数据方法 -->
+    <insert id="insert" parameterType="Cwbaobiao" useGeneratedKeys="true" keyColumn="cwbbid" keyProperty="cwbbid">
+        insert into cwbaobiao (cwbbid,cwname,money,type,time) 
+        values (#{cwbbid},#{cwname},#{money},#{type},#{time}); 
+    </insert>
+
+    <!-- 根据Cwbaobiao插入多条数据方法 -->
+    <insert id="inserts" parameterType="List" useGeneratedKeys="true" keyColumn="cwbbid" keyProperty="cwbbid">
+        insert into cwbaobiao (cwbbid,cwname,money,type,time) 
+        values 
+        <foreach collection="cwbaobiaos" item="item" separator=",">
+            (#{item.cwbbid},#{item.cwname},#{item.money},#{item.type},#{item.time}) 
+        </foreach>
+    </insert>
+
+    <!-- 根据Cwbaobiao条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="Cwbaobiao">
+        update cwbaobiao 
+        <set>
+            <if test="cwname != null">cwname = #{cwname},</if>
+            <if test="money != null">money = #{money},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="time != null">time = #{time},</if>
+        </set>
+        where cwbbid = #{cwbbid}
+    </update>
+
+    <!-- 根据SetValue条件修改多条数据方法,从传入对象Condition中获取修改的条件 -->
+    <update id="updates">
+        update cwbaobiao 
+        <set>
+            <if test="SetValue.cwname != null">cwname = #{SetValue.cwname},</if>
+            <if test="SetValue.money != null">money = #{SetValue.money},</if>
+            <if test="SetValue.type != null">type = #{SetValue.type},</if>
+            <if test="SetValue.time != null">time = #{SetValue.time},</if>
+        </set>
+        <where>
+            <if test="Condition != null">
+                <if test="Condition.cwbbid != null"> and cwbbid = #{Condition.cwbbid}</if>
+                <if test="Condition.cwname != null"> and cwname = #{Condition.cwname}</if>
+                <if test="Condition.money != null"> and money = #{Condition.money}</if>
+                <if test="Condition.type != null"> and type = #{Condition.type}</if>
+                <if test="Condition.time != null"> and time = #{Condition.time}</if>
+            </if>
+        </where>
+     </update>
+
+    <!-- 根据Cwbaobiao条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from cwbaobiao where cwbbid = #{cwbbid};
+    </delete>
+
+    <!-- 根据Cwbaobiao条件删除多条数据方法,从传入对象获取删除条件 -->
+    <delete id="deleteBy">
+        delete from cwbaobiao 
+        <where>
+            <if test="cwbbid == null and cwname == null and money == null and type == null and time == null "> 1 = 2</if>
+            <if test="cwbbid != null"> and cwbbid = #{cwbbid}</if>
+            <if test="cwname != null"> and cwname = #{cwname}</if>
+            <if test="money != null"> and money = #{money}</if>
+            <if test="type != null"> and type = #{type}</if>
+            <if test="time != null"> and time = #{time}</if> 
+        </where>
+    </delete>
+
+    <!-- 根据Cwbaobiao主键id批量删除多条数据方法 -->
+    <delete id="deletesById" parameterType="List">
+        delete from cwbaobiao where cwbbid in 
+        <foreach collection="cwbbids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+</mapper>

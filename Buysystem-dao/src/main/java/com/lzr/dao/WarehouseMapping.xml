@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.WarehouseMapping">
+    <!-- resultMap映射 -->
+    <resultMap id="WarehouseMap" type="Warehouse">
+        <id column="wareid" property="wareid"/>
+        <result column="warename" property="warename"/>
+        <result column="wareremark" property="wareremark"/>
+        <result column="warecount" property="warecount"/>
+        <result column="wareaddress" property="wareaddress"/>
+        <result column="jingdu" property="jingdu"/>
+        <result column="weidu" property="weidu"/>
+        <result column="isdelete" property="isdelete"/>
+        <association property="empid" column="empid"
+           select="com.lzr.dao.EmployMapping.queryById" javaType="Employ" fetchType="lazy"/>
+    </resultMap>
+
+    <!-- 查询所有方法 -->
+    <select id="queryAll" resultMap="WarehouseMap">
+       select weidu,empid,wareid,jingdu,wareremark,warecount,warename,isdelete,wareaddress from warehouse;
+    </select>
+
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="WarehouseMap">
+       select weidu,empid,wareid,jingdu,wareremark,warecount,warename,isdelete,wareaddress from warehouse where wareid = #{wareid};
+    </select>
+
+    <!-- 根据Warehouse条件查询数据方法 -->
+    <select id="query" resultMap="WarehouseMap">
+        select weidu,empid,wareid,jingdu,wareremark,warecount,warename,isdelete,wareaddress 
+        from warehouse 
+        <where>
+            <if test="wareid != null"> and wareid = #{wareid}</if>
+            <if test="warename != null"> and warename = #{warename}</if>
+            <if test="wareremark != null"> and wareremark = #{wareremark}</if>
+            <if test="warecount != null"> and warecount = #{warecount}</if>
+            <if test="empid != null">
+                 <if test="empid.empid != null"> and empid = #{empid.empid}</if>
+            </if>
+            <if test="wareaddress != null"> and wareaddress = #{wareaddress}</if>
+            <if test="jingdu != null"> and jingdu = #{jingdu}</if>
+            <if test="weidu != null"> and weidu = #{weidu}</if>
+            <if test="isdelete != null"> and isdelete = #{isdelete}</if> 
+        </where>
+    </select>
+
+    <!-- 根据Warehouse条件模糊查询数据方法 -->
+    <select id="queryLike" resultMap="WarehouseMap">
+        select weidu,empid,wareid,jingdu,wareremark,warecount,warename,isdelete,wareaddress 
+        from warehouse 
+        <where>
+            <if test="wareid != null"> and wareid like concat('%',#{wareid},'%')</if>
+            <if test="warename != null"> and warename like concat('%',#{warename},'%')</if>
+            <if test="wareremark != null"> and wareremark like concat('%',#{wareremark},'%')</if>
+            <if test="warecount != null"> and warecount like concat('%',#{warecount},'%')</if>
+            <if test="empid != null">
+                 <if test="empid.empid != null"> and empid like concat('%',#{empid.empid},'%')</if>
+            </if>
+            <if test="wareaddress != null"> and wareaddress like concat('%',#{wareaddress},'%')</if>
+            <if test="jingdu != null"> and jingdu like concat('%',#{jingdu},'%')</if>
+            <if test="weidu != null"> and weidu like concat('%',#{weidu},'%')</if>
+            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据Warehouse插入数据方法 -->
+    <insert id="insert" parameterType="Warehouse" useGeneratedKeys="true" keyColumn="wareid" keyProperty="wareid">
+        insert into warehouse (wareid,warename,wareremark,warecount,empid,wareaddress,jingdu,weidu,isdelete) 
+        values (#{wareid},#{warename},#{wareremark},#{warecount},#{empid.empid},#{wareaddress},#{jingdu},#{weidu},#{isdelete}); 
+    </insert>
+
+    <!-- 根据Warehouse条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="Warehouse">
+        update warehouse 
+        <set>
+            <if test="warename != null">warename = #{warename},</if>
+            <if test="wareremark != null">wareremark = #{wareremark},</if>
+            <if test="warecount != null">warecount = #{warecount},</if>
+            <if test="empid != null">
+                <if test="empid.empid != null">empid = #{empid.empid},</if>
+            </if>
+            <if test="wareaddress != null">wareaddress = #{wareaddress},</if>
+            <if test="jingdu != null">jingdu = #{jingdu},</if>
+            <if test="weidu != null">weidu = #{weidu},</if>
+            <if test="isdelete != null">isdelete = #{isdelete},</if>
+        </set>
+        where wareid = #{wareid}
+    </update>
+    <!-- 根据Warehouse条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from warehouse where wareid = #{wareid};
+    </delete>
+</mapper>

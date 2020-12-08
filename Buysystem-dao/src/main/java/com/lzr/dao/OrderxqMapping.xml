@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.OrderxqMapping">
+
+<!-- custom -->
+    <!-- 在这里写你的自定义代码,每次生成.xml文件都会保留这一段代码 -->
+
+
+<!-- /custom -->
+
+
+    <!-- resultMap映射 -->
+    <resultMap id="OrderxqMap" type="Orderxq">
+        <id column="orderxqid" property="orderxqid"/>
+        <result column="orderxqcount" property="orderxqcount"/>
+        <result column="orderxqmoney" property="orderxqmoney"/>
+        <association property="shopid" column="{fk=shopid}"
+           select="com.lzr.dao.ShopMapping.a_Shop_By_shopid" javaType="Shop" fetchType="lazy"/>
+        <association property="orderid" column="{fk=orderid}"
+           select="com.lzr.dao.OrdersMapping.a_Orders_By_orderid" javaType="Orders" fetchType="lazy"/>
+    </resultMap>
+
+    <!-- 查询所有方法 -->
+    <select id="queryAll" resultMap="OrderxqMap">
+       select orderxqcount,orderid,shopid,orderxqid,orderxqmoney from orderxq;
+    </select>
+
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="OrderxqMap">
+       select orderxqcount,orderid,shopid,orderxqid,orderxqmoney from orderxq where orderxqid = #{orderxqid};
+    </select>
+
+    <!-- 根据Orderxq条件查询数据方法 -->
+    <select id="query" resultMap="OrderxqMap">
+        select orderxqcount,orderid,shopid,orderxqid,orderxqmoney 
+        from orderxq 
+        <where>
+            <if test="orderxqid != null"> and orderxqid = #{orderxqid}</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
+            </if>
+            <if test="orderid != null">
+                 <if test="orderid.orderid != null"> and orderid = #{orderid.orderid}</if>
+            </if>
+            <if test="orderxqcount != null"> and orderxqcount = #{orderxqcount}</if>
+            <if test="orderxqmoney != null"> and orderxqmoney = #{orderxqmoney}</if> 
+        </where>
+    </select>
+
+    <!-- 根据Orderxq条件模糊查询数据方法 -->
+    <select id="queryLike" resultMap="OrderxqMap">
+        select orderxqcount,orderid,shopid,orderxqid,orderxqmoney 
+        from orderxq 
+        <where>
+            <if test="orderxqid != null"> and orderxqid like concat('%',#{orderxqid},'%')</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid like concat('%',#{shopid.id},'%')</if>
+            </if>
+            <if test="orderid != null">
+                 <if test="orderid.orderid != null"> and orderid like concat('%',#{orderid.orderid},'%')</if>
+            </if>
+            <if test="orderxqcount != null"> and orderxqcount like concat('%',#{orderxqcount},'%')</if>
+            <if test="orderxqmoney != null"> and orderxqmoney like concat('%',#{orderxqmoney},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据Orderxq条件查询数据方法,限制显示条数 -->
+    <select id="queryLimit" resultMap="OrderxqMap">
+        select orderxqcount,orderid,shopid,orderxqid,orderxqmoney 
+        from orderxq 
+        <where>
+            <if test="Orderxq.orderxqid != null"> and orderxqid = #{Orderxq.orderxqid}</if>
+            <if test="Orderxq.shopid != null">
+                 <if test="Orderxq.shopid.id != null"> and shopid = #{Orderxq.shopid.id}</if>
+            </if>
+            <if test="Orderxq.orderid != null">
+                 <if test="Orderxq.orderid.orderid != null"> and orderid = #{Orderxq.orderid.orderid}</if>
+            </if>
+            <if test="Orderxq.orderxqcount != null"> and orderxqcount = #{Orderxq.orderxqcount}</if>
+            <if test="Orderxq.orderxqmoney != null"> and orderxqmoney = #{Orderxq.orderxqmoney}</if> 
+        </where>
+        limit #{startIndex},#{pageSize};
+    </select>
+
+    <!-- 根据Orderxq条件模糊查询数据方法,限制显示条数 -->
+    <select id="queryLikeLimit" resultMap="OrderxqMap">
+        select orderxqcount,orderid,shopid,orderxqid,orderxqmoney 
+        from orderxq 
+        <where>
+            <if test="Orderxq.orderxqid != null"> and orderxqid like concat('%',#{Orderxq.orderxqid},'%')</if>
+            <if test="Orderxq.shopid != null">
+                 <if test="Orderxq.shopid.id != null"> and shopid like concat('%',#{Orderxq.shopid.id},'%')</if>
+            </if>
+            <if test="Orderxq.orderid != null">
+                 <if test="Orderxq.orderid.orderid != null"> and orderid like concat('%',#{Orderxq.orderid.orderid},'%')</if>
+            </if>
+            <if test="Orderxq.orderxqcount != null"> and orderxqcount like concat('%',#{Orderxq.orderxqcount},'%')</if>
+            <if test="Orderxq.orderxqmoney != null"> and orderxqmoney like concat('%',#{Orderxq.orderxqmoney},'%')</if> 
+        </where>
+        limit #{startIndex},#{pageSize};
+    </select>
+
+    <!-- 根据Orderxq条件获取数据总条数方法 -->
+    <select id="queryCount" resultType="int">
+        select count(1) from orderxq 
+        <where>
+            <if test="orderxqid != null"> and orderxqid = #{orderxqid}</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
+            </if>
+            <if test="orderid != null">
+                 <if test="orderid.orderid != null"> and orderid = #{orderid.orderid}</if>
+            </if>
+            <if test="orderxqcount != null"> and orderxqcount = #{orderxqcount}</if>
+            <if test="orderxqmoney != null"> and orderxqmoney = #{orderxqmoney}</if> 
+        </where>
+    </select>
+
+    <!-- 根据Orderxq模糊查询数据总条数方法 -->
+    <select id="queryLikeCount" resultType="int">
+        select count(1) from orderxq 
+        <where>
+            <if test="orderxqid != null"> and orderxqid like concat('%',#{orderxqid},'%')</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid like concat('%',#{shopid.id},'%')</if>
+            </if>
+            <if test="orderid != null">
+                 <if test="orderid.orderid != null"> and orderid like concat('%',#{orderid.orderid},'%')</if>
+            </if>
+            <if test="orderxqcount != null"> and orderxqcount like concat('%',#{orderxqcount},'%')</if>
+            <if test="orderxqmoney != null"> and orderxqmoney like concat('%',#{orderxqmoney},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据Orderxq插入数据方法 -->
+    <insert id="insert" parameterType="Orderxq" useGeneratedKeys="true" keyColumn="orderxqid" keyProperty="orderxqid">
+        insert into orderxq (orderxqid,shopid,orderid,orderxqcount,orderxqmoney) 
+        values (#{orderxqid},#{shopid.shopid},#{orderid.orderid},#{orderxqcount},#{orderxqmoney}); 
+    </insert>
+
+    <!-- 根据Orderxq插入多条数据方法 -->
+    <insert id="inserts" parameterType="List" useGeneratedKeys="true" keyColumn="orderxqid" keyProperty="orderxqid">
+        insert into orderxq (orderxqid,shopid,orderid,orderxqcount,orderxqmoney) 
+        values 
+        <foreach collection="orderxqs" item="item" separator=",">
+            (#{item.orderxqid},#{item.shopid.shopid},#{item.orderid.orderid},#{item.orderxqcount},#{item.orderxqmoney}) 
+        </foreach>
+    </insert>
+
+    <!-- 根据Orderxq条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="Orderxq">
+        update orderxq 
+        <set>
+            <if test="shopid != null">
+                <if test="shopid.id != null">shopid = #{shopid.id},</if>
+            </if>
+            <if test="orderid != null">
+                <if test="orderid.orderid != null">orderid = #{orderid.orderid},</if>
+            </if>
+            <if test="orderxqcount != null">orderxqcount = #{orderxqcount},</if>
+            <if test="orderxqmoney != null">orderxqmoney = #{orderxqmoney},</if>
+        </set>
+        where orderxqid = #{orderxqid}
+    </update>
+
+    <!-- 根据SetValue条件修改多条数据方法,从传入对象Condition中获取修改的条件 -->
+    <update id="updates">
+        update orderxq 
+        <set>
+            <if test="SetValue.shopid != null">
+                <if test="SetValue.shopid.id != null">shopid = #{SetValue.shopid.id},</if>
+            </if>
+            <if test="SetValue.orderid != null">
+                <if test="SetValue.orderid.orderid != null">orderid = #{SetValue.orderid.orderid},</if>
+            </if>
+            <if test="SetValue.orderxqcount != null">orderxqcount = #{SetValue.orderxqcount},</if>
+            <if test="SetValue.orderxqmoney != null">orderxqmoney = #{SetValue.orderxqmoney},</if>
+        </set>
+        <where>
+            <if test="Condition != null">
+                <if test="Condition.orderxqid != null"> and orderxqid = #{Condition.orderxqid}</if>
+                <if test="Condition.shopid != null">
+                    <if test="Condition.shopid.id != null"> and shopid = #{Condition.shopid.id}</if>
+                </if>
+                <if test="Condition.orderid != null">
+                    <if test="Condition.orderid.orderid != null"> and orderid = #{Condition.orderid.orderid}</if>
+                </if>
+                <if test="Condition.orderxqcount != null"> and orderxqcount = #{Condition.orderxqcount}</if>
+                <if test="Condition.orderxqmoney != null"> and orderxqmoney = #{Condition.orderxqmoney}</if>
+            </if>
+        </where>
+     </update>
+
+    <!-- 根据Orderxq条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from orderxq where orderxqid = #{orderxqid};
+    </delete>
+
+    <!-- 根据Orderxq条件删除多条数据方法,从传入对象获取删除条件 -->
+    <delete id="deleteBy">
+        delete from orderxq 
+        <where>
+            <if test="orderxqid == null and shopid == null and orderid == null and orderxqcount == null and orderxqmoney == null "> 1 = 2</if>
+            <if test="orderxqid != null"> and orderxqid = #{orderxqid}</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
+            </if>
+            <if test="orderid != null">
+                 <if test="orderid.orderid != null"> and orderid = #{orderid.orderid}</if>
+            </if>
+            <if test="orderxqcount != null"> and orderxqcount = #{orderxqcount}</if>
+            <if test="orderxqmoney != null"> and orderxqmoney = #{orderxqmoney}</if> 
+        </where>
+    </delete>
+
+    <!-- 根据Orderxq主键id批量删除多条数据方法 -->
+    <delete id="deletesById" parameterType="List">
+        delete from orderxq where orderxqid in 
+        <foreach collection="orderxqids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 关联查询,调用者:"com.lzr.dao.OrdersMapping" -->
+    <select id="c_Orderxq_by_orderid_dm" resultMap="basicOrderxqMap">
+       select orderxqcount,orderid,shopid,orderxqid,orderxqmoney from orderxq where orderid = #{fk};
+    </select>
+
+
+    <resultMap id="basicOrderxqMap" type="Orderxq">
+        <id column="orderxqid" property="orderxqid"/>
+        <result column="orderxqcount" property="orderxqcount"/>
+        <result column="orderxqmoney" property="orderxqmoney"/>
+    </resultMap>
+
+
+</mapper>

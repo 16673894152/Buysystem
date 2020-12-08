@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.XsbaobiaoMapping">
+
+<!-- custom -->
+    <!-- 在这里写你的自定义代码,每次生成.xml文件都会保留这一段代码 -->
+
+
+<!-- /custom -->
+
+
+    <!-- resultMap映射 -->
+    <resultMap id="XsbaobiaoMap" type="Xsbaobiao">
+        <id column="xsbbid" property="xsbbid"/>
+        <result column="count" property="count"/>
+        <result column="money" property="money"/>
+        <result column="type" property="type"/>
+        <result column="time" property="time"/>
+        <association property="shopid" column="{fk=shopid}"
+           select="com.lzr.dao.ShopMapping.a_Shop_By_shopid" javaType="Shop" fetchType="lazy"/>
+    </resultMap>
+
+    <!-- 查询所有方法 -->
+    <select id="queryAll" resultMap="XsbaobiaoMap">
+       select money,count,shopid,time,type,xsbbid from xsbaobiao;
+    </select>
+
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="XsbaobiaoMap">
+       select money,count,shopid,time,type,xsbbid from xsbaobiao where xsbbid = #{xsbbid};
+    </select>
+
+    <!-- 根据Xsbaobiao条件查询数据方法 -->
+    <select id="query" resultMap="XsbaobiaoMap">
+        select money,count,shopid,time,type,xsbbid 
+        from xsbaobiao 
+        <where>
+            <if test="xsbbid != null"> and xsbbid = #{xsbbid}</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
+            </if>
+            <if test="count != null"> and count = #{count}</if>
+            <if test="money != null"> and money = #{money}</if>
+            <if test="type != null"> and type = #{type}</if>
+            <if test="time != null"> and time = #{time}</if> 
+        </where>
+    </select>
+
+    <!-- 根据Xsbaobiao条件模糊查询数据方法 -->
+    <select id="queryLike" resultMap="XsbaobiaoMap">
+        select money,count,shopid,time,type,xsbbid 
+        from xsbaobiao 
+        <where>
+            <if test="xsbbid != null"> and xsbbid like concat('%',#{xsbbid},'%')</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid like concat('%',#{shopid.id},'%')</if>
+            </if>
+            <if test="count != null"> and count like concat('%',#{count},'%')</if>
+            <if test="money != null"> and money like concat('%',#{money},'%')</if>
+            <if test="type != null"> and type like concat('%',#{type},'%')</if>
+            <if test="time != null"> and time like concat('%',#{time},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据Xsbaobiao条件查询数据方法,限制显示条数 -->
+    <select id="queryLimit" resultMap="XsbaobiaoMap">
+        select money,count,shopid,time,type,xsbbid 
+        from xsbaobiao 
+        <where>
+            <if test="Xsbaobiao.xsbbid != null"> and xsbbid = #{Xsbaobiao.xsbbid}</if>
+            <if test="Xsbaobiao.shopid != null">
+                 <if test="Xsbaobiao.shopid.id != null"> and shopid = #{Xsbaobiao.shopid.id}</if>
+            </if>
+            <if test="Xsbaobiao.count != null"> and count = #{Xsbaobiao.count}</if>
+            <if test="Xsbaobiao.money != null"> and money = #{Xsbaobiao.money}</if>
+            <if test="Xsbaobiao.type != null"> and type = #{Xsbaobiao.type}</if>
+            <if test="Xsbaobiao.time != null"> and time = #{Xsbaobiao.time}</if> 
+        </where>
+        limit #{startIndex},#{pageSize};
+    </select>
+
+    <!-- 根据Xsbaobiao条件模糊查询数据方法,限制显示条数 -->
+    <select id="queryLikeLimit" resultMap="XsbaobiaoMap">
+        select money,count,shopid,time,type,xsbbid 
+        from xsbaobiao 
+        <where>
+            <if test="Xsbaobiao.xsbbid != null"> and xsbbid like concat('%',#{Xsbaobiao.xsbbid},'%')</if>
+            <if test="Xsbaobiao.shopid != null">
+                 <if test="Xsbaobiao.shopid.id != null"> and shopid like concat('%',#{Xsbaobiao.shopid.id},'%')</if>
+            </if>
+            <if test="Xsbaobiao.count != null"> and count like concat('%',#{Xsbaobiao.count},'%')</if>
+            <if test="Xsbaobiao.money != null"> and money like concat('%',#{Xsbaobiao.money},'%')</if>
+            <if test="Xsbaobiao.type != null"> and type like concat('%',#{Xsbaobiao.type},'%')</if>
+            <if test="Xsbaobiao.time != null"> and time like concat('%',#{Xsbaobiao.time},'%')</if> 
+        </where>
+        limit #{startIndex},#{pageSize};
+    </select>
+
+    <!-- 根据Xsbaobiao条件获取数据总条数方法 -->
+    <select id="queryCount" resultType="int">
+        select count(1) from xsbaobiao 
+        <where>
+            <if test="xsbbid != null"> and xsbbid = #{xsbbid}</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
+            </if>
+            <if test="count != null"> and count = #{count}</if>
+            <if test="money != null"> and money = #{money}</if>
+            <if test="type != null"> and type = #{type}</if>
+            <if test="time != null"> and time = #{time}</if> 
+        </where>
+    </select>
+
+    <!-- 根据Xsbaobiao模糊查询数据总条数方法 -->
+    <select id="queryLikeCount" resultType="int">
+        select count(1) from xsbaobiao 
+        <where>
+            <if test="xsbbid != null"> and xsbbid like concat('%',#{xsbbid},'%')</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid like concat('%',#{shopid.id},'%')</if>
+            </if>
+            <if test="count != null"> and count like concat('%',#{count},'%')</if>
+            <if test="money != null"> and money like concat('%',#{money},'%')</if>
+            <if test="type != null"> and type like concat('%',#{type},'%')</if>
+            <if test="time != null"> and time like concat('%',#{time},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据Xsbaobiao插入数据方法 -->
+    <insert id="insert" parameterType="Xsbaobiao" useGeneratedKeys="true" keyColumn="xsbbid" keyProperty="xsbbid">
+        insert into xsbaobiao (xsbbid,shopid,count,money,type,time) 
+        values (#{xsbbid},#{shopid.shopid},#{count},#{money},#{type},#{time}); 
+    </insert>
+
+    <!-- 根据Xsbaobiao插入多条数据方法 -->
+    <insert id="inserts" parameterType="List" useGeneratedKeys="true" keyColumn="xsbbid" keyProperty="xsbbid">
+        insert into xsbaobiao (xsbbid,shopid,count,money,type,time) 
+        values 
+        <foreach collection="xsbaobiaos" item="item" separator=",">
+            (#{item.xsbbid},#{item.shopid.shopid},#{item.count},#{item.money},#{item.type},#{item.time}) 
+        </foreach>
+    </insert>
+
+    <!-- 根据Xsbaobiao条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="Xsbaobiao">
+        update xsbaobiao 
+        <set>
+            <if test="shopid != null">
+                <if test="shopid.id != null">shopid = #{shopid.id},</if>
+            </if>
+            <if test="count != null">count = #{count},</if>
+            <if test="money != null">money = #{money},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="time != null">time = #{time},</if>
+        </set>
+        where xsbbid = #{xsbbid}
+    </update>
+
+    <!-- 根据SetValue条件修改多条数据方法,从传入对象Condition中获取修改的条件 -->
+    <update id="updates">
+        update xsbaobiao 
+        <set>
+            <if test="SetValue.shopid != null">
+                <if test="SetValue.shopid.id != null">shopid = #{SetValue.shopid.id},</if>
+            </if>
+            <if test="SetValue.count != null">count = #{SetValue.count},</if>
+            <if test="SetValue.money != null">money = #{SetValue.money},</if>
+            <if test="SetValue.type != null">type = #{SetValue.type},</if>
+            <if test="SetValue.time != null">time = #{SetValue.time},</if>
+        </set>
+        <where>
+            <if test="Condition != null">
+                <if test="Condition.xsbbid != null"> and xsbbid = #{Condition.xsbbid}</if>
+                <if test="Condition.shopid != null">
+                    <if test="Condition.shopid.id != null"> and shopid = #{Condition.shopid.id}</if>
+                </if>
+                <if test="Condition.count != null"> and count = #{Condition.count}</if>
+                <if test="Condition.money != null"> and money = #{Condition.money}</if>
+                <if test="Condition.type != null"> and type = #{Condition.type}</if>
+                <if test="Condition.time != null"> and time = #{Condition.time}</if>
+            </if>
+        </where>
+     </update>
+
+    <!-- 根据Xsbaobiao条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from xsbaobiao where xsbbid = #{xsbbid};
+    </delete>
+
+    <!-- 根据Xsbaobiao条件删除多条数据方法,从传入对象获取删除条件 -->
+    <delete id="deleteBy">
+        delete from xsbaobiao 
+        <where>
+            <if test="xsbbid == null and shopid == null and count == null and money == null and type == null and time == null "> 1 = 2</if>
+            <if test="xsbbid != null"> and xsbbid = #{xsbbid}</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
+            </if>
+            <if test="count != null"> and count = #{count}</if>
+            <if test="money != null"> and money = #{money}</if>
+            <if test="type != null"> and type = #{type}</if>
+            <if test="time != null"> and time = #{time}</if> 
+        </where>
+    </delete>
+
+    <!-- 根据Xsbaobiao主键id批量删除多条数据方法 -->
+    <delete id="deletesById" parameterType="List">
+        delete from xsbaobiao where xsbbid in 
+        <foreach collection="xsbbids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+</mapper>

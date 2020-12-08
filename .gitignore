@@ -1,0 +1,4 @@
+# Project exclude paths
+/Buysystem-dao/target/
+/Buysystem-service/target/
+/Buysystem-web/target/

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.ShopputMapping">
+
+<!-- custom -->
+    <!-- 在这里写你的自定义代码,每次生成.xml文件都会保留这一段代码 -->
+
+
+<!-- /custom -->
+
+
+    <!-- resultMap映射 -->
+    <resultMap id="ShopputMap" type="Shopput">
+        <id column="shopputid" property="shopputid"/>
+        <result column="shopzhe" property="shopzhe"/>
+        <result column="shopputprice" property="shopputprice"/>
+        <result column="isdelete" property="isdelete"/>
+        <association property="shopid" column="{fk=shopid}"
+           select="com.lzr.dao.ShopMapping.a_Shop_By_shopid" javaType="Shop" fetchType="lazy"/>
+    </resultMap>
+
+    <!-- 查询所有方法 -->
+    <select id="queryAll" resultMap="ShopputMap">
+       select shopzhe,shopid,isdelete,shopputprice,shopputid from shopput;
+    </select>
+
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="ShopputMap">
+       select shopzhe,shopid,isdelete,shopputprice,shopputid from shopput where shopputid = #{shopputid};
+    </select>
+
+    <!-- 根据Shopput条件查询数据方法 -->
+    <select id="query" resultMap="ShopputMap">
+        select shopzhe,shopid,isdelete,shopputprice,shopputid 
+        from shopput 
+        <where>
+            <if test="shopputid != null"> and shopputid = #{shopputid}</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
+            </if>
+            <if test="shopzhe != null"> and shopzhe = #{shopzhe}</if>
+            <if test="shopputprice != null"> and shopputprice = #{shopputprice}</if>
+            <if test="isdelete != null"> and isdelete = #{isdelete}</if> 
+        </where>
+    </select>
+
+    <!-- 根据Shopput条件模糊查询数据方法 -->
+    <select id="queryLike" resultMap="ShopputMap">
+        select shopzhe,shopid,isdelete,shopputprice,shopputid 
+        from shopput 
+        <where>
+            <if test="shopputid != null"> and shopputid like concat('%',#{shopputid},'%')</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid like concat('%',#{shopid.id},'%')</if>
+            </if>
+            <if test="shopzhe != null"> and shopzhe like concat('%',#{shopzhe},'%')</if>
+            <if test="shopputprice != null"> and shopputprice like concat('%',#{shopputprice},'%')</if>
+            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据Shopput条件查询数据方法,限制显示条数 -->
+    <select id="queryLimit" resultMap="ShopputMap">
+        select shopzhe,shopid,isdelete,shopputprice,shopputid 
+        from shopput 
+        <where>
+            <if test="Shopput.shopputid != null"> and shopputid = #{Shopput.shopputid}</if>
+            <if test="Shopput.shopid != null">
+                 <if test="Shopput.shopid.id != null"> and shopid = #{Shopput.shopid.id}</if>
+            </if>
+            <if test="Shopput.shopzhe != null"> and shopzhe = #{Shopput.shopzhe}</if>
+            <if test="Shopput.shopputprice != null"> and shopputprice = #{Shopput.shopputprice}</if>
+            <if test="Shopput.isdelete != null"> and isdelete = #{Shopput.isdelete}</if> 
+        </where>
+        limit #{startIndex},#{pageSize};
+    </select>
+
+    <!-- 根据Shopput条件模糊查询数据方法,限制显示条数 -->
+    <select id="queryLikeLimit" resultMap="ShopputMap">
+        select shopzhe,shopid,isdelete,shopputprice,shopputid 
+        from shopput 
+        <where>
+            <if test="Shopput.shopputid != null"> and shopputid like concat('%',#{Shopput.shopputid},'%')</if>
+            <if test="Shopput.shopid != null">
+                 <if test="Shopput.shopid.id != null"> and shopid like concat('%',#{Shopput.shopid.id},'%')</if>
+            </if>
+            <if test="Shopput.shopzhe != null"> and shopzhe like concat('%',#{Shopput.shopzhe},'%')</if>
+            <if test="Shopput.shopputprice != null"> and shopputprice like concat('%',#{Shopput.shopputprice},'%')</if>
+            <if test="Shopput.isdelete != null"> and isdelete like concat('%',#{Shopput.isdelete},'%')</if> 
+        </where>
+        limit #{startIndex},#{pageSize};
+    </select>
+
+    <!-- 根据Shopput条件获取数据总条数方法 -->
+    <select id="queryCount" resultType="int">
+        select count(1) from shopput 
+        <where>
+            <if test="shopputid != null"> and shopputid = #{shopputid}</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
+            </if>
+            <if test="shopzhe != null"> and shopzhe = #{shopzhe}</if>
+            <if test="shopputprice != null"> and shopputprice = #{shopputprice}</if>
+            <if test="isdelete != null"> and isdelete = #{isdelete}</if> 
+        </where>
+    </select>
+
+    <!-- 根据Shopput模糊查询数据总条数方法 -->
+    <select id="queryLikeCount" resultType="int">
+        select count(1) from shopput 
+        <where>
+            <if test="shopputid != null"> and shopputid like concat('%',#{shopputid},'%')</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid like concat('%',#{shopid.id},'%')</if>
+            </if>
+            <if test="shopzhe != null"> and shopzhe like concat('%',#{shopzhe},'%')</if>
+            <if test="shopputprice != null"> and shopputprice like concat('%',#{shopputprice},'%')</if>
+            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据Shopput插入数据方法 -->
+    <insert id="insert" parameterType="Shopput" useGeneratedKeys="true" keyColumn="shopputid" keyProperty="shopputid">
+        insert into shopput (shopputid,shopid,shopzhe,shopputprice,isdelete) 
+        values (#{shopputid},#{shopid.shopid},#{shopzhe},#{shopputprice},#{isdelete}); 
+    </insert>
+
+    <!-- 根据Shopput插入多条数据方法 -->
+    <insert id="inserts" parameterType="List" useGeneratedKeys="true" keyColumn="shopputid" keyProperty="shopputid">
+        insert into shopput (shopputid,shopid,shopzhe,shopputprice,isdelete) 
+        values 
+        <foreach collection="shopputs" item="item" separator=",">
+            (#{item.shopputid},#{item.shopid.shopid},#{item.shopzhe},#{item.shopputprice},#{item.isdelete}) 
+        </foreach>
+    </insert>
+
+    <!-- 根据Shopput条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="Shopput">
+        update shopput 
+        <set>
+            <if test="shopid != null">
+                <if test="shopid.id != null">shopid = #{shopid.id},</if>
+            </if>
+            <if test="shopzhe != null">shopzhe = #{shopzhe},</if>
+            <if test="shopputprice != null">shopputprice = #{shopputprice},</if>
+            <if test="isdelete != null">isdelete = #{isdelete},</if>
+        </set>
+        where shopputid = #{shopputid}
+    </update>
+
+    <!-- 根据SetValue条件修改多条数据方法,从传入对象Condition中获取修改的条件 -->
+    <update id="updates">
+        update shopput 
+        <set>
+            <if test="SetValue.shopid != null">
+                <if test="SetValue.shopid.id != null">shopid = #{SetValue.shopid.id},</if>
+            </if>
+            <if test="SetValue.shopzhe != null">shopzhe = #{SetValue.shopzhe},</if>
+            <if test="SetValue.shopputprice != null">shopputprice = #{SetValue.shopputprice},</if>
+            <if test="SetValue.isdelete != null">isdelete = #{SetValue.isdelete},</if>
+        </set>
+        <where>
+            <if test="Condition != null">
+                <if test="Condition.shopputid != null"> and shopputid = #{Condition.shopputid}</if>
+                <if test="Condition.shopid != null">
+                    <if test="Condition.shopid.id != null"> and shopid = #{Condition.shopid.id}</if>
+                </if>
+                <if test="Condition.shopzhe != null"> and shopzhe = #{Condition.shopzhe}</if>
+                <if test="Condition.shopputprice != null"> and shopputprice = #{Condition.shopputprice}</if>
+                <if test="Condition.isdelete != null"> and isdelete = #{Condition.isdelete}</if>
+            </if>
+        </where>
+     </update>
+
+    <!-- 根据Shopput条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from shopput where shopputid = #{shopputid};
+    </delete>
+
+    <!-- 根据Shopput条件删除多条数据方法,从传入对象获取删除条件 -->
+    <delete id="deleteBy">
+        delete from shopput 
+        <where>
+            <if test="shopputid == null and shopid == null and shopzhe == null and shopputprice == null and isdelete == null "> 1 = 2</if>
+            <if test="shopputid != null"> and shopputid = #{shopputid}</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
+            </if>
+            <if test="shopzhe != null"> and shopzhe = #{shopzhe}</if>
+            <if test="shopputprice != null"> and shopputprice = #{shopputprice}</if>
+            <if test="isdelete != null"> and isdelete = #{isdelete}</if> 
+        </where>
+    </delete>
+
+    <!-- 根据Shopput主键id批量删除多条数据方法 -->
+    <delete id="deletesById" parameterType="List">
+        delete from shopput where shopputid in 
+        <foreach collection="shopputids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+</mapper>

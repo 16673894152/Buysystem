@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.MenuInfoMapping">
+
+    <!-- custom -->
+    <!-- 在这里写你的自定义代码,每次生成.xml文件都会保留这一段代码 -->
+
+
+    <!-- /custom -->
+
+
+    <!-- resultMap映射 -->
+    <resultMap id="menumap" type="MenuInfo">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="iconurl" property="iconurl"/>
+        <result column="sort" property="sort"/>
+        <result column="linkurl" property="linkurl"/>
+        <result column="level" property="level"/>
+        <result column="path" property="path"/>
+        <result column="isdelete" property="isdelete"/>
+        <result column="nodetype" property="nodeType"/>
+    </resultMap>
+    <select id="querymenuBypidandnodeType"  resultMap="menumap">
+        SELECT * from menu_info  where isdelete=0 and parentid =#{pid} and nodetype = #{nodeType} and id in(
+            select DISTINCT  rolemenu_info.mid from rolemenu_info,employrole_info where employrole_info.rid=rolemenu_info.rid
+                                                                                  and rolemenu_info.rid in (select employrole_info.rid from employ,employrole_info where employ.empid=employrole_info.empid  and employ.empid=#{empid})
+        )
+    </select>
+    <select id="querymenuBypidandnodeType3" resultType="String">
+        SELECT menucode from menu_info   where isdelete=0 and nodetype = #{nodeType} and id in(
+            select DISTINCT  rolemenu_info.mid from rolemenu_info,employrole_info where employrole_info.rid=rolemenu_info.rid
+                                                                                  and rolemenu_info.rid in (select employrole_info.rid from employ,employrole_info where employ.empid=employrole_info.empid  and employ.empid=#{empid})
+        )
+    </select>
+
+    <select id="querymenuBypidandnodeType1"  resultMap="menumap">
+        select * from menu_info where isdelete=0 and parentid =#{pid} and nodetype = #{nodeType}
+    </select>
+
+    <select id="querymenuidbyrid" parameterType="int" resultType="Integer">
+        select m.id from menu_info  m
+                             left join rolemenu_info rm
+                                       on  m.id = rm.mid
+        where rm.rid =#{rid} and isdelete=0
+    </select>
+
+
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="menumap">
+        select path,nodetype,menucode,level,name,iconurl,id,sort,linkurl,isdelete,parentid from menu_info where id = #{id};
+    </select>
+
+    <!-- 根据MenuInfo条件模糊查询数据方法 -->
+    <select id="queryLike" resultMap="menumap">
+        select path,nodetype,menucode,level,name,iconurl,id,sort,linkurl,isdelete,parentid
+        from menu_info
+        <where>
+            <if test="1 != 2"> and isdelete=0</if>
+            <if test="name != null"> and name like concat('%',#{name},'%')</if>
+        </where>
+    </select>
+
+
+    <!-- 根据MenuInfo条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="MenuInfo">
+        update menu_info
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="isdelete != null">isdelete = #{isdelete},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

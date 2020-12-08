@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.ShoptypeMapping">
+    <!-- resultMap映射 -->
+    <resultMap id="ShoptypeMap" type="Shoptype">
+        <id column="shoptyid" property="shoptyid"/>
+        <result column="shoptyname" property="shoptyname"/>
+        <result column="shopremart" property="shopremart"/>
+    </resultMap>
+
+    <!-- 查询所有方法 -->
+    <select id="queryAll" resultMap="ShoptypeMap">
+       select shoptyname,shopremart,shoptyid from shoptype;
+    </select>
+
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="ShoptypeMap">
+       select shoptyname,shopremart,shoptyid from shoptype where shoptyid = #{shoptyid};
+    </select>
+
+    <!-- 根据Shoptype条件查询数据方法 -->
+    <select id="query" resultMap="ShoptypeMap">
+        select shoptyname,shopremart,shoptyid 
+        from shoptype 
+        <where>
+            <if test="shoptyid != null"> and shoptyid = #{shoptyid}</if>
+            <if test="shoptyname != null"> and shoptyname = #{shoptyname}</if>
+            <if test="shopremart != null"> and shopremart = #{shopremart}</if> 
+        </where>
+    </select>
+
+    <!-- 根据Shoptype条件模糊查询数据方法 -->
+    <select id="queryLike" resultMap="ShoptypeMap">
+        select shoptyname,shopremart,shoptyid 
+        from shoptype 
+        <where>
+            <if test="shoptyid != null"> and shoptyid like concat('%',#{shoptyid},'%')</if>
+            <if test="shoptyname != null"> and shoptyname like concat('%',#{shoptyname},'%')</if>
+            <if test="shopremart != null"> and shopremart like concat('%',#{shopremart},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据Shoptype插入数据方法 -->
+    <insert id="insert" parameterType="Shoptype" useGeneratedKeys="true" keyColumn="shoptyid" keyProperty="shoptyid">
+        insert into shoptype (shoptyid,shoptyname,shopremart) 
+        values (#{shoptyid},#{shoptyname},#{shopremart}); 
+    </insert>
+
+    <!-- 根据Shoptype条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="Shoptype">
+        update shoptype 
+        <set>
+            <if test="shoptyname != null">shoptyname = #{shoptyname},</if>
+            <if test="shopremart != null">shopremart = #{shopremart},</if>
+        </set>
+        where shoptyid = #{shoptyid}
+    </update>
+
+
+    <!-- 根据Shoptype条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from shoptype where shoptyid = #{shoptyid};
+    </delete>
+
+</mapper>

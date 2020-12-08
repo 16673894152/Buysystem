@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.UserMapping">
+    <!-- resultMap映射 -->
+    <resultMap id="UserMap" type="User">
+        <id column="userid" property="userid"/>
+        <result column="zhucetime" property="zhucetime"/>
+        <result column="username" property="username"/>
+        <result column="userpass" property="userpass"/>
+        <result column="usernumber" property="usernumber"/>
+        <result column="usercard" property="usercard"/>
+        <result column="userimg" property="userimg"/>
+        <result column="isdelete" property="isdelete"/>
+        <association property="hyid" column="hyid"
+           select="com.lzr.dao.HuiyuanMapping.queryById" javaType="Huiyuan" fetchType="lazy"/>
+        <collection property="orderss" javaType="list" ofType="com.lzr.vo.Orders"
+           column="{fk=userid}" select="com.lzr.dao.OrdersMapping.c_Orders_by_userid_dm" fetchType="lazy"/>
+        <collection property="shopgouwus" javaType="list" ofType="com.lzr.vo.Shopgouwu"
+           column="{fk=userid}" select="com.lzr.dao.ShopgouwuMapping.c_Shopgouwu_by_userid_dm" fetchType="lazy"/>
+        <collection property="shoppingjias" javaType="list" ofType="com.lzr.vo.Shoppingjia"
+           column="{fk=userid}" select="com.lzr.dao.ShoppingjiaMapping.c_Shoppingjia_by_userid_dm" fetchType="lazy"/>
+    </resultMap>
+
+    <!-- 查询所有方法 -->
+    <select id="queryAll" resultMap="UserMap">
+       select usernumber,zhucetime,userimg,userpass,isdelete,userid,hyid,username,usercard from user;
+    </select>
+
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="UserMap">
+       select usernumber,zhucetime,userimg,userpass,isdelete,userid,hyid,username,usercard from user where userid = #{userid};
+    </select>
+
+    <!-- 根据User条件查询数据方法 -->
+    <select id="query" resultMap="UserMap">
+        select usernumber,zhucetime,userimg,userpass,isdelete,userid,hyid,username,usercard 
+        from user 
+        <where>
+            <if test="userid != null"> and userid = #{userid}</if>
+            <if test="zhucetime != null"> and zhucetime = #{zhucetime}</if>
+            <if test="username != null"> and username = #{username}</if>
+            <if test="userpass != null"> and userpass = #{userpass}</if>
+            <if test="usernumber != null"> and usernumber = #{usernumber}</if>
+            <if test="usercard != null"> and usercard = #{usercard}</if>
+            <if test="userimg != null"> and userimg = #{userimg}</if>
+            <if test="hyid != null">
+                 <if test="hyid.hyid != null"> and hyid = #{hyid.hyid}</if>
+            </if>
+            <if test="isdelete != null"> and isdelete = #{isdelete}</if> 
+        </where>
+    </select>
+
+    <!-- 根据User条件模糊查询数据方法 -->
+    <select id="queryLike" resultMap="UserMap">
+        select usernumber,zhucetime,userimg,userpass,isdelete,userid,hyid,username,usercard 
+        from user 
+        <where>
+            <if test="userid != null"> and userid like concat('%',#{userid},'%')</if>
+            <if test="zhucetime != null"> and zhucetime like concat('%',#{zhucetime},'%')</if>
+            <if test="username != null"> and username like concat('%',#{username},'%')</if>
+            <if test="userpass != null"> and userpass like concat('%',#{userpass},'%')</if>
+            <if test="usernumber != null"> and usernumber like concat('%',#{usernumber},'%')</if>
+            <if test="usercard != null"> and usercard like concat('%',#{usercard},'%')</if>
+            <if test="userimg != null"> and userimg like concat('%',#{userimg},'%')</if>
+            <if test="hyid != null">
+                 <if test="hyid.hyid != null"> and hyid like concat('%',#{hyid.hyid},'%')</if>
+            </if>
+            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据User插入数据方法 -->
+    <insert id="insert" parameterType="User" useGeneratedKeys="false" keyColumn="userid" keyProperty="userid">
+        insert into user (userid,zhucetime,username,userpass,usernumber,usercard,userimg,hyid,isdelete) 
+        values (#{userid},#{zhucetime},#{username},#{userpass},#{usernumber},#{usercard},#{userimg},#{hyid.hyid},#{isdelete}); 
+    </insert>
+
+    <!-- 根据User条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="User">
+        update user 
+        <set>
+            <if test="zhucetime != null">zhucetime = #{zhucetime},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="userpass != null">userpass = #{userpass},</if>
+            <if test="usernumber != null">usernumber = #{usernumber},</if>
+            <if test="usercard != null">usercard = #{usercard},</if>
+            <if test="userimg != null">userimg = #{userimg},</if>
+            <if test="hyid != null">
+                <if test="hyid.hyid != null">hyid = #{hyid.hyid},</if>
+            </if>
+            <if test="isdelete != null">isdelete = #{isdelete},</if>
+        </set>
+        where userid = #{userid}
+    </update>
+    <!-- 根据User条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from user where userid = #{userid};
+    </delete>
+</mapper>

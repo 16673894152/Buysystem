@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.ShopxqMapping">
+
+    <!-- resultMap映射 -->
+    <resultMap id="ShopxqMap" type="Shopxq">
+        <id column="shopxqid" property="shopxqid"/>
+        <result column="shopimg" property="shopimg"/>
+        <result column="shopid" property="shopid"/>
+    </resultMap>
+    <!-- 查询所有方法 -->
+    <select id="queryAll" resultMap="ShopxqMap">
+       select shopxqid,shopimg,shopid from shopxq;
+    </select>
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="ShopxqMap">
+       select shopxqid,shopimg,shopid from shopxq where shopxqid = #{shopxqid};
+    </select>
+
+    <select id="queryByshopid" parameterType="int" resultMap="ShopxqMap">
+        select shopxqid,shopimg,shopid from shopxq where shopid = #{shopid};
+    </select>
+
+    <!-- 根据Shopxq插入数据方法 -->
+    <insert id="insert" parameterType="Shopxq" useGeneratedKeys="true" keyColumn="shopxqid" keyProperty="shopxqid">
+        insert into shopxq (shopxqid,shopid,shopimg) 
+        values (#{shopxqid},#{shopid},#{shopimg});
+    </insert>
+
+    <!-- 根据Shopxq条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="Shopxq">
+        update shopxq 
+        <set>
+            <if test="shopid != null">shopid = #{shopid},</if>
+            <if test="shopimg != null">shopimg = #{shopimg},</if>
+        </set>
+        where shopxqid = #{shopxqid}
+    </update>
+
+
+    <!-- 根据Shopxq条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from shopxq where shopid = #{shopid};
+    </delete>
+</mapper>

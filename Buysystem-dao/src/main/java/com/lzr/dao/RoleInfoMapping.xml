@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.RoleInfoMapping">
+    <!-- resultMap映射 -->
+    <resultMap id="RoleInfoMap" type="RoleInfo">
+        <id column="rid" property="rid"/>
+        <result column="rname" property="rname"/>
+        <result column="rremart" property="rremart"/>
+        <result column="rstate" property="rstate"/>
+    </resultMap>
+
+    <!-- 查询所有方法 -->
+    <select id="queryAll" resultMap="RoleInfoMap">
+       select rname,rremart,rid,rstate from role_info;
+    </select>
+
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="RoleInfoMap">
+       select rname,rremart,rid,rstate from role_info where rid = #{rid};
+    </select>
+
+    <!-- 根据RoleInfo条件查询数据方法 -->
+    <select id="query" resultMap="RoleInfoMap">
+        select rname,rremart,rid,rstate 
+        from role_info 
+        <where>
+            <if test="rid != null"> and rid = #{rid}</if>
+            <if test="rname != null"> and rname = #{rname}</if>
+            <if test="rremart != null"> and rremart = #{rremart}</if>
+            <if test="rstate != null"> and rstate = #{rstate}</if> 
+        </where>
+    </select>
+
+    <!-- 根据RoleInfo条件模糊查询数据方法 -->
+    <select id="queryLike" resultMap="RoleInfoMap">
+        select rname,rremart,rid,rstate 
+        from role_info 
+        <where>
+            <if test="rid != null"> and rid like concat('%',#{rid},'%')</if>
+            <if test="rname != null"> and rname like concat('%',#{rname},'%')</if>
+            <if test="rremart != null"> and rremart like concat('%',#{rremart},'%')</if>
+            <if test="rstate != null"> and rstate like concat('%',#{rstate},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据RoleInfo插入数据方法 -->
+    <insert id="insert" parameterType="RoleInfo" useGeneratedKeys="true" keyColumn="rid" keyProperty="rid">
+        insert into role_info (rid,rname,rremart,rstate) 
+        values (#{rid},#{rname},#{rremart},#{rstate}); 
+    </insert>
+
+
+    <!-- 根据RoleInfo条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="RoleInfo">
+        update role_info 
+        <set>
+            <if test="rname != null">rname = #{rname},</if>
+            <if test="rremart != null">rremart = #{rremart},</if>
+            <if test="rstate != null">rstate = #{rstate},</if>
+        </set>
+        where rid = #{rid}
+    </update>
+
+    <!-- 根据RoleInfo条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from role_info where rid = #{rid};
+    </delete>
+
+</mapper>

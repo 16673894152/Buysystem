@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.ShopgouwuMapping">
+
+<!-- custom -->
+    <!-- 在这里写你的自定义代码,每次生成.xml文件都会保留这一段代码 -->
+
+
+<!-- /custom -->
+
+
+    <!-- resultMap映射 -->
+    <resultMap id="ShopgouwuMap" type="Shopgouwu">
+        <id column="shopgwid" property="shopgwid"/>
+        <result column="shopid" property="shopid"/>
+        <result column="number" property="number"/>
+        <result column="price" property="price"/>
+        <association property="userid" column="{fk=userid}"
+           select="com.lzr.dao.UserMapping.a_User_By_userid" javaType="User" fetchType="lazy"/>
+    </resultMap>
+
+    <!-- 查询所有方法 -->
+    <select id="queryAll" resultMap="ShopgouwuMap">
+       select number,shopgwid,price,shopid,userid from shopgouwu;
+    </select>
+
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="ShopgouwuMap">
+       select number,shopgwid,price,shopid,userid from shopgouwu where shopgwid = #{shopgwid};
+    </select>
+
+    <!-- 根据Shopgouwu条件查询数据方法 -->
+    <select id="query" resultMap="ShopgouwuMap">
+        select number,shopgwid,price,shopid,userid 
+        from shopgouwu 
+        <where>
+            <if test="shopgwid != null"> and shopgwid = #{shopgwid}</if>
+            <if test="shopid != null"> and shopid = #{shopid}</if>
+            <if test="userid != null">
+                 <if test="userid.userid != null"> and userid = #{userid.userid}</if>
+            </if>
+            <if test="number != null"> and number = #{number}</if>
+            <if test="price != null"> and price = #{price}</if> 
+        </where>
+    </select>
+
+    <!-- 根据Shopgouwu条件模糊查询数据方法 -->
+    <select id="queryLike" resultMap="ShopgouwuMap">
+        select number,shopgwid,price,shopid,userid 
+        from shopgouwu 
+        <where>
+            <if test="shopgwid != null"> and shopgwid like concat('%',#{shopgwid},'%')</if>
+            <if test="shopid != null"> and shopid like concat('%',#{shopid},'%')</if>
+            <if test="userid != null">
+                 <if test="userid.userid != null"> and userid like concat('%',#{userid.userid},'%')</if>
+            </if>
+            <if test="number != null"> and number like concat('%',#{number},'%')</if>
+            <if test="price != null"> and price like concat('%',#{price},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据Shopgouwu条件查询数据方法,限制显示条数 -->
+    <select id="queryLimit" resultMap="ShopgouwuMap">
+        select number,shopgwid,price,shopid,userid 
+        from shopgouwu 
+        <where>
+            <if test="Shopgouwu.shopgwid != null"> and shopgwid = #{Shopgouwu.shopgwid}</if>
+            <if test="Shopgouwu.shopid != null"> and shopid = #{Shopgouwu.shopid}</if>
+            <if test="Shopgouwu.userid != null">
+                 <if test="Shopgouwu.userid.userid != null"> and userid = #{Shopgouwu.userid.userid}</if>
+            </if>
+            <if test="Shopgouwu.number != null"> and number = #{Shopgouwu.number}</if>
+            <if test="Shopgouwu.price != null"> and price = #{Shopgouwu.price}</if> 
+        </where>
+        limit #{startIndex},#{pageSize};
+    </select>
+
+    <!-- 根据Shopgouwu条件模糊查询数据方法,限制显示条数 -->
+    <select id="queryLikeLimit" resultMap="ShopgouwuMap">
+        select number,shopgwid,price,shopid,userid 
+        from shopgouwu 
+        <where>
+            <if test="Shopgouwu.shopgwid != null"> and shopgwid like concat('%',#{Shopgouwu.shopgwid},'%')</if>
+            <if test="Shopgouwu.shopid != null"> and shopid like concat('%',#{Shopgouwu.shopid},'%')</if>
+            <if test="Shopgouwu.userid != null">
+                 <if test="Shopgouwu.userid.userid != null"> and userid like concat('%',#{Shopgouwu.userid.userid},'%')</if>
+            </if>
+            <if test="Shopgouwu.number != null"> and number like concat('%',#{Shopgouwu.number},'%')</if>
+            <if test="Shopgouwu.price != null"> and price like concat('%',#{Shopgouwu.price},'%')</if> 
+        </where>
+        limit #{startIndex},#{pageSize};
+    </select>
+
+    <!-- 根据Shopgouwu条件获取数据总条数方法 -->
+    <select id="queryCount" resultType="int">
+        select count(1) from shopgouwu 
+        <where>
+            <if test="shopgwid != null"> and shopgwid = #{shopgwid}</if>
+            <if test="shopid != null"> and shopid = #{shopid}</if>
+            <if test="userid != null">
+                 <if test="userid.userid != null"> and userid = #{userid.userid}</if>
+            </if>
+            <if test="number != null"> and number = #{number}</if>
+            <if test="price != null"> and price = #{price}</if> 
+        </where>
+    </select>
+
+    <!-- 根据Shopgouwu模糊查询数据总条数方法 -->
+    <select id="queryLikeCount" resultType="int">
+        select count(1) from shopgouwu 
+        <where>
+            <if test="shopgwid != null"> and shopgwid like concat('%',#{shopgwid},'%')</if>
+            <if test="shopid != null"> and shopid like concat('%',#{shopid},'%')</if>
+            <if test="userid != null">
+                 <if test="userid.userid != null"> and userid like concat('%',#{userid.userid},'%')</if>
+            </if>
+            <if test="number != null"> and number like concat('%',#{number},'%')</if>
+            <if test="price != null"> and price like concat('%',#{price},'%')</if> 
+        </where>
+    </select>
+
+    <!-- 根据Shopgouwu插入数据方法 -->
+    <insert id="insert" parameterType="Shopgouwu" useGeneratedKeys="true" keyColumn="shopgwid" keyProperty="shopgwid">
+        insert into shopgouwu (shopgwid,shopid,userid,number,price) 
+        values (#{shopgwid},#{shopid},#{userid.userid},#{number},#{price}); 
+    </insert>
+
+    <!-- 根据Shopgouwu插入多条数据方法 -->
+    <insert id="inserts" parameterType="List" useGeneratedKeys="true" keyColumn="shopgwid" keyProperty="shopgwid">
+        insert into shopgouwu (shopgwid,shopid,userid,number,price) 
+        values 
+        <foreach collection="shopgouwus" item="item" separator=",">
+            (#{item.shopgwid},#{item.shopid},#{item.userid.userid},#{item.number},#{item.price}) 
+        </foreach>
+    </insert>
+
+    <!-- 根据Shopgouwu条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="Shopgouwu">
+        update shopgouwu 
+        <set>
+            <if test="shopid != null">shopid = #{shopid},</if>
+            <if test="userid != null">
+                <if test="userid.userid != null">userid = #{userid.userid},</if>
+            </if>
+            <if test="number != null">number = #{number},</if>
+            <if test="price != null">price = #{price},</if>
+        </set>
+        where shopgwid = #{shopgwid}
+    </update>
+
+    <!-- 根据SetValue条件修改多条数据方法,从传入对象Condition中获取修改的条件 -->
+    <update id="updates">
+        update shopgouwu 
+        <set>
+            <if test="SetValue.shopid != null">shopid = #{SetValue.shopid},</if>
+            <if test="SetValue.userid != null">
+                <if test="SetValue.userid.userid != null">userid = #{SetValue.userid.userid},</if>
+            </if>
+            <if test="SetValue.number != null">number = #{SetValue.number},</if>
+            <if test="SetValue.price != null">price = #{SetValue.price},</if>
+        </set>
+        <where>
+            <if test="Condition != null">
+                <if test="Condition.shopgwid != null"> and shopgwid = #{Condition.shopgwid}</if>
+                <if test="Condition.shopid != null"> and shopid = #{Condition.shopid}</if>
+                <if test="Condition.userid != null">
+                    <if test="Condition.userid.userid != null"> and userid = #{Condition.userid.userid}</if>
+                </if>
+                <if test="Condition.number != null"> and number = #{Condition.number}</if>
+                <if test="Condition.price != null"> and price = #{Condition.price}</if>
+            </if>
+        </where>
+     </update>
+
+    <!-- 根据Shopgouwu条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from shopgouwu where shopgwid = #{shopgwid};
+    </delete>
+
+    <!-- 根据Shopgouwu条件删除多条数据方法,从传入对象获取删除条件 -->
+    <delete id="deleteBy">
+        delete from shopgouwu 
+        <where>
+            <if test="shopgwid == null and shopid == null and userid == null and number == null and price == null "> 1 = 2</if>
+            <if test="shopgwid != null"> and shopgwid = #{shopgwid}</if>
+            <if test="shopid != null"> and shopid = #{shopid}</if>
+            <if test="userid != null">
+                 <if test="userid.userid != null"> and userid = #{userid.userid}</if>
+            </if>
+            <if test="number != null"> and number = #{number}</if>
+            <if test="price != null"> and price = #{price}</if> 
+        </where>
+    </delete>
+
+    <!-- 根据Shopgouwu主键id批量删除多条数据方法 -->
+    <delete id="deletesById" parameterType="List">
+        delete from shopgouwu where shopgwid in 
+        <foreach collection="shopgwids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <!-- 关联查询,调用者:"com.lzr.dao.UserMapping" -->
+    <select id="c_Shopgouwu_by_userid_dm" resultMap="basicShopgouwuMap">
+       select number,shopgwid,price,shopid,userid from shopgouwu where userid = #{fk};
+    </select>
+
+
+    <resultMap id="basicShopgouwuMap" type="Shopgouwu">
+        <id column="shopgwid" property="shopgwid"/>
+        <result column="shopid" property="shopid"/>
+        <result column="number" property="number"/>
+        <result column="price" property="price"/>
+    </resultMap>
+
+
+</mapper>

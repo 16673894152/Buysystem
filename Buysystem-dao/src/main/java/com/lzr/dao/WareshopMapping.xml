@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.WareshopMapping">
+
+    <!-- resultMap映射 -->
+    <resultMap id="WareshopMap" type="Wareshop">
+        <id column="wsshid" property="wsshid"/>
+        <result column="shopcount" property="shopcount"/>
+        <result column="isdelete" property="isdelete"/>
+        <association property="shopid" column="shopid"
+           select="com.lzr.dao.ShopMapping.queryById" javaType="Shop" fetchType="lazy"/>
+        <association property="wareid" column="wareid"
+           select="com.lzr.dao.WarehouseMapping.queryById" javaType="Warehouse" fetchType="lazy"/>
+    </resultMap>
+
+    <!-- 查询所有方法 -->
+    <select id="queryAll" resultMap="WareshopMap">
+       select wareid,wsshid,shopcount,shopid,isdelete from wareshop;
+    </select>
+
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="WareshopMap">
+       select wareid,wsshid,shopcount,shopid,isdelete from wareshop where wsshid = #{wsshid};
+    </select>
+
+    <!-- 根据Wareshop条件查询数据方法 -->
+    <select id="query" resultMap="WareshopMap">
+        select wareid,wsshid,shopcount,shopid,isdelete
+        from wareshop
+        <where>
+            <if test="wsshid != null"> and wsshid = #{wsshid}</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
+            </if>
+            <if test="wareid != null">
+                 <if test="wareid.wareid != null"> and wareid = #{wareid.wareid}</if>
+            </if>
+            <if test="shopcount != null"> and shopcount = #{shopcount}</if>
+            <if test="isdelete != null"> and isdelete = #{isdelete}</if>
+        </where>
+    </select>
+
+    <!-- 根据Wareshop条件模糊查询数据方法 -->
+    <select id="queryLike" resultMap="WareshopMap">
+        select wareid,wsshid,shopcount,shopid,isdelete
+        from wareshop
+        <where>
+            <if test="wsshid != null"> and wsshid like concat('%',#{wsshid},'%')</if>
+            <if test="shopid != null">
+                 <if test="shopid.id != null"> and shopid like concat('%',#{shopid.id},'%')</if>
+            </if>
+            <if test="wareid != null">
+                 <if test="wareid.wareid != null"> and wareid like concat('%',#{wareid.wareid},'%')</if>
+            </if>
+            <if test="shopcount != null"> and shopcount like concat('%',#{shopcount},'%')</if>
+            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if>
+        </where>
+    </select>
+
+    <!-- 根据Wareshop插入数据方法 -->
+    <insert id="insert" parameterType="Wareshop" useGeneratedKeys="true" keyColumn="wsshid" keyProperty="wsshid">
+        insert into wareshop (wsshid,shopid,wareid,shopcount,isdelete)
+        values (#{wsshid},#{shopid.shopid},#{wareid.wareid},#{shopcount},#{isdelete});
+    </insert>
+
+    <!-- 根据Wareshop条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="Wareshop">
+        update wareshop
+        <set>
+            <if test="shopid != null">
+                <if test="shopid.id != null">shopid = #{shopid.id},</if>
+            </if>
+            <if test="wareid != null">
+                <if test="wareid.wareid != null">wareid = #{wareid.wareid},</if>
+            </if>
+            <if test="shopcount != null">shopcount = #{shopcount},</if>
+            <if test="isdelete != null">isdelete = #{isdelete},</if>
+        </set>
+        where wsshid = #{wsshid}
+    </update>
+
+
+    <!-- 根据Wareshop条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from wareshop where wsshid = #{wsshid};
+    </delete>
+</mapper>
