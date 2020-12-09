@@ -29,12 +29,13 @@ public class Shop implements Serializable {
 	/**是否上架*/
 	private Integer isdelete;
 	private List<Shopxq>  shopxqs;
-
+	/*评价*/
+	private List<Shoppingjia>  shoppingjias;
 	public Shop() {
 		super();
 	}
 
-	public Shop(Integer shopid, String shopname, Shoptype shoptyid, String shopmiaoshu, double shopprice, double shopdanwei, String shopimg, Integer isdelete, List<Shopxq> shopxqs) {
+	public Shop(Integer shopid, String shopname, Shoptype shoptyid, String shopmiaoshu, double shopprice, double shopdanwei, String shopimg, Integer isdelete, List<Shopxq> shopxqs, List<Shoppingjia> shoppingjias) {
 		this.shopid = shopid;
 		this.shopname = shopname;
 		this.shoptyid = shoptyid;
@@ -44,7 +45,16 @@ public class Shop implements Serializable {
 		this.shopimg = shopimg;
 		this.isdelete = isdelete;
 		this.shopxqs = shopxqs;
-	};
+		this.shoppingjias = shoppingjias;
+	}
+
+	public List<Shoppingjia> getShoppingjias() {
+		return shoppingjias;
+	}
+
+	public void setShoppingjias(List<Shoppingjia> shoppingjias) {
+		this.shoppingjias = shoppingjias;
+	}
 
 	public List<Shopxq> getShopxqs() {
 		return shopxqs;
@@ -130,6 +140,7 @@ public class Shop implements Serializable {
 				", shopimg='" + shopimg + '\'' +
 				", isdelete=" + isdelete +
 				", shopxqs=" + shopxqs +
+				", shoppingjias=" + shoppingjias +
 				'}';
 	}
 }

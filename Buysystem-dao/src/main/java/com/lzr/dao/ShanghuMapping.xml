@@ -25,7 +25,7 @@
         <result column="shstate" property="shstate"/>
         <result column="isdelete" property="isdelete"/>
         <collection property="orderss" javaType="list" ofType="com.lzr.vo.Orders"
-           column="{fk=shid}" select="com.lzr.dao.OrdersMapping.c_Orders_by_shid_dm" fetchType="lazy"/>
+           column="shid" select="com.lzr.dao.OrdersMapping.queryByshid" fetchType="lazy"/>
     </resultMap>
 
     <!-- 查询所有方法 -->
@@ -76,81 +76,7 @@
         </where>
     </select>
 
-    <!-- 根据Shanghu条件查询数据方法,限制显示条数 -->
-    <select id="queryLimit" resultMap="ShanghuMap">
-        select shcard,shaddress,shmoney,shstate,shid,shzhucetime,shnumber,shname,shimg,isdelete,shpass 
-        from shanghu 
-        <where>
-            <if test="Shanghu.shid != null"> and shid = #{Shanghu.shid}</if>
-            <if test="Shanghu.shzhucetime != null"> and shzhucetime = #{Shanghu.shzhucetime}</if>
-            <if test="Shanghu.shname != null"> and shname = #{Shanghu.shname}</if>
-            <if test="Shanghu.shnumber != null"> and shnumber = #{Shanghu.shnumber}</if>
-            <if test="Shanghu.shpass != null"> and shpass = #{Shanghu.shpass}</if>
-            <if test="Shanghu.shmoney != null"> and shmoney = #{Shanghu.shmoney}</if>
-            <if test="Shanghu.shcard != null"> and shcard = #{Shanghu.shcard}</if>
-            <if test="Shanghu.shimg != null"> and shimg = #{Shanghu.shimg}</if>
-            <if test="Shanghu.shaddress != null"> and shaddress = #{Shanghu.shaddress}</if>
-            <if test="Shanghu.shstate != null"> and shstate = #{Shanghu.shstate}</if>
-            <if test="Shanghu.isdelete != null"> and isdelete = #{Shanghu.isdelete}</if> 
-        </where>
-        limit #{startIndex},#{pageSize};
-    </select>
 
-    <!-- 根据Shanghu条件模糊查询数据方法,限制显示条数 -->
-    <select id="queryLikeLimit" resultMap="ShanghuMap">
-        select shcard,shaddress,shmoney,shstate,shid,shzhucetime,shnumber,shname,shimg,isdelete,shpass 
-        from shanghu 
-        <where>
-            <if test="Shanghu.shid != null"> and shid like concat('%',#{Shanghu.shid},'%')</if>
-            <if test="Shanghu.shzhucetime != null"> and shzhucetime like concat('%',#{Shanghu.shzhucetime},'%')</if>
-            <if test="Shanghu.shname != null"> and shname like concat('%',#{Shanghu.shname},'%')</if>
-            <if test="Shanghu.shnumber != null"> and shnumber like concat('%',#{Shanghu.shnumber},'%')</if>
-            <if test="Shanghu.shpass != null"> and shpass like concat('%',#{Shanghu.shpass},'%')</if>
-            <if test="Shanghu.shmoney != null"> and shmoney like concat('%',#{Shanghu.shmoney},'%')</if>
-            <if test="Shanghu.shcard != null"> and shcard like concat('%',#{Shanghu.shcard},'%')</if>
-            <if test="Shanghu.shimg != null"> and shimg like concat('%',#{Shanghu.shimg},'%')</if>
-            <if test="Shanghu.shaddress != null"> and shaddress like concat('%',#{Shanghu.shaddress},'%')</if>
-            <if test="Shanghu.shstate != null"> and shstate like concat('%',#{Shanghu.shstate},'%')</if>
-            <if test="Shanghu.isdelete != null"> and isdelete like concat('%',#{Shanghu.isdelete},'%')</if> 
-        </where>
-        limit #{startIndex},#{pageSize};
-    </select>
-
-    <!-- 根据Shanghu条件获取数据总条数方法 -->
-    <select id="queryCount" resultType="int">
-        select count(1) from shanghu 
-        <where>
-            <if test="shid != null"> and shid = #{shid}</if>
-            <if test="shzhucetime != null"> and shzhucetime = #{shzhucetime}</if>
-            <if test="shname != null"> and shname = #{shname}</if>
-            <if test="shnumber != null"> and shnumber = #{shnumber}</if>
-            <if test="shpass != null"> and shpass = #{shpass}</if>
-            <if test="shmoney != null"> and shmoney = #{shmoney}</if>
-            <if test="shcard != null"> and shcard = #{shcard}</if>
-            <if test="shimg != null"> and shimg = #{shimg}</if>
-            <if test="shaddress != null"> and shaddress = #{shaddress}</if>
-            <if test="shstate != null"> and shstate = #{shstate}</if>
-            <if test="isdelete != null"> and isdelete = #{isdelete}</if> 
-        </where>
-    </select>
-
-    <!-- 根据Shanghu模糊查询数据总条数方法 -->
-    <select id="queryLikeCount" resultType="int">
-        select count(1) from shanghu 
-        <where>
-            <if test="shid != null"> and shid like concat('%',#{shid},'%')</if>
-            <if test="shzhucetime != null"> and shzhucetime like concat('%',#{shzhucetime},'%')</if>
-            <if test="shname != null"> and shname like concat('%',#{shname},'%')</if>
-            <if test="shnumber != null"> and shnumber like concat('%',#{shnumber},'%')</if>
-            <if test="shpass != null"> and shpass like concat('%',#{shpass},'%')</if>
-            <if test="shmoney != null"> and shmoney like concat('%',#{shmoney},'%')</if>
-            <if test="shcard != null"> and shcard like concat('%',#{shcard},'%')</if>
-            <if test="shimg != null"> and shimg like concat('%',#{shimg},'%')</if>
-            <if test="shaddress != null"> and shaddress like concat('%',#{shaddress},'%')</if>
-            <if test="shstate != null"> and shstate like concat('%',#{shstate},'%')</if>
-            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if> 
-        </where>
-    </select>
 
     <!-- 根据Shanghu插入数据方法 -->
     <insert id="insert" parameterType="Shanghu" useGeneratedKeys="false" keyColumn="shid" keyProperty="shid">
@@ -158,14 +84,6 @@
         values (#{shid},#{shzhucetime},#{shname},#{shnumber},#{shpass},#{shmoney},#{shcard},#{shimg},#{shaddress},#{shstate},#{isdelete}); 
     </insert>
 
-    <!-- 根据Shanghu插入多条数据方法 -->
-    <insert id="inserts" parameterType="List" useGeneratedKeys="false" keyColumn="shid" keyProperty="shid">
-        insert into shanghu (shid,shzhucetime,shname,shnumber,shpass,shmoney,shcard,shimg,shaddress,shstate,isdelete) 
-        values 
-        <foreach collection="shanghus" item="item" separator=",">
-            (#{item.shid},#{item.shzhucetime},#{item.shname},#{item.shnumber},#{item.shpass},#{item.shmoney},#{item.shcard},#{item.shimg},#{item.shaddress},#{item.shstate},#{item.isdelete}) 
-        </foreach>
-    </insert>
 
     <!-- 根据Shanghu条件修改单条数据方法,从传入对象获取主键id -->
     <update id="updateById" parameterType="Shanghu">
@@ -185,75 +103,13 @@
         where shid = #{shid}
     </update>
 
-    <!-- 根据SetValue条件修改多条数据方法,从传入对象Condition中获取修改的条件 -->
-    <update id="updates">
-        update shanghu 
-        <set>
-            <if test="SetValue.shzhucetime != null">shzhucetime = #{SetValue.shzhucetime},</if>
-            <if test="SetValue.shname != null">shname = #{SetValue.shname},</if>
-            <if test="SetValue.shnumber != null">shnumber = #{SetValue.shnumber},</if>
-            <if test="SetValue.shpass != null">shpass = #{SetValue.shpass},</if>
-            <if test="SetValue.shmoney != null">shmoney = #{SetValue.shmoney},</if>
-            <if test="SetValue.shcard != null">shcard = #{SetValue.shcard},</if>
-            <if test="SetValue.shimg != null">shimg = #{SetValue.shimg},</if>
-            <if test="SetValue.shaddress != null">shaddress = #{SetValue.shaddress},</if>
-            <if test="SetValue.shstate != null">shstate = #{SetValue.shstate},</if>
-            <if test="SetValue.isdelete != null">isdelete = #{SetValue.isdelete},</if>
-        </set>
-        <where>
-            <if test="Condition != null">
-                <if test="Condition.shid != null"> and shid = #{Condition.shid}</if>
-                <if test="Condition.shzhucetime != null"> and shzhucetime = #{Condition.shzhucetime}</if>
-                <if test="Condition.shname != null"> and shname = #{Condition.shname}</if>
-                <if test="Condition.shnumber != null"> and shnumber = #{Condition.shnumber}</if>
-                <if test="Condition.shpass != null"> and shpass = #{Condition.shpass}</if>
-                <if test="Condition.shmoney != null"> and shmoney = #{Condition.shmoney}</if>
-                <if test="Condition.shcard != null"> and shcard = #{Condition.shcard}</if>
-                <if test="Condition.shimg != null"> and shimg = #{Condition.shimg}</if>
-                <if test="Condition.shaddress != null"> and shaddress = #{Condition.shaddress}</if>
-                <if test="Condition.shstate != null"> and shstate = #{Condition.shstate}</if>
-                <if test="Condition.isdelete != null"> and isdelete = #{Condition.isdelete}</if>
-            </if>
-        </where>
-     </update>
 
     <!-- 根据Shanghu条件删除单条数据方法,从传入对象获取id -->
     <delete id="deleteById" parameterType="int">
         delete from shanghu where shid = #{shid};
     </delete>
 
-    <!-- 根据Shanghu条件删除多条数据方法,从传入对象获取删除条件 -->
-    <delete id="deleteBy">
-        delete from shanghu 
-        <where>
-            <if test="shid == null and shzhucetime == null and shname == null and shnumber == null and shpass == null and shmoney == null and shcard == null and shimg == null and shaddress == null and shstate == null and isdelete == null "> 1 = 2</if>
-            <if test="shid != null"> and shid = #{shid}</if>
-            <if test="shzhucetime != null"> and shzhucetime = #{shzhucetime}</if>
-            <if test="shname != null"> and shname = #{shname}</if>
-            <if test="shnumber != null"> and shnumber = #{shnumber}</if>
-            <if test="shpass != null"> and shpass = #{shpass}</if>
-            <if test="shmoney != null"> and shmoney = #{shmoney}</if>
-            <if test="shcard != null"> and shcard = #{shcard}</if>
-            <if test="shimg != null"> and shimg = #{shimg}</if>
-            <if test="shaddress != null"> and shaddress = #{shaddress}</if>
-            <if test="shstate != null"> and shstate = #{shstate}</if>
-            <if test="isdelete != null"> and isdelete = #{isdelete}</if> 
-        </where>
-    </delete>
 
-    <!-- 根据Shanghu主键id批量删除多条数据方法 -->
-    <delete id="deletesById" parameterType="List">
-        delete from shanghu where shid in 
-        <foreach collection="shids" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
-    <!-- 关联查询,调用者:"com.lzr.dao.OrdersMapping" -->
-    <select id="a_Shanghu_By_shid" resultMap="ShanghuMap">
-       select shcard,shaddress,shmoney,shstate,shid,shzhucetime,shnumber,shname,shimg,isdelete,shpass from shanghu where shid = #{fk};
-    </select>
 
 
 </mapper>

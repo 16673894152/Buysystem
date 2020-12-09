@@ -1,54 +1,60 @@
 package com.lzr.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.lzr.dao.EmployMapping;
-import com.lzr.service.EmployService;
-import com.lzr.vo.Employ;
+import com.lzr.dao.UserMapping;
+import com.lzr.service.UserService;
 import com.lzr.vo.PageVo;
+import com.lzr.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements EmployService {
+public class UserServiceImpl implements UserService {
      @Autowired
-     EmployMapping employMapping;
+     UserMapping userMapping;
 
     @Override
-    public List<Employ> queryAll() {
-        return employMapping.queryAll();
+    public List<User> queryAll() {
+        return userMapping.queryAll();
     }
 
     @Override
-    public Employ queryById(int id) {
-        return employMapping.queryById(id);
+    public User queryById(int id) {
+        return userMapping.queryById(id);
     }
 
     @Override
-    public List<Employ> query(Employ employ) {
-        return employMapping.query(employ);
+    public List<User> query(User user) {
+        return userMapping.query(user);
     }
 
     @Override
-    public PageVo<Employ> queryLike(Employ employ, int page, int rows) {
-        PageVo<Employ> pageVo = new PageVo<>();
+    public int insert(User user) {
+        return userMapping.insert(user);
+    }
+
+    @Override
+    public int updateById(User user) {
+        return userMapping.updateById(user);
+    }
+
+    @Override
+    public int deleteById(int id) {
+        return userMapping.deleteById(id);
+    }
+
+    @Override
+    public PageVo<User> queryLike(User user, int page, int rows) {
+        PageVo<User> pageVo = new PageVo<>();
         //在需要分页的代码调用前 执行以下代码
         PageHelper.startPage(page, rows);
         //获取分页后 显示的数据集合
-        pageVo.setRows(employMapping.queryLike(employ));
+        pageVo.setRows(userMapping.queryLike(user));
         //获取总的记录数量
-        pageVo.setTotal(employMapping.queryLike(employ).size());
+        pageVo.setTotal(userMapping.queryLike(user).size());
 
         return pageVo;
-    }
-    @Override
-    public int insert(Employ employ) {
-        return employMapping.insert(employ);
-    }
-
-    @Override
-    public int updateById(Employ employ) {
-        return employMapping.updateById(employ);
     }
 }

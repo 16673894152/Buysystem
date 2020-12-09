@@ -71,8 +71,7 @@ public class Orderxq implements Serializable {
 	public String toString() {
 		return "orderxq[" + 
 			"orderxqid = " + orderxqid + 
-			", shopid = " + shopid + 
-			", orderid = " + orderid + 
+			", shopid = " + shopid +
 			", orderxqcount = " + orderxqcount + 
 			", orderxqmoney = " + orderxqmoney + 
 			"]";

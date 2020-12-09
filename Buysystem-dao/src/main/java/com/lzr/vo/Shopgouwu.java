@@ -13,7 +13,7 @@ public class Shopgouwu implements Serializable {
 	/**购物车id*/
 	private Integer shopgwid;
 	/**商品id--商品信息表*/
-	private Integer shopid;
+	private Shop shopid;
 	/**用户id--用户信息表*/
 	private User userid;
 	/**数量*/
@@ -24,7 +24,7 @@ public class Shopgouwu implements Serializable {
 	public Shopgouwu() {
 		super();
 	}
-	public Shopgouwu(Integer shopgwid,Integer shopid,User userid,Integer number,double price) {
+	public Shopgouwu(Integer shopgwid,Shop shopid,User userid,Integer number,double price) {
 		this.shopgwid = shopgwid;
 		this.shopid = shopid;
 		this.userid = userid;
@@ -40,11 +40,11 @@ public class Shopgouwu implements Serializable {
 		return shopgwid;
 	}
 	/**设置"商品id--商品信息表"*/
-	public void setShopid(Integer shopid){
+	public void setShopid(Shop shopid){
 		this.shopid = shopid;
 	}
 	/**获取"商品id--商品信息表"*/
-	public Integer getShopid(){
+	public Shop getShopid(){
 		return shopid;
 	}
 	public void setUserid(User userid){

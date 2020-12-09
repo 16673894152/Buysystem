@@ -52,7 +52,7 @@ public class User implements Serializable {
     /**
      * 是否冻结
      */
-    private Double isdelete;
+    private Integer isdelete;
     private List<Orders> orderss;
     private List<Shopgouwu> shopgouwus;
     private List<Shoppingjia> shoppingjias;
@@ -61,19 +61,8 @@ public class User implements Serializable {
         super();
     }
 
-    public User(Integer userid, Timestamp zhucetime, String username, String userpass, String usernumber, String usercard, String userimg, Huiyuan hyid, Double isdelete) {
-        this.userid = userid;
-        this.zhucetime = zhucetime;
-        this.username = username;
-        this.userpass = userpass;
-        this.usernumber = usernumber;
-        this.usercard = usercard;
-        this.userimg = userimg;
-        this.hyid = hyid;
-        this.isdelete = isdelete;
-    }
 
-    public User(Integer userid, Timestamp zhucetime, String username, String userpass, String usernumber, String usercard, String userimg, Huiyuan hyid, Double isdelete, List<Orders> orderss, List<Shopgouwu> shopgouwus, List<Shoppingjia> shoppingjias) {
+    public User(Integer userid, Timestamp zhucetime, String username, String userpass, String usernumber, String usercard, String userimg, Huiyuan hyid, Integer isdelete, List<Orders> orderss, List<Shopgouwu> shopgouwus, List<Shoppingjia> shoppingjias) {
         this.userid = userid;
         this.zhucetime = zhucetime;
         this.username = username;
@@ -197,14 +186,14 @@ public class User implements Serializable {
     /**
      * 设置"是否冻结"
      */
-    public void setIsdelete(Double isdelete) {
+    public void setIsdelete(Integer isdelete) {
         this.isdelete = isdelete;
     }
 
     /**
      * 获取"是否冻结"
      */
-    public Double getIsdelete() {
+    public Integer getIsdelete() {
         return isdelete;
     }
 

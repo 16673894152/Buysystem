@@ -3,14 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lzr.dao.OrdersMapping">
-
-<!-- custom -->
-    <!-- 在这里写你的自定义代码,每次生成.xml文件都会保留这一段代码 -->
-
-
-<!-- /custom -->
-
-
     <!-- resultMap映射 -->
     <resultMap id="OrdersMap" type="Orders">
         <id column="orderid" property="orderid"/>
@@ -24,19 +16,43 @@
         <result column="orderstate" property="orderstate"/>
         <result column="isdelete" property="isdelete"/>
         <result column="shshouru" property="shshouru"/>
-        <association property="userid" column="{fk=userid}"
-           select="com.lzr.dao.UserMapping.a_User_By_userid" javaType="User" fetchType="lazy"/>
-        <association property="shid" column="{fk=shid}"
-           select="com.lzr.dao.ShanghuMapping.a_Shanghu_By_shid" javaType="Shanghu" fetchType="lazy"/>
+        <association property="userid" column="userid"
+           select="com.lzr.dao.UserMapping.queryById" javaType="User" fetchType="lazy"/>
+        <association property="shid" column="shid"
+           select="com.lzr.dao.ShanghuMapping.queryById" javaType="Shanghu" fetchType="lazy"/>
         <collection property="orderxqs" javaType="list" ofType="com.lzr.vo.Orderxq"
-           column="{fk=orderid}" select="com.lzr.dao.OrderxqMapping.c_Orderxq_by_orderid_dm" fetchType="lazy"/>
+           column="orderid" select="com.lzr.dao.OrderxqMapping.queryByorderid" fetchType="lazy"/>
     </resultMap>
 
+    <resultMap id="OrdersMap1" type="Orders">
+        <id column="orderid" property="orderid"/>
+        <result column="ordercount" property="ordercount"/>
+        <result column="ordermoney" property="ordermoney"/>
+        <result column="orderbianhao" property="orderbianhao"/>
+        <result column="ordertime" property="ordertime"/>
+        <result column="consigneename" property="consigneename"/>
+        <result column="consigneenumber" property="consigneenumber"/>
+        <result column="consigneeaddress" property="consigneeaddress"/>
+        <result column="orderstate" property="orderstate"/>
+        <result column="isdelete" property="isdelete"/>
+        <result column="shshouru" property="shshouru"/>
+        <association property="shid" column="shid"
+                     select="com.lzr.dao.ShanghuMapping.queryById" javaType="Shanghu" fetchType="lazy"/>
+        <collection property="orderxqs" javaType="list" ofType="com.lzr.vo.Orderxq"
+                    column="orderid" select="com.lzr.dao.OrderxqMapping.queryByorderid" fetchType="lazy"/>
+    </resultMap>
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="OrdersMap">
        select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete from orders;
     </select>
-
+    <!-- 根据外键userid查询数据方法 -->
+    <select id="queryByuserid" parameterType="int" resultMap="OrdersMap1">
+        select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete from orders where userid = #{userid};
+    </select>
+    <!-- 根据主外键shid查询数据方法 -->
+    <select id="queryByshid" parameterType="int" resultMap="OrdersMap1">
+        select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete from orders where shid = #{shid};
+    </select>
     <!-- 根据主键id查询数据方法 -->
     <select id="queryById" parameterType="int" resultMap="OrdersMap">
        select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete from orders where orderid = #{orderid};
@@ -92,120 +108,12 @@
         </where>
     </select>
 
-    <!-- 根据Orders条件查询数据方法,限制显示条数 -->
-    <select id="queryLimit" resultMap="OrdersMap">
-        select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete 
-        from orders 
-        <where>
-            <if test="Orders.orderid != null"> and orderid = #{Orders.orderid}</if>
-            <if test="Orders.userid != null">
-                 <if test="Orders.userid.userid != null"> and userid = #{Orders.userid.userid}</if>
-            </if>
-            <if test="Orders.shid != null">
-                 <if test="Orders.shid.shid != null"> and shid = #{Orders.shid.shid}</if>
-            </if>
-            <if test="Orders.ordercount != null"> and ordercount = #{Orders.ordercount}</if>
-            <if test="Orders.ordermoney != null"> and ordermoney = #{Orders.ordermoney}</if>
-            <if test="Orders.orderbianhao != null"> and orderbianhao = #{Orders.orderbianhao}</if>
-            <if test="Orders.ordertime != null"> and ordertime = #{Orders.ordertime}</if>
-            <if test="Orders.consigneename != null"> and consigneename = #{Orders.consigneename}</if>
-            <if test="Orders.consigneenumber != null"> and consigneenumber = #{Orders.consigneenumber}</if>
-            <if test="Orders.consigneeaddress != null"> and consigneeaddress = #{Orders.consigneeaddress}</if>
-            <if test="Orders.orderstate != null"> and orderstate = #{Orders.orderstate}</if>
-            <if test="Orders.isdelete != null"> and isdelete = #{Orders.isdelete}</if>
-            <if test="Orders.shshouru != null"> and shshouru = #{Orders.shshouru}</if> 
-        </where>
-        limit #{startIndex},#{pageSize};
-    </select>
-
-    <!-- 根据Orders条件模糊查询数据方法,限制显示条数 -->
-    <select id="queryLikeLimit" resultMap="OrdersMap">
-        select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete 
-        from orders 
-        <where>
-            <if test="Orders.orderid != null"> and orderid like concat('%',#{Orders.orderid},'%')</if>
-            <if test="Orders.userid != null">
-                 <if test="Orders.userid.userid != null"> and userid like concat('%',#{Orders.userid.userid},'%')</if>
-            </if>
-            <if test="Orders.shid != null">
-                 <if test="Orders.shid.shid != null"> and shid like concat('%',#{Orders.shid.shid},'%')</if>
-            </if>
-            <if test="Orders.ordercount != null"> and ordercount like concat('%',#{Orders.ordercount},'%')</if>
-            <if test="Orders.ordermoney != null"> and ordermoney like concat('%',#{Orders.ordermoney},'%')</if>
-            <if test="Orders.orderbianhao != null"> and orderbianhao like concat('%',#{Orders.orderbianhao},'%')</if>
-            <if test="Orders.ordertime != null"> and ordertime like concat('%',#{Orders.ordertime},'%')</if>
-            <if test="Orders.consigneename != null"> and consigneename like concat('%',#{Orders.consigneename},'%')</if>
-            <if test="Orders.consigneenumber != null"> and consigneenumber like concat('%',#{Orders.consigneenumber},'%')</if>
-            <if test="Orders.consigneeaddress != null"> and consigneeaddress like concat('%',#{Orders.consigneeaddress},'%')</if>
-            <if test="Orders.orderstate != null"> and orderstate like concat('%',#{Orders.orderstate},'%')</if>
-            <if test="Orders.isdelete != null"> and isdelete like concat('%',#{Orders.isdelete},'%')</if>
-            <if test="Orders.shshouru != null"> and shshouru like concat('%',#{Orders.shshouru},'%')</if> 
-        </where>
-        limit #{startIndex},#{pageSize};
-    </select>
-
-    <!-- 根据Orders条件获取数据总条数方法 -->
-    <select id="queryCount" resultType="int">
-        select count(1) from orders 
-        <where>
-            <if test="orderid != null"> and orderid = #{orderid}</if>
-            <if test="userid != null">
-                 <if test="userid.userid != null"> and userid = #{userid.userid}</if>
-            </if>
-            <if test="shid != null">
-                 <if test="shid.shid != null"> and shid = #{shid.shid}</if>
-            </if>
-            <if test="ordercount != null"> and ordercount = #{ordercount}</if>
-            <if test="ordermoney != null"> and ordermoney = #{ordermoney}</if>
-            <if test="orderbianhao != null"> and orderbianhao = #{orderbianhao}</if>
-            <if test="ordertime != null"> and ordertime = #{ordertime}</if>
-            <if test="consigneename != null"> and consigneename = #{consigneename}</if>
-            <if test="consigneenumber != null"> and consigneenumber = #{consigneenumber}</if>
-            <if test="consigneeaddress != null"> and consigneeaddress = #{consigneeaddress}</if>
-            <if test="orderstate != null"> and orderstate = #{orderstate}</if>
-            <if test="isdelete != null"> and isdelete = #{isdelete}</if>
-            <if test="shshouru != null"> and shshouru = #{shshouru}</if> 
-        </where>
-    </select>
-
-    <!-- 根据Orders模糊查询数据总条数方法 -->
-    <select id="queryLikeCount" resultType="int">
-        select count(1) from orders 
-        <where>
-            <if test="orderid != null"> and orderid like concat('%',#{orderid},'%')</if>
-            <if test="userid != null">
-                 <if test="userid.userid != null"> and userid like concat('%',#{userid.userid},'%')</if>
-            </if>
-            <if test="shid != null">
-                 <if test="shid.shid != null"> and shid like concat('%',#{shid.shid},'%')</if>
-            </if>
-            <if test="ordercount != null"> and ordercount like concat('%',#{ordercount},'%')</if>
-            <if test="ordermoney != null"> and ordermoney like concat('%',#{ordermoney},'%')</if>
-            <if test="orderbianhao != null"> and orderbianhao like concat('%',#{orderbianhao},'%')</if>
-            <if test="ordertime != null"> and ordertime like concat('%',#{ordertime},'%')</if>
-            <if test="consigneename != null"> and consigneename like concat('%',#{consigneename},'%')</if>
-            <if test="consigneenumber != null"> and consigneenumber like concat('%',#{consigneenumber},'%')</if>
-            <if test="consigneeaddress != null"> and consigneeaddress like concat('%',#{consigneeaddress},'%')</if>
-            <if test="orderstate != null"> and orderstate like concat('%',#{orderstate},'%')</if>
-            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if>
-            <if test="shshouru != null"> and shshouru like concat('%',#{shshouru},'%')</if> 
-        </where>
-    </select>
-
     <!-- 根据Orders插入数据方法 -->
     <insert id="insert" parameterType="Orders" useGeneratedKeys="true" keyColumn="orderid" keyProperty="orderid">
         insert into orders (orderid,userid,shid,ordercount,ordermoney,orderbianhao,ordertime,consigneename,consigneenumber,consigneeaddress,orderstate,isdelete,shshouru) 
         values (#{orderid},#{userid.userid},#{shid.shid},#{ordercount},#{ordermoney},#{orderbianhao},#{ordertime},#{consigneename},#{consigneenumber},#{consigneeaddress},#{orderstate},#{isdelete},#{shshouru}); 
     </insert>
 
-    <!-- 根据Orders插入多条数据方法 -->
-    <insert id="inserts" parameterType="List" useGeneratedKeys="true" keyColumn="orderid" keyProperty="orderid">
-        insert into orders (orderid,userid,shid,ordercount,ordermoney,orderbianhao,ordertime,consigneename,consigneenumber,consigneeaddress,orderstate,isdelete,shshouru) 
-        values 
-        <foreach collection="orderss" item="item" separator=",">
-            (#{item.orderid},#{item.userid.userid},#{item.shid.shid},#{item.ordercount},#{item.ordermoney},#{item.orderbianhao},#{item.ordertime},#{item.consigneename},#{item.consigneenumber},#{item.consigneeaddress},#{item.orderstate},#{item.isdelete},#{item.shshouru}) 
-        </foreach>
-    </insert>
 
     <!-- 根据Orders条件修改单条数据方法,从传入对象获取主键id -->
     <update id="updateById" parameterType="Orders">
@@ -230,121 +138,8 @@
         </set>
         where orderid = #{orderid}
     </update>
-
-    <!-- 根据SetValue条件修改多条数据方法,从传入对象Condition中获取修改的条件 -->
-    <update id="updates">
-        update orders 
-        <set>
-            <if test="SetValue.userid != null">
-                <if test="SetValue.userid.userid != null">userid = #{SetValue.userid.userid},</if>
-            </if>
-            <if test="SetValue.shid != null">
-                <if test="SetValue.shid.shid != null">shid = #{SetValue.shid.shid},</if>
-            </if>
-            <if test="SetValue.ordercount != null">ordercount = #{SetValue.ordercount},</if>
-            <if test="SetValue.ordermoney != null">ordermoney = #{SetValue.ordermoney},</if>
-            <if test="SetValue.orderbianhao != null">orderbianhao = #{SetValue.orderbianhao},</if>
-            <if test="SetValue.ordertime != null">ordertime = #{SetValue.ordertime},</if>
-            <if test="SetValue.consigneename != null">consigneename = #{SetValue.consigneename},</if>
-            <if test="SetValue.consigneenumber != null">consigneenumber = #{SetValue.consigneenumber},</if>
-            <if test="SetValue.consigneeaddress != null">consigneeaddress = #{SetValue.consigneeaddress},</if>
-            <if test="SetValue.orderstate != null">orderstate = #{SetValue.orderstate},</if>
-            <if test="SetValue.isdelete != null">isdelete = #{SetValue.isdelete},</if>
-            <if test="SetValue.shshouru != null">shshouru = #{SetValue.shshouru},</if>
-        </set>
-        <where>
-            <if test="Condition != null">
-                <if test="Condition.orderid != null"> and orderid = #{Condition.orderid}</if>
-                <if test="Condition.userid != null">
-                    <if test="Condition.userid.userid != null"> and userid = #{Condition.userid.userid}</if>
-                </if>
-                <if test="Condition.shid != null">
-                    <if test="Condition.shid.shid != null"> and shid = #{Condition.shid.shid}</if>
-                </if>
-                <if test="Condition.ordercount != null"> and ordercount = #{Condition.ordercount}</if>
-                <if test="Condition.ordermoney != null"> and ordermoney = #{Condition.ordermoney}</if>
-                <if test="Condition.orderbianhao != null"> and orderbianhao = #{Condition.orderbianhao}</if>
-                <if test="Condition.ordertime != null"> and ordertime = #{Condition.ordertime}</if>
-                <if test="Condition.consigneename != null"> and consigneename = #{Condition.consigneename}</if>
-                <if test="Condition.consigneenumber != null"> and consigneenumber = #{Condition.consigneenumber}</if>
-                <if test="Condition.consigneeaddress != null"> and consigneeaddress = #{Condition.consigneeaddress}</if>
-                <if test="Condition.orderstate != null"> and orderstate = #{Condition.orderstate}</if>
-                <if test="Condition.isdelete != null"> and isdelete = #{Condition.isdelete}</if>
-                <if test="Condition.shshouru != null"> and shshouru = #{Condition.shshouru}</if>
-            </if>
-        </where>
-     </update>
-
     <!-- 根据Orders条件删除单条数据方法,从传入对象获取id -->
     <delete id="deleteById" parameterType="int">
         delete from orders where orderid = #{orderid};
     </delete>
-
-    <!-- 根据Orders条件删除多条数据方法,从传入对象获取删除条件 -->
-    <delete id="deleteBy">
-        delete from orders 
-        <where>
-            <if test="orderid == null and userid == null and shid == null and ordercount == null and ordermoney == null and orderbianhao == null and ordertime == null and consigneename == null and consigneenumber == null and consigneeaddress == null and orderstate == null and isdelete == null and shshouru == null "> 1 = 2</if>
-            <if test="orderid != null"> and orderid = #{orderid}</if>
-            <if test="userid != null">
-                 <if test="userid.userid != null"> and userid = #{userid.userid}</if>
-            </if>
-            <if test="shid != null">
-                 <if test="shid.shid != null"> and shid = #{shid.shid}</if>
-            </if>
-            <if test="ordercount != null"> and ordercount = #{ordercount}</if>
-            <if test="ordermoney != null"> and ordermoney = #{ordermoney}</if>
-            <if test="orderbianhao != null"> and orderbianhao = #{orderbianhao}</if>
-            <if test="ordertime != null"> and ordertime = #{ordertime}</if>
-            <if test="consigneename != null"> and consigneename = #{consigneename}</if>
-            <if test="consigneenumber != null"> and consigneenumber = #{consigneenumber}</if>
-            <if test="consigneeaddress != null"> and consigneeaddress = #{consigneeaddress}</if>
-            <if test="orderstate != null"> and orderstate = #{orderstate}</if>
-            <if test="isdelete != null"> and isdelete = #{isdelete}</if>
-            <if test="shshouru != null"> and shshouru = #{shshouru}</if> 
-        </where>
-    </delete>
-
-    <!-- 根据Orders主键id批量删除多条数据方法 -->
-    <delete id="deletesById" parameterType="List">
-        delete from orders where orderid in 
-        <foreach collection="orderids" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
-    <!-- 关联查询,调用者:"com.lzr.dao.UserMapping" -->
-    <select id="c_Orders_by_userid_dm" resultMap="basicOrdersMap">
-       select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete from orders where userid = #{fk};
-    </select>
-
-
-    <!-- 关联查询,调用者:"com.lzr.dao.ShanghuMapping" -->
-    <select id="c_Orders_by_shid_dm" resultMap="basicOrdersMap">
-       select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete from orders where shid = #{fk};
-    </select>
-
-
-    <!-- 关联查询,调用者:"com.lzr.dao.OrderxqMapping" -->
-    <select id="a_Orders_By_orderid" resultMap="OrdersMap">
-       select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete from orders where orderid = #{fk};
-    </select>
-
-
-    <resultMap id="basicOrdersMap" type="Orders">
-        <id column="orderid" property="orderid"/>
-        <result column="ordercount" property="ordercount"/>
-        <result column="ordermoney" property="ordermoney"/>
-        <result column="orderbianhao" property="orderbianhao"/>
-        <result column="ordertime" property="ordertime"/>
-        <result column="consigneename" property="consigneename"/>
-        <result column="consigneenumber" property="consigneenumber"/>
-        <result column="consigneeaddress" property="consigneeaddress"/>
-        <result column="orderstate" property="orderstate"/>
-        <result column="isdelete" property="isdelete"/>
-        <result column="shshouru" property="shshouru"/>
-    </resultMap>
-
-
 </mapper>

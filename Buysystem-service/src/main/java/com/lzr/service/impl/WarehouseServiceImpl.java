@@ -1,13 +1,8 @@
 package com.lzr.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.lzr.dao.EmployMapping;
 import com.lzr.dao.WarehouseMapping;
-import com.lzr.dao.WareshopMapping;
-import com.lzr.service.EmployService;
 import com.lzr.service.WarehouseService;
-import com.lzr.service.WareshopService;
-import com.lzr.vo.Employ;
 import com.lzr.vo.PageVo;
 import com.lzr.vo.Warehouse;
 import org.springframework.beans.factory.annotation.Autowired;

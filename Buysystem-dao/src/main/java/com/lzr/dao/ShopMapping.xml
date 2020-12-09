@@ -6,8 +6,7 @@
 
     <!-- resultMap映射 -->
     <resultMap id="ShopMap" type="Shop">
-        <id column="id" property="null"/>
-        <result column="shopid" property="shopid"/>
+        <id column="shopid" property="shopid"/>
         <result column="shopname" property="shopname"/>
         <result column="shopmiaoshu" property="shopmiaoshu"/>
         <result column="shopprice" property="shopprice"/>
@@ -17,8 +16,11 @@
         <association property="shoptyid" column="shoptyid"
            select="com.lzr.dao.ShoptypeMapping.queryById" javaType="Shoptype" fetchType="lazy"/>
 
-        <association property="shopxqs" column="shopid"
-                     select="com.lzr.dao.ShopxqMapping.queryByshopid" javaType="Shopxq" fetchType="lazy"/>
+        <collection property="shopxqs" column="shopid"
+                     select="com.lzr.dao.ShopxqMapping.queryByshopid" javaType="list" fetchType="lazy"/>
+
+        <collection property="shoppingjias" column="shopid"
+                     select="com.lzr.dao.ShoppingjiaMapping.queryByshopid" javaType="list" fetchType="lazy"/>
 
     </resultMap>
 

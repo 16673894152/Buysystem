@@ -1,11 +1,8 @@
 package com.lzr.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.lzr.dao.EmployMapping;
 import com.lzr.dao.RoleInfoMapping;
-import com.lzr.service.EmployService;
 import com.lzr.service.RoleService;
-import com.lzr.vo.Employ;
 import com.lzr.vo.PageVo;
 import com.lzr.vo.RoleInfo;
 import org.springframework.beans.factory.annotation.Autowired;

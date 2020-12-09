@@ -9,10 +9,6 @@
         <id column="shoppjid" property="shoppjid"/>
         <result column="content" property="content"/>
         <result column="xing" property="xing"/>
-        <association property="shopid" column="{fk=shopid}"
-           select="com.lzr.dao.ShopMapping.a_Shop_By_shopid" javaType="Shop" fetchType="lazy"/>
-        <association property="userid" column="{fk=userid}"
-           select="com.lzr.dao.UserMapping.a_User_By_userid" javaType="User" fetchType="lazy"/>
     </resultMap>
 
     <!-- 查询所有方法 -->
@@ -24,7 +20,14 @@
     <select id="queryById" parameterType="int" resultMap="ShoppingjiaMap">
        select xing,shopid,shoppjid,userid,content from shoppingjia where shoppjid = #{shoppjid};
     </select>
-
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryByuserid" parameterType="int" resultMap="ShoppingjiaMap">
+        select xing,shopid,shoppjid,userid,content from shoppingjia where userid = #{userid};
+    </select>
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryByshopid" parameterType="int" resultMap="ShoppingjiaMap">
+        select xing,shopid,shoppjid,userid,content from shoppingjia where shopid = #{shopid};
+    </select>
     <!-- 根据Shoppingjia条件查询数据方法 -->
     <select id="query" resultMap="ShoppingjiaMap">
         select xing,shopid,shoppjid,userid,content 
@@ -46,74 +49,6 @@
     <select id="queryLike" resultMap="ShoppingjiaMap">
         select xing,shopid,shoppjid,userid,content 
         from shoppingjia 
-        <where>
-            <if test="shoppjid != null"> and shoppjid like concat('%',#{shoppjid},'%')</if>
-            <if test="shopid != null">
-                 <if test="shopid.id != null"> and shopid like concat('%',#{shopid.id},'%')</if>
-            </if>
-            <if test="userid != null">
-                 <if test="userid.userid != null"> and userid like concat('%',#{userid.userid},'%')</if>
-            </if>
-            <if test="content != null"> and content like concat('%',#{content},'%')</if>
-            <if test="xing != null"> and xing like concat('%',#{xing},'%')</if> 
-        </where>
-    </select>
-
-    <!-- 根据Shoppingjia条件查询数据方法,限制显示条数 -->
-    <select id="queryLimit" resultMap="ShoppingjiaMap">
-        select xing,shopid,shoppjid,userid,content 
-        from shoppingjia 
-        <where>
-            <if test="Shoppingjia.shoppjid != null"> and shoppjid = #{Shoppingjia.shoppjid}</if>
-            <if test="Shoppingjia.shopid != null">
-                 <if test="Shoppingjia.shopid.id != null"> and shopid = #{Shoppingjia.shopid.id}</if>
-            </if>
-            <if test="Shoppingjia.userid != null">
-                 <if test="Shoppingjia.userid.userid != null"> and userid = #{Shoppingjia.userid.userid}</if>
-            </if>
-            <if test="Shoppingjia.content != null"> and content = #{Shoppingjia.content}</if>
-            <if test="Shoppingjia.xing != null"> and xing = #{Shoppingjia.xing}</if> 
-        </where>
-        limit #{startIndex},#{pageSize};
-    </select>
-
-    <!-- 根据Shoppingjia条件模糊查询数据方法,限制显示条数 -->
-    <select id="queryLikeLimit" resultMap="ShoppingjiaMap">
-        select xing,shopid,shoppjid,userid,content 
-        from shoppingjia 
-        <where>
-            <if test="Shoppingjia.shoppjid != null"> and shoppjid like concat('%',#{Shoppingjia.shoppjid},'%')</if>
-            <if test="Shoppingjia.shopid != null">
-                 <if test="Shoppingjia.shopid.id != null"> and shopid like concat('%',#{Shoppingjia.shopid.id},'%')</if>
-            </if>
-            <if test="Shoppingjia.userid != null">
-                 <if test="Shoppingjia.userid.userid != null"> and userid like concat('%',#{Shoppingjia.userid.userid},'%')</if>
-            </if>
-            <if test="Shoppingjia.content != null"> and content like concat('%',#{Shoppingjia.content},'%')</if>
-            <if test="Shoppingjia.xing != null"> and xing like concat('%',#{Shoppingjia.xing},'%')</if> 
-        </where>
-        limit #{startIndex},#{pageSize};
-    </select>
-
-    <!-- 根据Shoppingjia条件获取数据总条数方法 -->
-    <select id="queryCount" resultType="int">
-        select count(1) from shoppingjia 
-        <where>
-            <if test="shoppjid != null"> and shoppjid = #{shoppjid}</if>
-            <if test="shopid != null">
-                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
-            </if>
-            <if test="userid != null">
-                 <if test="userid.userid != null"> and userid = #{userid.userid}</if>
-            </if>
-            <if test="content != null"> and content = #{content}</if>
-            <if test="xing != null"> and xing = #{xing}</if> 
-        </where>
-    </select>
-
-    <!-- 根据Shoppingjia模糊查询数据总条数方法 -->
-    <select id="queryLikeCount" resultType="int">
-        select count(1) from shoppingjia 
         <where>
             <if test="shoppjid != null"> and shoppjid like concat('%',#{shoppjid},'%')</if>
             <if test="shopid != null">
@@ -158,34 +93,6 @@
         where shoppjid = #{shoppjid}
     </update>
 
-    <!-- 根据SetValue条件修改多条数据方法,从传入对象Condition中获取修改的条件 -->
-    <update id="updates">
-        update shoppingjia 
-        <set>
-            <if test="SetValue.shopid != null">
-                <if test="SetValue.shopid.id != null">shopid = #{SetValue.shopid.id},</if>
-            </if>
-            <if test="SetValue.userid != null">
-                <if test="SetValue.userid.userid != null">userid = #{SetValue.userid.userid},</if>
-            </if>
-            <if test="SetValue.content != null">content = #{SetValue.content},</if>
-            <if test="SetValue.xing != null">xing = #{SetValue.xing},</if>
-        </set>
-        <where>
-            <if test="Condition != null">
-                <if test="Condition.shoppjid != null"> and shoppjid = #{Condition.shoppjid}</if>
-                <if test="Condition.shopid != null">
-                    <if test="Condition.shopid.id != null"> and shopid = #{Condition.shopid.id}</if>
-                </if>
-                <if test="Condition.userid != null">
-                    <if test="Condition.userid.userid != null"> and userid = #{Condition.userid.userid}</if>
-                </if>
-                <if test="Condition.content != null"> and content = #{Condition.content}</if>
-                <if test="Condition.xing != null"> and xing = #{Condition.xing}</if>
-            </if>
-        </where>
-     </update>
-
     <!-- 根据Shoppingjia条件删除单条数据方法,从传入对象获取id -->
     <delete id="deleteById" parameterType="int">
         delete from shoppingjia where shoppjid = #{shoppjid};
@@ -207,27 +114,4 @@
             <if test="xing != null"> and xing = #{xing}</if> 
         </where>
     </delete>
-
-    <!-- 根据Shoppingjia主键id批量删除多条数据方法 -->
-    <delete id="deletesById" parameterType="List">
-        delete from shoppingjia where shoppjid in 
-        <foreach collection="shoppjids" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
-
-    <resultMap id="basicShoppingjiaMap" type="Shoppingjia">
-        <id column="shoppjid" property="shoppjid"/>
-        <result column="content" property="content"/>
-        <result column="xing" property="xing"/>
-    </resultMap>
-
-
-    <!-- 关联查询,调用者:"com.lzr.dao.UserMapping" -->
-    <select id="c_Shoppingjia_by_userid_dm" resultMap="basicShoppingjiaMap">
-       select xing,shopid,shoppjid,userid,content from shoppingjia where userid = #{fk};
-    </select>
-
-
 </mapper>

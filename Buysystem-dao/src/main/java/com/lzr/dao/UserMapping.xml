@@ -15,12 +15,15 @@
         <result column="isdelete" property="isdelete"/>
         <association property="hyid" column="hyid"
            select="com.lzr.dao.HuiyuanMapping.queryById" javaType="Huiyuan" fetchType="lazy"/>
+
         <collection property="orderss" javaType="list" ofType="com.lzr.vo.Orders"
-           column="{fk=userid}" select="com.lzr.dao.OrdersMapping.c_Orders_by_userid_dm" fetchType="lazy"/>
+           column="userid" select="com.lzr.dao.OrdersMapping.queryByuserid" fetchType="lazy"/>
+
         <collection property="shopgouwus" javaType="list" ofType="com.lzr.vo.Shopgouwu"
-           column="{fk=userid}" select="com.lzr.dao.ShopgouwuMapping.c_Shopgouwu_by_userid_dm" fetchType="lazy"/>
+           column="userid" select="com.lzr.dao.ShopgouwuMapping.queryByuserid" fetchType="lazy"/>
+
         <collection property="shoppingjias" javaType="list" ofType="com.lzr.vo.Shoppingjia"
-           column="{fk=userid}" select="com.lzr.dao.ShoppingjiaMapping.c_Shoppingjia_by_userid_dm" fetchType="lazy"/>
+           column="userid" select="com.lzr.dao.ShoppingjiaMapping.queryByuserid" fetchType="lazy"/>
     </resultMap>
 
     <!-- 查询所有方法 -->

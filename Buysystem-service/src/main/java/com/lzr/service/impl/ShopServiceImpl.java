@@ -2,13 +2,9 @@ package com.lzr.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.lzr.dao.ShopMapping;
-import com.lzr.dao.ShopxqMapping;
 import com.lzr.service.ShopService;
-import com.lzr.service.ShopxqService;
-import com.lzr.vo.Employ;
 import com.lzr.vo.PageVo;
 import com.lzr.vo.Shop;
-import com.lzr.vo.Shopxq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

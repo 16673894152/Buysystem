@@ -1,7 +1,5 @@
 package com.lzr.service;
 
-import com.lzr.vo.PageVo;
-import com.lzr.vo.Shop;
 import com.lzr.vo.Shopxq;
 import org.springframework.stereotype.Repository;
 
