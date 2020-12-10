@@ -3,6 +3,7 @@ package com.lzr.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 表名 :  menu_info<br/>
@@ -30,13 +31,16 @@ public class MenuInfo implements Serializable {
 	private Integer level;
 	/**树id的路径,整个层次上的路径id，逗号分隔，快速找到父节点*/
 	private String path;
+	List<MenuInfo> childMenu;
+	private boolean checked;
 	/**是否删除   0：未删除  1：已删除*/
 	private Integer isdelete;
 
 	public MenuInfo() {
 		super();
 	}
-	public MenuInfo(Integer id,String name,String menucode,Integer parentid,Integer nodetype,String iconurl,Integer sort,String linkurl,Integer level,String path,Integer isdelete) {
+
+	public MenuInfo(Integer id, String name, String menucode, Integer parentid, Integer nodetype, String iconurl, Integer sort, String linkurl, Integer level, String path, List<MenuInfo> childMenu, boolean checked, Integer isdelete) {
 		this.id = id;
 		this.name = name;
 		this.menucode = menucode;
@@ -47,8 +51,11 @@ public class MenuInfo implements Serializable {
 		this.linkurl = linkurl;
 		this.level = level;
 		this.path = path;
+		this.childMenu = childMenu;
+		this.checked = checked;
 		this.isdelete = isdelete;
 	}
+
 	/**设置"主键id"*/
 	public void setId(Integer id){
 		this.id = id;
@@ -137,21 +144,40 @@ public class MenuInfo implements Serializable {
 	public Integer getIsdelete(){
 		return isdelete;
 	}
+
+	public List<MenuInfo> getChildMenu() {
+		return childMenu;
+	}
+
+	public void setChildMenu(List<MenuInfo> childMenu) {
+		this.childMenu = childMenu;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
 	@Override
 	public String toString() {
-		return "menu_info[" + 
-			"id = " + id + 
-			", name = " + name + 
-			", menucode = " + menucode + 
-			", parentid = " + parentid + 
-			", nodetype = " + nodetype + 
-			", iconurl = " + iconurl + 
-			", sort = " + sort + 
-			", linkurl = " + linkurl + 
-			", level = " + level + 
-			", path = " + path + 
-			", isdelete = " + isdelete + 
-			"]";
+		return "MenuInfo{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", menucode='" + menucode + '\'' +
+				", parentid=" + parentid +
+				", nodetype=" + nodetype +
+				", iconurl='" + iconurl + '\'' +
+				", sort=" + sort +
+				", linkurl='" + linkurl + '\'' +
+				", level=" + level +
+				", path='" + path + '\'' +
+				", childMenu=" + childMenu +
+				", checked=" + checked +
+				", isdelete=" + isdelete +
+				'}';
 	}
 }
 

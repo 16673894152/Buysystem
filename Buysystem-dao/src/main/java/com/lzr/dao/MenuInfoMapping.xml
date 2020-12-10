@@ -3,15 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lzr.dao.MenuInfoMapping">
-
-    <!-- custom -->
-    <!-- 在这里写你的自定义代码,每次生成.xml文件都会保留这一段代码 -->
-
-
-    <!-- /custom -->
-
-
-    <!-- resultMap映射 -->
     <resultMap id="menumap" type="MenuInfo">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
@@ -62,16 +53,5 @@
             <if test="name != null"> and name like concat('%',#{name},'%')</if>
         </where>
     </select>
-
-
-    <!-- 根据MenuInfo条件修改单条数据方法,从传入对象获取主键id -->
-    <update id="updateById" parameterType="MenuInfo">
-        update menu_info
-        <set>
-            <if test="name != null">name = #{name},</if>
-            <if test="isdelete != null">isdelete = #{isdelete},</if>
-        </set>
-        where id = #{id}
-    </update>
 
 </mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.RolemenuInfoMapping">
+
+    <!-- resultMap映射 -->
+    <resultMap id="RolemenuInfoMap" type="RolemenuInfo">
+        <id column="mrid" property="mrid"/>
+    </resultMap>
+
+    <!-- 查询所有方法 -->
+    <select id="queryAll" resultMap="RolemenuInfoMap">
+       select mrid,mid,rid from rolemenu_info;
+    </select>
+
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="RolemenuInfoMap">
+       select mrid,mid,rid from rolemenu_info where mrid = #{mrid};
+    </select>
+
+    <!-- 根据RolemenuInfo条件查询数据方法 -->
+    <select id="query" resultMap="RolemenuInfoMap">
+        select mrid,mid,rid 
+        from rolemenu_info 
+        <where>
+            <if test="mrid != null"> and mrid = #{mrid}</if>
+            <if test="rid != null">
+                 <if test="rid.rid != null"> and rid = #{rid.rid}</if>
+            </if>
+            <if test="mid != null">
+                 <if test="mid.id != null"> and mid = #{mid.id}</if>
+            </if> 
+        </where>
+    </select>
+
+    <!-- 根据RolemenuInfo条件模糊查询数据方法 -->
+    <select id="queryLike" resultMap="RolemenuInfoMap">
+        select mrid,mid,rid 
+        from rolemenu_info 
+        <where>
+            <if test="mrid != null"> and mrid like concat('%',#{mrid},'%')</if>
+            <if test="rid != null">
+                 <if test="rid.rid != null"> and rid like concat('%',#{rid.rid},'%')</if>
+            </if>
+            <if test="mid != null">
+                 <if test="mid.id != null"> and mid like concat('%',#{mid.id},'%')</if>
+            </if> 
+        </where>
+    </select>
+
+
+
+
+    <!-- 根据RolemenuInfo插入数据方法 -->
+    <insert id="insert">
+        insert into rolemenu_info (rid,mid)
+        values (#{rid},#{mid});
+    </insert>
+
+
+
+    <!-- 根据RolemenuInfo条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from rolemenu_info where mrid = #{mrid};
+    </delete>
+
+    <!-- 根据RolemenuInfo条件删除多条数据方法,从传入对象获取删除条件 -->
+    <delete id="deleteBy">
+        delete from rolemenu_info
+        <where>
+            <if test="mrid == null and rid == null and mid == null "> 1 = 2</if>
+            <if test="mrid != null"> and mrid = #{mrid}</if>
+            <if test="rid != null">
+                 <if test="rid.rid != null"> and rid = #{rid.rid}</if>
+            </if>
+            <if test="mid != null">
+                 <if test="mid.id != null"> and mid = #{mid.id}</if>
+            </if>
+        </where>
+    </delete>
+
+
+
+</mapper>
