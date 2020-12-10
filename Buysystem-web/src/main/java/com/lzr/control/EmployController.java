@@ -3,14 +3,10 @@ package com.lzr.control;
 import com.lzr.service.EmployService;
 import com.lzr.vo.Employ;
 import com.lzr.vo.PageVo;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,39 +25,28 @@ public class EmployController {
     EmployService employService;
 
     @RequestMapping("/login.action")
+    @CrossOrigin
     @ResponseBody
-    public Map login(HttpServletRequest request, Employ employ, @RequestParam(value = "rememberme",defaultValue = "false")boolean rememberme) {
-        //组装token
-        UsernamePasswordToken token = new
-                UsernamePasswordToken(employ.getUsername(), employ.getPassword());
-        System.out.println(rememberme+"记住");
-        token.setRememberMe(rememberme);
-        Subject subject = SecurityUtils.getSubject();
+    public Map login( Employ employ) {
         Map<String, String> map = new HashMap<String, String>();
-        try {
-            //认证
-            subject.login(token);
-           //如果验证成功跳转页面传参
-            map.put("msg", "" + employ.getUsername() + "");
-            map.put("code", "1");
-            return map;
-        } catch (IncorrectCredentialsException e) {
-            System.out.println("当前认证失败：密码不正确！");
-            map.put("msg", "密码错误,请重新输入");
-            map.put("code", "0");
-            return map;
-        }catch (UnknownAccountException e){
-            System.out.println("当前认证失败：帐号不存在！");
+        System.out.println(employ);
+        Employ employ1=new Employ();
+        employ1.setUsername(employ.getUsername());
+        //判断账号是否存在
+        List<Employ> employList=employService.query(employ1);
+        //判断账号密码是否正确
+        List<Employ> employList1=employService.query(employ);
+        if(employList.size()==0){
             map.put("msg", "账号不存在,请重新输入");
             map.put("code", "0");
-            return map;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("当前认证失败：未知异常！");
-            map.put("msg", "未知异常");
+        }else if(employList1.size()==0){
+            map.put("msg", "密码错误,请重新输入");
             map.put("code", "0");
-            return map;
+        }else {
+            map.put("msg", "登录成功,欢迎你,"+employ.getUsername()+"");
+            map.put("code", "1");
         }
+            return map;
     }
 
     @RequestMapping("/editemploy.action")
