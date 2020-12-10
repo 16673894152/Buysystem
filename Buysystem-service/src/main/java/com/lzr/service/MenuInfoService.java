@@ -19,11 +19,8 @@ public interface MenuInfoService {
 
     public List<MenuInfo> queryallmenubyrid(int nodetype, int rid);
 
-
     //授权
     public int shouquan(int rid, String[] mids);
-
-    PageVo<MenuInfo> queryLikeLimit(int page, int rows, MenuInfo menuInfo);
 
     MenuInfo queryById(int id);
 

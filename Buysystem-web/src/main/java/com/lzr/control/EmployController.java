@@ -3,16 +3,15 @@ package com.lzr.control;
 import com.lzr.service.EmployService;
 import com.lzr.vo.Employ;
 import com.lzr.vo.PageVo;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,14 +42,18 @@ public class EmployController {
             map.put("msg", "密码错误,请重新输入");
             map.put("code", "0");
         }else {
-            map.put("msg", "登录成功,欢迎你,"+employ.getUsername()+"");
+            map.put("msg", "登录成功,欢迎你:"+employ.getUsername()+"");
             map.put("code", "1");
+            Session session = SecurityUtils.getSubject().getSession();
+            System.out.println(employList1.get(1));
+            session.setAttribute("employ", employList1.get(1));
         }
             return map;
     }
 
     @RequestMapping("/editemploy.action")
     @ResponseBody
+    @CrossOrigin
     public Map updateEmploy(Employ employ) {
         System.out.println(employ+"添加或编辑的员工"+employ);
         Map<String, String> map = new HashMap<String, String>();
@@ -78,12 +81,13 @@ public class EmployController {
 
     @RequestMapping("/delemploy.action")
     @ResponseBody
-    public Map delemploy(Employ employ) {
-        Employ employ1=new Employ();
-        employ1.setEmpid(1);
-        employ1.setEmpstate(0);
+    @CrossOrigin
+    public Map delemploy(int empid) {
+        Employ employ=new Employ();
+        employ.setEmpid(empid);
+        employ.setEmpstate(0);
         Map<String, String> map = new HashMap<String, String>();
-            int num = employService.updateById(employ1);
+            int num = employService.updateById(employ);
             if (num > 0) {
                 map.put("msg", "删除成功");
             } else {
@@ -93,10 +97,10 @@ public class EmployController {
     }
     @RequestMapping("/querylike.action")
     @ResponseBody
+    @CrossOrigin
     public PageVo<Employ> querylike(Employ employ,
                                    @RequestParam(value = "page", defaultValue = "1") int page,
                                    @RequestParam(value = "rows", defaultValue = "5") int rows) {
-        Employ employ1=new Employ();
-        return employService.queryLike(employ1, page, rows);
+        return employService.queryLike(employ, page, rows);
     }
 }

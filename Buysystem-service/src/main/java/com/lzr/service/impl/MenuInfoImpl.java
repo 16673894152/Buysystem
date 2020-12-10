@@ -1,11 +1,9 @@
 package com.lzr.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.lzr.dao.MenuInfoMapping;
 import com.lzr.dao.RolemenuInfoMapping;
 import com.lzr.service.MenuInfoService;
 import com.lzr.vo.MenuInfo;
-import com.lzr.vo.PageVo;
 import com.lzr.vo.RoleInfo;
 import com.lzr.vo.RolemenuInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,41 +18,54 @@ public class MenuInfoImpl implements MenuInfoService {
     MenuInfoMapping menuInfoMapping;
     @Autowired
     RolemenuInfoMapping rolemenuInfoMapping;
+
+    /*根据节点和用户id查询菜单*/
     @Override
     public List<MenuInfo> queryallmenus(int nodetype, int empid) {
         //查询所有的父菜单  父节点为0  菜单类型为1
         List<MenuInfo> menus = menuInfoMapping.querymenuBypidandnodeType(0, 1, empid);
+        System.out.println("父菜单"+menus);
 
         //将所有的父菜单的子菜单查询出来，绑定好
         for (MenuInfo menu : menus) {
+            //查询所有的父菜单子菜单
             List<MenuInfo> childsmenu = menuInfoMapping.querymenuBypidandnodeType(menu.getId(), 2, empid);
+            //打印子菜单数量
+            System.out.println(childsmenu.size());
+            //进行绑定
             menu.setChildMenu(childsmenu);
 
+            //判断如果节点等于3
             if (nodetype == 3) {
                 for (MenuInfo menu2 : childsmenu) {
+                    //查出节点等于3的菜单
                     List<MenuInfo> childsmenu2 = menuInfoMapping.querymenuBypidandnodeType(menu2.getId(), 3, empid);
+                    //进行绑定
                     menu2.setChildMenu(childsmenu2);
                 }
             }
-        }
 
+        }
         return menus;
     }
 
+    //查询出该员工拥有的按钮
     @Override
     public List<String> queryallmenus3(int nodetype, int empid) {
         return menuInfoMapping.querymenuBypidandnodeType3(nodetype, empid);
     }
-
+    //查出该角色拥有的菜单
     @Override
     public List<MenuInfo> queryallmenubyrid(int nodetype, int rid) {
         List<Integer> list = new ArrayList<Integer>();
-        //2020-10-12修改
+
         if (rid != 0) {
+            //查看该角色拥有的菜单数量
             list = menuInfoMapping.querymenuidbyrid(rid);
         }
         //查询所有的父菜单  父节点为0  菜单类型为1
         List<MenuInfo> menus = menuInfoMapping.querymenuBypidandnodeType1(0, 1);
+
         //将所有的父菜单的子菜单查询出来，绑定好
         for (MenuInfo menu : menus) {
             List<MenuInfo> childsmenu = menuInfoMapping.querymenuBypidandnodeType1(menu.getId(), 2);
@@ -86,6 +97,7 @@ public class MenuInfoImpl implements MenuInfoService {
 
 
         return menus;
+
     }
 
     @Override
@@ -100,18 +112,6 @@ public class MenuInfoImpl implements MenuInfoService {
             nums+=rolemenuInfoMapping.insert(rid,Integer.parseInt(mids[i]));
         }
         return nums;
-    }
-
-    @Override
-    public PageVo<MenuInfo> queryLikeLimit(int page, int rows, MenuInfo menuInfo) {
-        PageVo<MenuInfo> pageVo = new PageVo<>();
-        //在需要分页的代码调用前 执行以下代码
-        PageHelper.startPage(page, rows);
-        //获取分页后 显示的数据集合
-        pageVo.setRows(menuInfoMapping.queryLike(menuInfo));
-        //获取总的记录数量
-        pageVo.setTotal(menuInfoMapping.queryLike(menuInfo).size());
-        return pageVo;
     }
 
     @Override
