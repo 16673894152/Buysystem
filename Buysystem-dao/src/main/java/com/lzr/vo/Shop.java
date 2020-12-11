@@ -23,19 +23,21 @@ public class Shop implements Serializable {
 	/**商品价格*/
 	private double shopprice;
 	/**商品单位*/
-	private double shopdanwei;
+	private String shopdanwei;
 	/**商品图片*/
 	private String shopimg;
 	/**是否上架*/
 	private Integer isdelete;
 	private List<Shopxq>  shopxqs;
+	private double minprice;
+	private double maxprice;
 	/*评价*/
 	private List<Shoppingjia>  shoppingjias;
 	public Shop() {
 		super();
 	}
 
-	public Shop(Integer shopid, String shopname, Shoptype shoptyid, String shopmiaoshu, double shopprice, double shopdanwei, String shopimg, Integer isdelete, List<Shopxq> shopxqs, List<Shoppingjia> shoppingjias) {
+	public Shop(Integer shopid, String shopname, Shoptype shoptyid, String shopmiaoshu, double shopprice, String shopdanwei, String shopimg, Integer isdelete, List<Shopxq> shopxqs, double minprice, double maxprice, List<Shoppingjia> shoppingjias) {
 		this.shopid = shopid;
 		this.shopname = shopname;
 		this.shoptyid = shoptyid;
@@ -45,6 +47,8 @@ public class Shop implements Serializable {
 		this.shopimg = shopimg;
 		this.isdelete = isdelete;
 		this.shopxqs = shopxqs;
+		this.minprice = minprice;
+		this.maxprice = maxprice;
 		this.shoppingjias = shoppingjias;
 	}
 
@@ -103,11 +107,11 @@ public class Shop implements Serializable {
 		this.shopprice = shopprice;
 	}
 
-	public double getShopdanwei() {
+	public String getShopdanwei() {
 		return shopdanwei;
 	}
 
-	public void setShopdanwei(double shopdanwei) {
+	public void setShopdanwei(String shopdanwei) {
 		this.shopdanwei = shopdanwei;
 	}
 
@@ -128,6 +132,22 @@ public class Shop implements Serializable {
 		return isdelete;
 	}
 
+	public double getMinprice() {
+		return minprice;
+	}
+
+	public void setMinprice(double minprice) {
+		this.minprice = minprice;
+	}
+
+	public double getMaxprice() {
+		return maxprice;
+	}
+
+	public void setMaxprice(double maxprice) {
+		this.maxprice = maxprice;
+	}
+
 	@Override
 	public String toString() {
 		return "Shop{" +
@@ -136,10 +156,12 @@ public class Shop implements Serializable {
 				", shoptyid=" + shoptyid +
 				", shopmiaoshu='" + shopmiaoshu + '\'' +
 				", shopprice=" + shopprice +
-				", shopdanwei=" + shopdanwei +
+				", shopdanwei='" + shopdanwei + '\'' +
 				", shopimg='" + shopimg + '\'' +
 				", isdelete=" + isdelete +
 				", shopxqs=" + shopxqs +
+				", minprice=" + minprice +
+				", maxprice=" + maxprice +
 				", shoppingjias=" + shoppingjias +
 				'}';
 	}

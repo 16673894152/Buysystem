@@ -45,7 +45,6 @@
                  <if test="shoptyid.shoptyid != null"> and shoptyid = #{shoptyid.shoptyid}</if>
             </if>
             <if test="shopmiaoshu != null"> and shopmiaoshu = #{shopmiaoshu}</if>
-            <if test="shopprice != null"> and shopprice = #{shopprice}</if>
             <if test="shopimg != null"> and shopimg = #{shopimg}</if>
             <if test="isdelete != null"> and isdelete = #{isdelete}</if>
             <if test="shopdanwei != null">shopdanwei = #{shopdanwei}</if>
@@ -53,7 +52,7 @@
     </select>
 
     <!-- 根据Shop条件模糊查询数据方法 -->
-    <select id="queryLike" resultMap="ShopMap">
+    <select id="queryLike" resultType="shop">
         select shopmiaoshu,shopname,shopimg,shopprice,shopid,isdelete,shoptyid,shopdanwei
         from shop 
         <where>
@@ -63,7 +62,7 @@
                  <if test="shoptyid.shoptyid != null"> and shoptyid like concat('%',#{shoptyid.shoptyid},'%')</if>
             </if>
             <if test="shopmiaoshu != null"> and shopmiaoshu like concat('%',#{shopmiaoshu},'%')</if>
-            <if test="shopprice != null"> and shopprice like concat('%',#{shopprice},'%')</if>
+            <if test="shopprice != null"> and shopprice between #{minprice} and #{maxprice}</if>
             <if test="shopimg != null"> and shopimg like concat('%',#{shopimg},'%')</if>
             <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if>
             <if test="shopdanwei != null">and shopdanwei  like concat('%',#{shopdanwei},'%')</if>
@@ -86,7 +85,6 @@
                 <if test="shoptyid.shoptyid != null">shoptyid = #{shoptyid.shoptyid},</if>
             </if>
             <if test="shopmiaoshu != null">shopmiaoshu = #{shopmiaoshu},</if>
-            <if test="shopprice != null">shopprice = #{shopprice},</if>
             <if test="shopdanwei != null">shopdanwei = #{shopdanwei},</if>
             <if test="shopimg != null">shopimg = #{shopimg},</if>
             <if test="isdelete != null">isdelete = #{isdelete},</if>
