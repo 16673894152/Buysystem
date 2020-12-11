@@ -6,6 +6,7 @@ import com.lzr.vo.PageVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,7 +29,8 @@ public class EmployController {
     @ResponseBody
     public Map login( Employ employ) {
         Map<String, String> map = new HashMap<String, String>();
-        System.out.println(employ);
+        Md5Hash md5Hash= new Md5Hash(employ.getPassword(),employ.getUsername(),5);
+        employ.setPassword(md5Hash.toString());
         Employ employ1=new Employ();
         employ1.setUsername(employ.getUsername());
         //判断账号是否存在
@@ -45,8 +47,8 @@ public class EmployController {
             map.put("msg", "登录成功,欢迎你:"+employ.getUsername()+"");
             map.put("code", "1");
             Session session = SecurityUtils.getSubject().getSession();
-            System.out.println(employList1.get(1));
-            session.setAttribute("employ", employList1.get(1));
+            System.out.println(employList1.get(0));
+            session.setAttribute("employ", employList1.get(0));
         }
             return map;
     }
