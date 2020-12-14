@@ -1,7 +1,10 @@
 package com.lzr.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.lzr.dao.ShoptypeMapping;
 import com.lzr.service.ShoptypeService;
+import com.lzr.vo.PageVo;
+import com.lzr.vo.Shop;
 import com.lzr.vo.Shoptype;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +32,17 @@ public class ShoptypeServiceImpl implements ShoptypeService {
     }
 
     @Override
-    public List<Shoptype> queryLike(Shoptype shoptype) {
-        return shoptypeMapping.queryLike(shoptype);
+    public PageVo<Shoptype> queryLike(Shoptype shoptype, int page, int rows) {
+        PageVo<Shoptype> pageVo = new PageVo<>();
+        //在需要分页的代码调用前 执行以下代码
+        PageHelper.startPage(page, rows);
+        //获取分页后 显示的数据集合
+        pageVo.setRows(shoptypeMapping.queryLike(shoptype));
+        //获取总的记录数量
+        pageVo.setTotal(shoptypeMapping.queryLike(shoptype).size());
+        return pageVo;
     }
+
 
     @Override
     public int insert(Shoptype shoptype) {

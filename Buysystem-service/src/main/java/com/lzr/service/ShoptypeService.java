@@ -1,5 +1,7 @@
 package com.lzr.service;
 
+import com.lzr.vo.PageVo;
+import com.lzr.vo.Shop;
 import com.lzr.vo.Shoptype;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +29,7 @@ public interface ShoptypeService {
     /**
      * 根据Shoptype条件模糊查询多条数据方法
      */
-    List<Shoptype> queryLike(Shoptype shoptype);
+    PageVo<Shoptype> queryLike(Shoptype shoptype, int page, int rows);
 
     /**
      * 根据Shoptype插入数据方法

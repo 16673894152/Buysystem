@@ -67,6 +67,8 @@ public class ShopController {
                                        @RequestParam(value = "page", defaultValue = "1") int page,
                                        @RequestParam(value = "rows", defaultValue = "5") int rows) {
         System.out.println(shop);
+        shop.setMinprice(0);
+        shop.setMaxprice(10000);
         return shopService.queryLike(shop, page, rows);
     }
 }

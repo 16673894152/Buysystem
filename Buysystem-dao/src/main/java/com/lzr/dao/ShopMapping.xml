@@ -52,7 +52,7 @@
     </select>
 
     <!-- 根据Shop条件模糊查询数据方法 -->
-    <select id="queryLike" resultType="shop">
+    <select id="queryLike" resultMap="ShopMap">
         select shopmiaoshu,shopname,shopimg,shopprice,shopid,isdelete,shoptyid,shopdanwei
         from shop 
         <where>
