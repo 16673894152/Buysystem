@@ -13,67 +13,101 @@
         <result column="jingdu" property="jingdu"/>
         <result column="weidu" property="weidu"/>
         <result column="isdelete" property="isdelete"/>
+        <result column="shopcount" property="shopcount"/>
+        <result column="shoptype" property="shoptype"/>
         <association property="empid" column="empid"
-           select="com.lzr.dao.EmployMapping.queryById" javaType="Employ" fetchType="lazy"/>
+                     select="com.lzr.dao.EmployMapping.queryById" javaType="Employ" fetchType="lazy"/>
+        <collection property="wareshops" column="wareid" javaType="list"
+                    select="com.lzr.dao.WareshopMapping.queryByWareid"></collection>
     </resultMap>
 
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="WarehouseMap">
-       select weidu,empid,wareid,jingdu,wareremark,warecount,warename,isdelete,wareaddress from warehouse;
+        select weidu,
+               empid,
+               wareid,
+               jingdu,
+               wareremark,
+               warecount,
+               warename,
+               isdelete,
+               wareaddress
+        from warehouse
+        where isdelete = 1;
     </select>
 
     <!-- 根据主键id查询数据方法 -->
     <select id="queryById" parameterType="int" resultMap="WarehouseMap">
-       select weidu,empid,wareid,jingdu,wareremark,warecount,warename,isdelete,wareaddress from warehouse where wareid = #{wareid};
+        select weidu,
+               empid,
+               wareid,
+               jingdu,
+               wareremark,
+               warecount,
+               warename,
+               isdelete,
+               wareaddress
+        from warehouse
+        where wareid = #{wareid};
     </select>
 
     <!-- 根据Warehouse条件查询数据方法 -->
     <select id="query" resultMap="WarehouseMap">
-        select weidu,empid,wareid,jingdu,wareremark,warecount,warename,isdelete,wareaddress 
-        from warehouse 
+        select weidu,empid,wareid,jingdu,wareremark,warecount,warename,isdelete,wareaddress
+        from warehouse
         <where>
-            <if test="wareid != null"> and wareid = #{wareid}</if>
-            <if test="warename != null"> and warename = #{warename}</if>
-            <if test="wareremark != null"> and wareremark = #{wareremark}</if>
-            <if test="warecount != null"> and warecount = #{warecount}</if>
+            <if test="wareid != null">and wareid = #{wareid}</if>
+            <if test="warename != null">and warename = #{warename}</if>
+            <if test="wareremark != null">and wareremark = #{wareremark}</if>
+            <if test="warecount != null">and warecount = #{warecount}</if>
             <if test="empid != null">
-                 <if test="empid.empid != null"> and empid = #{empid.empid}</if>
+                <if test="empid.empid != null">and empid = #{empid.empid}</if>
             </if>
-            <if test="wareaddress != null"> and wareaddress = #{wareaddress}</if>
-            <if test="jingdu != null"> and jingdu = #{jingdu}</if>
-            <if test="weidu != null"> and weidu = #{weidu}</if>
-            <if test="isdelete != null"> and isdelete = #{isdelete}</if> 
+            <if test="wareaddress != null">and wareaddress = #{wareaddress}</if>
+            <if test="jingdu != null">and jingdu = #{jingdu}</if>
+            <if test="weidu != null">and weidu = #{weidu}</if>
+            <if test="isdelete != null">and isdelete = #{isdelete}</if>
         </where>
     </select>
 
     <!-- 根据Warehouse条件模糊查询数据方法 -->
     <select id="queryLike" resultMap="WarehouseMap">
-        select weidu,empid,wareid,jingdu,wareremark,warecount,warename,isdelete,wareaddress 
-        from warehouse 
+        SELECT * from warehouse
         <where>
-            <if test="wareid != null"> and wareid like concat('%',#{wareid},'%')</if>
-            <if test="warename != null"> and warename like concat('%',#{warename},'%')</if>
-            <if test="wareremark != null"> and wareremark like concat('%',#{wareremark},'%')</if>
-            <if test="warecount != null"> and warecount like concat('%',#{warecount},'%')</if>
+            <if test="wareid != null">and wareid like concat('%',#{wareid},'%')</if>
+            <if test="warename != null">and warename like concat('%',#{warename},'%')</if>
+            <if test="wareremark != null">and wareremark like concat('%',#{wareremark},'%')</if>
+            <if test="warecount != null">and warecount like concat('%',#{warecount},'%')</if>
             <if test="empid != null">
-                 <if test="empid.empid != null"> and empid like concat('%',#{empid.empid},'%')</if>
+                <if test="empid.empid != null">and empid like concat('%',#{empid.empid},'%')</if>
             </if>
-            <if test="wareaddress != null"> and wareaddress like concat('%',#{wareaddress},'%')</if>
-            <if test="jingdu != null"> and jingdu like concat('%',#{jingdu},'%')</if>
-            <if test="weidu != null"> and weidu like concat('%',#{weidu},'%')</if>
-            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if> 
+            <if test="wareaddress != null">and wareaddress like concat('%',#{wareaddress},'%')</if>
+            <if test="jingdu != null">and jingdu like concat('%',#{jingdu},'%')</if>
+            <if test="weidu != null">and weidu like concat('%',#{weidu},'%')</if>
+            <if test="isdelete != null">and isdelete like concat('%',#{isdelete},'%')</if>
         </where>
+    </select>
+
+    <!-- 根据Warehouse 商品的种类总数量-->
+    <select id="queryLike1" resultMap="WarehouseMap">
+        SELECT h.*,SUM(shopcount) AS shopcount,COUNT(*) AS shoptype FROM wareshop w LEFT JOIN warehouse h ON
+        h.wareid=w.wareid LEFT JOIN shop s ON s.shopid=w.shopid
+        <where>
+            <if test="1 != 2">and h.isdelete=1</if>
+        </where>
+        GROUP BY h.wareid
     </select>
 
     <!-- 根据Warehouse插入数据方法 -->
     <insert id="insert" parameterType="Warehouse" useGeneratedKeys="true" keyColumn="wareid" keyProperty="wareid">
-        insert into warehouse (wareid,warename,wareremark,warecount,empid,wareaddress,jingdu,weidu,isdelete) 
-        values (#{wareid},#{warename},#{wareremark},#{warecount},#{empid.empid},#{wareaddress},#{jingdu},#{weidu},#{isdelete}); 
+        insert into warehouse (wareid, warename, wareremark, warecount, empid, wareaddress, jingdu, weidu, isdelete)
+        values (#{wareid}, #{warename}, #{wareremark}, #{warecount}, #{empid.empid}, #{wareaddress}, #{jingdu},
+                #{weidu}, #{isdelete});
     </insert>
 
     <!-- 根据Warehouse条件修改单条数据方法,从传入对象获取主键id -->
     <update id="updateById" parameterType="Warehouse">
-        update warehouse 
+        update warehouse
         <set>
             <if test="warename != null">warename = #{warename},</if>
             <if test="wareremark != null">wareremark = #{wareremark},</if>
@@ -90,6 +124,8 @@
     </update>
     <!-- 根据Warehouse条件删除单条数据方法,从传入对象获取id -->
     <delete id="deleteById" parameterType="int">
-        delete from warehouse where wareid = #{wareid};
+        delete
+        from warehouse
+        where wareid = #{wareid};
     </delete>
 </mapper>

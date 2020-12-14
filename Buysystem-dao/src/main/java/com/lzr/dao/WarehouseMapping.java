@@ -32,6 +32,10 @@ public interface WarehouseMapping {
    * 根据Warehouse条件模糊查询多条数据方法 
    */
   List<Warehouse> queryLike(Warehouse warehouse);
+  /**
+   * 根据Warehouse里面的shop和种类
+   */
+  List<Warehouse> queryLike1();
 
 
   /**

@@ -30,11 +30,18 @@ public class Warehouse implements Serializable {
 	private Integer weidu;
 	/**是否删除*/
 	private Integer isdelete;
+	/*仓库种类*/
+	private Integer typecount;
+	/*商品总数量*/
+	private Integer shopcount;
+	/*仓库商品详情*/
+	private List<Wareshop> wareshops;
 
 	public Warehouse() {
 		super();
 	}
-	public Warehouse(Integer wareid,String warename,String wareremark,String warecount,Employ empid,String wareaddress,Integer jingdu,Integer weidu,Integer isdelete) {
+
+	public Warehouse(Integer wareid, String warename, String wareremark, String warecount, Employ empid, String wareaddress, Integer jingdu, Integer weidu, Integer isdelete, Integer typecount, Integer shopcount, List<Wareshop> wareshops) {
 		this.wareid = wareid;
 		this.warename = warename;
 		this.wareremark = wareremark;
@@ -44,7 +51,35 @@ public class Warehouse implements Serializable {
 		this.jingdu = jingdu;
 		this.weidu = weidu;
 		this.isdelete = isdelete;
+		this.typecount = typecount;
+		this.shopcount = shopcount;
+		this.wareshops = wareshops;
 	}
+
+	public Integer getTypecount() {
+		return typecount;
+	}
+
+	public void setTypecount(Integer typecount) {
+		this.typecount = typecount;
+	}
+
+	public Integer getShopcount() {
+		return shopcount;
+	}
+
+	public void setShopcount(Integer shopcount) {
+		this.shopcount = shopcount;
+	}
+
+	public List<Wareshop> getWareshops() {
+		return wareshops;
+	}
+
+	public void setWareshops(List<Wareshop> wareshops) {
+		this.wareshops = wareshops;
+	}
+
 	/**设置"仓库id"*/
 	public void setWareid(Integer wareid){
 		this.wareid = wareid;
@@ -115,19 +150,23 @@ public class Warehouse implements Serializable {
 	public Integer getIsdelete(){
 		return isdelete;
 	}
+
 	@Override
 	public String toString() {
-		return "warehouse[" + 
-			"wareid = " + wareid + 
-			", warename = " + warename + 
-			", wareremark = " + wareremark + 
-			", warecount = " + warecount + 
-			", empid = " + empid + 
-			", wareaddress = " + wareaddress + 
-			", jingdu = " + jingdu + 
-			", weidu = " + weidu + 
-			", isdelete = " + isdelete +
-			"]";
+		return "Warehouse{" +
+				"wareid=" + wareid +
+				", warename='" + warename + '\'' +
+				", wareremark='" + wareremark + '\'' +
+				", warecount='" + warecount + '\'' +
+				", empid=" + empid +
+				", wareaddress='" + wareaddress + '\'' +
+				", jingdu=" + jingdu +
+				", weidu=" + weidu +
+				", isdelete=" + isdelete +
+				", typecount=" + typecount +
+				", shopsount=" + shopcount +
+				", wareshops=" + wareshops +
+				'}';
 	}
 }
 

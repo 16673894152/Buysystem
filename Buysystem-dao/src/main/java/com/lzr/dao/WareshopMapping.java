@@ -18,6 +18,12 @@ public interface WareshopMapping {
   List<Wareshop> queryAll();
 
   /**
+   * 根据wareid查看 商品及商品数量
+   * @param wareid
+   * @return
+   */
+  List<Wareshop> queryByWareid(int wareid);
+  /**
    * 根据主键wsshid(Wareshop.wsshid)查询单条数据方法 
    */
   Wareshop queryById(int id);

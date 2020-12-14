@@ -26,7 +26,25 @@ public class WarehouseServiceImpl implements WarehouseService {
         pageVo.setRows(warehouseMapping.queryLike(warehouse));
         //获取总的记录数量
         pageVo.setTotal(warehouseMapping.queryLike(warehouse).size());
-
+        /*  List<RoleInfo> querycount=roleInfoMapping.querycount();
+        //将人数传入querylike集合里面的属性里面去
+        for (RoleInfo roleall: pageVo.getRows()){
+            for(RoleInfo role:querycount){
+                if(roleall.getRid() == role.getRid()){
+                    roleall.setCount(role.getCount());
+                }
+            }
+        }*/
+        List<Warehouse> querylist=warehouseMapping.queryLike1();
+        for (Warehouse warehouseall: pageVo.getRows()){
+            for(Warehouse warehouse1:querylist){
+                if(warehouseall.getWareid() == warehouse1.getWareid()){
+                    warehouseall.setShopcount(warehouse1.getShopcount());
+                    warehouseall.setTypecount(warehouse1.getTypecount());
+                }
+            }
+        }
+        System.out.println(pageVo.getRows()+"数据");
         return pageVo;
     }
 

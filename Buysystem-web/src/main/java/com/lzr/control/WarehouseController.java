@@ -5,6 +5,7 @@ import com.lzr.vo.PageVo;
 import com.lzr.vo.Warehouse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -60,6 +61,7 @@ public class WarehouseController {
     }
     @RequestMapping("/querylike.action")
     @ResponseBody
+    @CrossOrigin
     public PageVo<Warehouse> querylike(Warehouse warehouse,
                                    @RequestParam(value = "page", defaultValue = "1") int page,
                                    @RequestParam(value = "rows", defaultValue = "5") int rows) {
