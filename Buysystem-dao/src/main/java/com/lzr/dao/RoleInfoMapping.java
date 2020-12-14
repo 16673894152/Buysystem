@@ -18,6 +18,10 @@ public interface RoleInfoMapping {
   RoleInfo queryById(int id);
 
   /**
+   * 查看每个角色有多少个人
+   */
+  List<RoleInfo> querycount();
+  /**
    * 根据RoleInfo条件查询多条数据方法 
    */
   List<RoleInfo> query(RoleInfo roleinfo);

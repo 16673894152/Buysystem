@@ -9,52 +9,65 @@
         <result column="rname" property="rname"/>
         <result column="rremart" property="rremart"/>
         <result column="rstate" property="rstate"/>
+        <result column="count" property="count"/>
+        <collection property="employList" javaType="list" ofType="com.lzr.vo.Employ"
+                    column="rid" select="com.lzr.dao.EmployMapping.queryEmployByrid" fetchType="lazy"/>
     </resultMap>
-
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="RoleInfoMap">
-       select rname,rremart,rid,rstate from role_info;
+        select rname, rremart, rid, rstate
+        from role_info;
     </select>
 
     <!-- 根据主键id查询数据方法 -->
     <select id="queryById" parameterType="int" resultMap="RoleInfoMap">
-       select rname,rremart,rid,rstate from role_info where rid = #{rid};
+        select rname, rremart, rid, rstate
+        from role_info
+        where rid = #{rid};
     </select>
-
+    <!--查看每个角色有多少人 -->
+    <select id="querycount" resultMap="RoleInfoMap">
+        select employrole_info.rid, role_info.rname, count(1) as count
+        from employrole_info,
+             role_info
+        where employrole_info.rid = role_info.rid
+          and role_info.rid != 1 and role_info.rstate=1
+          and employrole_info.empid in (select empid from employ where empstate = 1)
+        group by employrole_info.rid;
+    </select>
     <!-- 根据RoleInfo条件查询数据方法 -->
     <select id="query" resultMap="RoleInfoMap">
-        select rname,rremart,rid,rstate 
-        from role_info 
+        select rname,rremart,rid,rstate
+        from role_info
         <where>
-            <if test="rid != null"> and rid = #{rid}</if>
-            <if test="rname != null"> and rname = #{rname}</if>
-            <if test="rremart != null"> and rremart = #{rremart}</if>
-            <if test="rstate != null"> and rstate = #{rstate}</if> 
+            <if test="rid != null">and rid = #{rid}</if>
+            <if test="rname != null">and rname = #{rname}</if>
+            <if test="rremart != null">and rremart = #{rremart}</if>
+            <if test="rstate != null">and rstate = #{rstate}</if>
         </where>
     </select>
 
     <!-- 根据RoleInfo条件模糊查询数据方法 -->
     <select id="queryLike" resultMap="RoleInfoMap">
-        select rname,rremart,rid,rstate 
-        from role_info 
+        select rname,rremart,rid,rstate
+        from role_info
         <where>
-            <if test="rid != null"> and rid like concat('%',#{rid},'%')</if>
-            <if test="rname != null"> and rname like concat('%',#{rname},'%')</if>
-            <if test="rremart != null"> and rremart like concat('%',#{rremart},'%')</if>
-            <if test="rstate != null"> and rstate like concat('%',#{rstate},'%')</if> 
+            <if test="1 != 2">and rid!=1 and rstate=1</if>
+            <if test="rname != null">and rname like concat('%',#{rname},'%')</if>
+            <if test="rremart != null">and rremart like concat('%',#{rremart},'%')</if>
         </where>
     </select>
 
     <!-- 根据RoleInfo插入数据方法 -->
     <insert id="insert" parameterType="RoleInfo" useGeneratedKeys="true" keyColumn="rid" keyProperty="rid">
-        insert into role_info (rid,rname,rremart,rstate) 
-        values (#{rid},#{rname},#{rremart},#{rstate}); 
+        insert into role_info (rid, rname, rremart, rstate)
+        values (#{rid}, #{rname}, #{rremart}, #{rstate});
     </insert>
 
 
     <!-- 根据RoleInfo条件修改单条数据方法,从传入对象获取主键id -->
     <update id="updateById" parameterType="RoleInfo">
-        update role_info 
+        update role_info
         <set>
             <if test="rname != null">rname = #{rname},</if>
             <if test="rremart != null">rremart = #{rremart},</if>
@@ -65,7 +78,9 @@
 
     <!-- 根据RoleInfo条件删除单条数据方法,从传入对象获取id -->
     <delete id="deleteById" parameterType="int">
-        delete from role_info where rid = #{rid};
+        delete
+        from role_info
+        where rid = #{rid};
     </delete>
 
 </mapper>

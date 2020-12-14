@@ -49,7 +49,10 @@
         </where>
     </select>
 
-
+    <!-- 根据角色id查所有员工  表格显示数据-->
+    <select id="queryEmployByrid" resultMap="EmployMap">
+        SELECT * FROM employ WHERE empid IN (SELECT empid FROM employrole_info WHERE rid=#{rid} and empid!=5);
+    </select>
     <!-- 根据Employ条件模糊查询数据方法    表格显示数据-->
     <select id="queryLike" resultMap="EmployMap">
         select empname,empsex,empid,password,img,empnumber,empaddress,empcard,empstarttime,empremark,empstate,username

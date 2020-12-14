@@ -6,7 +6,6 @@ import com.lzr.vo.PageVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.Session;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -71,6 +70,8 @@ public class EmployController {
                 map.put("msg", "添加失败");
             }
         }else if(employ.getEmpid()!=null) {//修改
+            Md5Hash md5Hash= new Md5Hash(employ.getPassword(),employ.getUsername(),5);
+            employ.setPassword(md5Hash.toString());
             int num = employService.updateById(employ);
             if (num > 0) {
                 map.put("msg", "修改成功");

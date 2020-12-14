@@ -24,4 +24,6 @@ public interface MenuInfoService {
 
     MenuInfo queryById(int id);
 
+    public List<MenuInfo> xianshishouquan(int rid1);
+
 }

@@ -20,16 +20,21 @@ public class RoleInfo implements Serializable {
 	private String rremart;
 	/**角色状态*/
 	private Integer rstate;
-
+	private int count;
+	private List<Employ> employList;
 	public RoleInfo() {
 		super();
 	}
-	public RoleInfo(Integer rid,String rname,String rremart,Integer rstate) {
+
+	public RoleInfo(Integer rid, String rname, String rremart, Integer rstate, int count, List<Employ> employList) {
 		this.rid = rid;
 		this.rname = rname;
 		this.rremart = rremart;
 		this.rstate = rstate;
+		this.count = count;
+		this.employList = employList;
 	}
+
 	/**设置"角色id"*/
 	public void setRid(Integer rid){
 		this.rid = rid;
@@ -62,14 +67,33 @@ public class RoleInfo implements Serializable {
 	public Integer getRstate(){
 		return rstate;
 	}
+
+	public List<Employ> getEmployList() {
+		return employList;
+	}
+
+	public void setEmployList(List<Employ> employList) {
+		this.employList = employList;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	@Override
 	public String toString() {
-		return "role_info[" + 
-			"rid = " + rid + 
-			", rname = " + rname + 
-			", rremart = " + rremart + 
-			", rstate = " + rstate +
-			"]";
+		return "RoleInfo{" +
+				"rid=" + rid +
+				", rname='" + rname + '\'' +
+				", rremart='" + rremart + '\'' +
+				", rstate=" + rstate +
+				", count=" + count +
+				", employList=" + employList +
+				'}';
 	}
 }
 

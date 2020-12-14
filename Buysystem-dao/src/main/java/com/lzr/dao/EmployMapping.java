@@ -16,7 +16,7 @@ public interface EmployMapping {
    * 查询所有方法 
    */
   List<Employ> queryAll();
-
+  List<Employ> queryEmployByrid(int rid);
   /**
    * 根据主键empid(Employ.empid)查询单条数据方法 
    */

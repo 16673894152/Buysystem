@@ -36,6 +36,7 @@ public class MenuInfoController {
     //查出角色拥有的菜单
     @RequestMapping("/queryallmenus2.action")
     @ResponseBody
+    @CrossOrigin
     public List<MenuInfo> queryallmenus2(Integer rid){
        // System.out.println(rid+"rid:");
         System.out.println(menuInfoService.queryallmenubyrid(3,1));
@@ -46,6 +47,7 @@ public class MenuInfoController {
     //进行授权
     @RequestMapping(value = "/auth.action",produces = {"application/json;charset=utf-8"})
     @ResponseBody
+    @CrossOrigin
     public String authSave(HttpServletRequest request,
             @RequestParam(value = "menuids",defaultValue = "")String mids,
             @RequestParam(value = "roleid",defaultValue = "0")  int roleid,int empid){
@@ -65,8 +67,18 @@ public class MenuInfoController {
 
     @RequestMapping("/querymenuid.action")
     @ResponseBody
+    @CrossOrigin
     public MenuInfo queryMenu(MenuInfo menuInfo) {
         MenuInfo list=menuInfoService.queryById(menuInfo.getId());
         return list;
+    }
+
+    //查出角色拥有的菜单
+    @RequestMapping("/queryallmenus3.action")
+    @ResponseBody
+    @CrossOrigin
+    public List<MenuInfo> queryallmenus3(int rid){
+        System.out.println(rid);
+        return  menuInfoService.xianshishouquan(rid);
     }
 }

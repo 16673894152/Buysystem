@@ -62,6 +62,9 @@ public class MenuInfo {
 	List<MenuInfo> childMenu;
 	private boolean checked;
 	public int isdelete;
+	public boolean disabled;
+	List<MenuInfo> children;
+	private String label;
 	public boolean isChecked() {
 		return checked;
 	}
@@ -70,18 +73,11 @@ public class MenuInfo {
 		return isdelete;
 	}
 
-	public void setIsdelete(int isdelete) {
-		this.isdelete = isdelete;
+	public boolean isDisabled() {
+		return disabled;
 	}
 
-	public void setChecked(boolean checked) {
-		this.checked = checked;
-	}
-
-	public MenuInfo() {
-	}
-
-	public MenuInfo(Integer id, String name, String menuCode, Integer parentId, Integer nodeType, String iconurl, Integer sort, String linkurl, Integer level, String path, List<MenuInfo> childMenu, boolean checked, int isdelete) {
+	public MenuInfo(Integer id, String name, String menuCode, Integer parentId, Integer nodeType, String iconurl, Integer sort, String linkurl, Integer level, String path, List<MenuInfo> childMenu, boolean checked, int isdelete, boolean disabled, List<MenuInfo> children, String label) {
 		this.id = id;
 		this.name = name;
 		this.menuCode = menuCode;
@@ -95,6 +91,40 @@ public class MenuInfo {
 		this.childMenu = childMenu;
 		this.checked = checked;
 		this.isdelete = isdelete;
+		this.disabled = disabled;
+		this.children = children;
+		this.label = label;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
+
+	public List<MenuInfo> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<MenuInfo> children) {
+		this.children = children;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public void setIsdelete(int isdelete) {
+		this.isdelete = isdelete;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
+	public MenuInfo() {
 	}
 
 	public Integer getId() {
@@ -199,6 +229,11 @@ public class MenuInfo {
 				", level=" + level +
 				", path='" + path + '\'' +
 				", childMenu=" + childMenu +
+				", checked=" + checked +
+				", isdelete=" + isdelete +
+				", disabled=" + disabled +
+				", children=" + children +
+				", label='" + label + '\'' +
 				'}';
 	}
 }

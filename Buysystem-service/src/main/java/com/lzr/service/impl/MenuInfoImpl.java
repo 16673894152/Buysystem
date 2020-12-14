@@ -119,4 +119,21 @@ public class MenuInfoImpl implements MenuInfoService {
         return menuInfoMapping.queryById(id);
     }
 
+    @Override
+    public List<MenuInfo> xianshishouquan(int rid) {
+        //查询所有的父菜单  父节点为0  菜单类型为1
+        List<MenuInfo> menu1 = menuInfoMapping.querymenuBypidandnodeType1(0, 1);
+        for (MenuInfo menus : menu1) {
+           //把子菜单存入父菜单chirld中
+           menus.setChildMenu(menuInfoMapping.querymenuBypidandnodeType1(menus.getId(),2));
+        }
+        for (MenuInfo menus : menu1) {
+            for (MenuInfo menuss : menus.getChildMenu()) {
+               menuss.setChildMenu(menuInfoMapping.querymenuBypidandnodeType1(menuss.getId(),3));
+            }
+        }
+        System.out.println(menu1);
+        return menu1;
+    }
+
 }

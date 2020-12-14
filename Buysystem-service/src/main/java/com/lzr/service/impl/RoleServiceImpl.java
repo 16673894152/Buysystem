@@ -18,12 +18,22 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public PageVo<RoleInfo> queryLike(RoleInfo roleInfo, int page, int rows) {
         PageVo<RoleInfo> pageVo = new PageVo<>();
+        System.out.println(roleInfo);
         //在需要分页的代码调用前 执行以下代码
         PageHelper.startPage(page, rows);
         //获取分页后 显示的数据集合
         pageVo.setRows(roleInfoMapping.queryLike(roleInfo));
         //获取总的记录数量
         pageVo.setTotal(roleInfoMapping.queryLike(roleInfo).size());
+        List<RoleInfo> querycount=roleInfoMapping.querycount();
+        //将人数传入querylike集合里面的属性里面去
+        for (RoleInfo roleall: pageVo.getRows()){
+            for(RoleInfo role:querycount){
+                if(roleall.getRid() == role.getRid()){
+                    roleall.setCount(role.getCount());
+                }
+            }
+        }
         return pageVo;
     }
 
@@ -49,7 +59,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public int updateById(RoleInfo roleinfo) {
-        return 0;
+        return roleInfoMapping.updateById(roleinfo);
     }
 
 }
