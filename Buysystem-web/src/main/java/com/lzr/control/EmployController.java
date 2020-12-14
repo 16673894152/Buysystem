@@ -43,7 +43,8 @@ public class EmployController {
             map.put("msg", "密码错误,请重新输入");
             map.put("code", "0");
         }else {
-            map.put("msg", "登录成功,欢迎你:"+employ.getUsername()+"");
+            map.put("msg", "登录成功,欢迎你:");
+            System.out.println(employ1.getUsername());
             map.put("code", "1");
             Session session = SecurityUtils.getSubject().getSession();
             System.out.println(employList1.get(0));

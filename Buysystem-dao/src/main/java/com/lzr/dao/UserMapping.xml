@@ -13,6 +13,8 @@
         <result column="usercard" property="usercard"/>
         <result column="userimg" property="userimg"/>
         <result column="isdelete" property="isdelete"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
         <association property="hyid" column="hyid"
            select="com.lzr.dao.HuiyuanMapping.queryById" javaType="Huiyuan" fetchType="lazy"/>
 
@@ -31,6 +33,7 @@
        select usernumber,zhucetime,userimg,userpass,isdelete,userid,hyid,username,usercard from user;
     </select>
 
+
     <!-- 根据主键id查询数据方法 -->
     <select id="queryById" parameterType="int" resultMap="UserMap">
        select usernumber,zhucetime,userimg,userpass,isdelete,userid,hyid,username,usercard from user where userid = #{userid};
@@ -38,7 +41,7 @@
 
     <!-- 根据User条件查询数据方法 -->
     <select id="query" resultMap="UserMap">
-        select usernumber,zhucetime,userimg,userpass,isdelete,userid,hyid,username,usercard 
+        select usernumber,zhucetime,userimg,userpass,isdelete,userid,hyid,username,usercard,name,sex
         from user 
         <where>
             <if test="userid != null"> and userid = #{userid}</if>
@@ -51,13 +54,14 @@
             <if test="hyid != null">
                  <if test="hyid.hyid != null"> and hyid = #{hyid.hyid}</if>
             </if>
-            <if test="isdelete != null"> and isdelete = #{isdelete}</if> 
+            <if test="isdelete != null"> and isdelete = #{isdelete}</if>
+            <if test="name != null"> and name = #{name}</if>
         </where>
     </select>
 
     <!-- 根据User条件模糊查询数据方法 -->
     <select id="queryLike" resultMap="UserMap">
-        select usernumber,zhucetime,userimg,userpass,isdelete,userid,hyid,username,usercard 
+        select name,sex,usernumber,zhucetime,userimg,userpass,isdelete,userid,hyid,username,usercard
         from user 
         <where>
             <if test="userid != null"> and userid like concat('%',#{userid},'%')</if>
@@ -69,8 +73,9 @@
             <if test="userimg != null"> and userimg like concat('%',#{userimg},'%')</if>
             <if test="hyid != null">
                  <if test="hyid.hyid != null"> and hyid like concat('%',#{hyid.hyid},'%')</if>
-            </if>
-            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if> 
+--             </if>
+            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if>
+            <if test="name != null"> and name like concat('%',#{name},'%')</if>
         </where>
     </select>
 

@@ -57,12 +57,32 @@ public class User implements Serializable {
     private List<Shopgouwu> shopgouwus;
     private List<Shoppingjia> shoppingjias;
 
+
+    private String name;
+    private int sex;
+
     public User() {
         super();
     }
 
 
-    public User(Integer userid, Timestamp zhucetime, String username, String userpass, String usernumber, String usercard, String userimg, Huiyuan hyid, Integer isdelete, List<Orders> orderss, List<Shopgouwu> shopgouwus, List<Shoppingjia> shoppingjias) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public User(Integer userid, Timestamp zhucetime, String username, String userpass, String usernumber, String usercard, String userimg, Huiyuan hyid, Integer isdelete, List<Orders> orderss, List<Shopgouwu> shopgouwus, List<Shoppingjia> shoppingjias, String name, int sex) {
         this.userid = userid;
         this.zhucetime = zhucetime;
         this.username = username;
@@ -75,6 +95,8 @@ public class User implements Serializable {
         this.orderss = orderss;
         this.shopgouwus = shopgouwus;
         this.shoppingjias = shoppingjias;
+        this.name = name;
+        this.sex = sex;
     }
 
     /**
