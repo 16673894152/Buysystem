@@ -26,6 +26,7 @@ public class ShoptypeController {
 
     @RequestMapping("/editshoptype.action")
     @ResponseBody
+    @CrossOrigin
     public Map editshoptype(Shoptype shoptype) {
         System.out.println(shoptype+"添加或编辑的商品类型"+shoptype);
         Map<String, String> map = new HashMap<String, String>();
@@ -33,6 +34,7 @@ public class ShoptypeController {
             int num = shoptypeService.insert(shoptype);
             if (num > 0) {
                 map.put("msg", "添加成功");
+                return map;
             } else {
                 map.put("msg", "添加失败");
             }
@@ -49,6 +51,7 @@ public class ShoptypeController {
 
     @RequestMapping("/delshoptype.action")
     @ResponseBody
+    @CrossOrigin
     public Map delshoptype(Shoptype shoptype) {
         Shoptype shoptype1=new Shoptype();
         //测试
