@@ -31,9 +31,9 @@ public class Warehouse implements Serializable {
 	/**是否删除*/
 	private Integer isdelete;
 	/*仓库种类*/
-	private Integer typecount;
+	private int typecount;
 	/*商品总数量*/
-	private Integer shopcount;
+	private int shopcount;
 	/*仓库商品详情*/
 	private List<Wareshop> wareshops;
 
@@ -41,7 +41,7 @@ public class Warehouse implements Serializable {
 		super();
 	}
 
-	public Warehouse(Integer wareid, String warename, String wareremark, String warecount, Employ empid, String wareaddress, Integer jingdu, Integer weidu, Integer isdelete, Integer typecount, Integer shopcount, List<Wareshop> wareshops) {
+	public Warehouse(Integer wareid, String warename, String wareremark, String warecount, Employ empid, String wareaddress, Integer jingdu, Integer weidu, Integer isdelete, int typecount, int shopcount, List<Wareshop> wareshops) {
 		this.wareid = wareid;
 		this.warename = warename;
 		this.wareremark = wareremark;
@@ -149,6 +149,14 @@ public class Warehouse implements Serializable {
 	/**获取"是否删除"*/
 	public Integer getIsdelete(){
 		return isdelete;
+	}
+
+	public void setTypecount(int typecount) {
+		this.typecount = typecount;
+	}
+
+	public void setShopcount(int shopcount) {
+		this.shopcount = shopcount;
 	}
 
 	@Override

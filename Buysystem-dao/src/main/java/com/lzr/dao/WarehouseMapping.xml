@@ -14,7 +14,7 @@
         <result column="weidu" property="weidu"/>
         <result column="isdelete" property="isdelete"/>
         <result column="shopcount" property="shopcount"/>
-        <result column="shoptype" property="shoptype"/>
+        <result column="shoptype" property="typecount"/>
         <association property="empid" column="empid"
                      select="com.lzr.dao.EmployMapping.queryById" javaType="Employ" fetchType="lazy"/>
         <collection property="wareshops" column="wareid" javaType="list"
@@ -74,6 +74,7 @@
     <select id="queryLike" resultMap="WarehouseMap">
         SELECT * from warehouse
         <where>
+            <if test="1 != 2"> and isdelete=1</if>
             <if test="wareid != null">and wareid like concat('%',#{wareid},'%')</if>
             <if test="warename != null">and warename like concat('%',#{warename},'%')</if>
             <if test="wareremark != null">and wareremark like concat('%',#{wareremark},'%')</if>

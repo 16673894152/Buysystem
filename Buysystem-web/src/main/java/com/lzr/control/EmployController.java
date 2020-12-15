@@ -107,4 +107,10 @@ public class EmployController {
                                    @RequestParam(value = "rows", defaultValue = "5") int rows) {
         return employService.queryLike(employ, page, rows);
     }
+    @RequestMapping("/queryall.action")
+    @ResponseBody
+    @CrossOrigin
+    public List<Employ> queryall() {
+        return employService.queryAll();
+    }
 }

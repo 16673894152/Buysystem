@@ -21,6 +21,7 @@ public class WarehouseController {
 
     @RequestMapping("/editwarehouse.action")
     @ResponseBody
+    @CrossOrigin
     public Map updateWarehouse(Warehouse warehouse) {
         System.out.println(warehouse+"添加或编辑的仓库"+warehouse);
         Map<String, String> map = new HashMap<String, String>();
@@ -44,14 +45,12 @@ public class WarehouseController {
 
     @RequestMapping("/delwarehouse.action")
     @ResponseBody
-    public Map delemploy(Warehouse warehouse) {
-        Warehouse warehouse1=new Warehouse();
-        //测试
-        warehouse1.setWareid(1);
-        warehouse1.setIsdelete(0);
+    @CrossOrigin
+    public Map delwarehouse(Warehouse warehouse) {
+        warehouse.setIsdelete(0);
 
         Map<String, String> map = new HashMap<String, String>();
-            int num = warehouseService.updateById(warehouse1);
+            int num = warehouseService.updateById(warehouse);
             if (num > 0) {
                 map.put("msg", "删除成功");
             } else {

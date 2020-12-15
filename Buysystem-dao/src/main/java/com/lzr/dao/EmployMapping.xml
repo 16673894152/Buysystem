@@ -21,7 +21,8 @@
 
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="EmployMap">
-       select empname,empsex,empid,password,img,empnumber,empaddress,empcard,empstarttime,empremark,empstate,username from employ;
+       select empname,empsex,empid,password,img,empnumber,empaddress,empcard,empstarttime,empremark,empstate,username from employ
+where empstate=1 and empid!=1 and empid!=5;
     </select>
 
     <!-- 根据主键id查询数据方法 -->
@@ -58,7 +59,7 @@
         select empname,empsex,empid,password,img,empnumber,empaddress,empcard,empstarttime,empremark,empstate,username
         from employ
         <where>
-            <if test="1!=2">and empstate=1</if>
+            <if test="1!=2">and empstate=1 and empid!=5</if>
             <if test="empid != null"> and empid like concat('%',#{empid},'%')</if>
             <if test="empname != null"> and empname like concat('%',#{empname},'%')</if>
             <if test="empsex != null"> and empsex like concat('%',#{empsex},'%')</if>
