@@ -53,12 +53,13 @@ public class ShoptypeController {
     @ResponseBody
     @CrossOrigin
     public Map delshoptype(Shoptype shoptype) {
+          /*测试
         Shoptype shoptype1=new Shoptype();
-        //测试
-        shoptype1.setShoptyid(1);
+
+        shoptype1.setShoptyid(1);*/
 
         Map<String, String> map = new HashMap<String, String>();
-        int num = shoptypeService.deleteById(shoptype1.getShoptyid());
+        int num = shoptypeService.deleteById(shoptype.getShoptyid());
         if (num > 0) {
             map.put("msg", "删除成功");
         } else {
