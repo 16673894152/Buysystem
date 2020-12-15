@@ -7,6 +7,7 @@ import com.lzr.vo.Shop;
 import com.lzr.vo.Shoptype;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -64,9 +65,12 @@ public class ShoptypeController {
     }
     @RequestMapping("/querylike.action")
     @ResponseBody
-    public List<Shoptype> querylike(Shoptype shoptype) {
+    @CrossOrigin
+    public PageVo<Shoptype> querylike(Shoptype shoptype,
+                                    @RequestParam(value = "page", defaultValue = "1") int page,
+                                    @RequestParam(value = "rows", defaultValue = "5") int rows){
         Shoptype shoptype1=new Shoptype();
-        return shoptypeService.queryLike(shoptype);
+        return shoptypeService.queryLike(shoptype,page,rows);
     }
     @RequestMapping("/queryall.action")
     @ResponseBody
