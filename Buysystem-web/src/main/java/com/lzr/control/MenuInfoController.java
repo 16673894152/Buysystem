@@ -90,7 +90,7 @@ public class MenuInfoController {
     @CrossOrigin
     public List<MenuInfo> queryalls(Employ employ){
         /*查出该用户拥有的菜单按钮*/
-        System.out.println("username"+employ.getUsername());
+        //System.out.println("username"+employ.getUsername());
         //List<String> list=menuInfoService.querymenuall(3,employ.getUsername());
         //System.out.println(list);
         //request.getSession().setAttribute("menulist",list);

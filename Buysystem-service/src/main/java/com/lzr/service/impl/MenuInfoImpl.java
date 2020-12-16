@@ -140,14 +140,14 @@ public class MenuInfoImpl implements MenuInfoService {
     public List<MenuInfo> querymenuall(int nodetype,String username) {
         //查询所有的父菜单  父节点为0  菜单类型为1
         List<MenuInfo> menus = menuInfoMapping.querymenuall(0, 1, username);
-        System.out.println("父菜单"+menus);
+        //System.out.println("父菜单"+menus);
 
         //将所有的父菜单的子菜单查询出来，绑定好
         for (MenuInfo menu : menus) {
             //查询所有的父菜单子菜单
             List<MenuInfo> childsmenu = menuInfoMapping.querymenuall(menu.getId(), 2, username);
             //打印子菜单数量
-            System.out.println(childsmenu.size());
+          //  System.out.println(childsmenu.size());
             //进行绑定
             menu.setChildMenu(childsmenu);
 
