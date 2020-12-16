@@ -25,5 +25,7 @@ public interface MenuInfoService {
     MenuInfo queryById(int id);
 
     public List<MenuInfo> xianshishouquan(int rid1);
+    /*根据用户名查询拥有的菜单*/
+    public List<MenuInfo> querymenuall(int nodetype, String username);
 
 }
