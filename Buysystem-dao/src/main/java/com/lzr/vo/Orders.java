@@ -27,7 +27,7 @@ public class Orders implements Serializable {
     /**
      * 商户id--提货人等信息 外键
      */
-    private Shanghu shid;
+    private User shid;
     /**
      * 订单总数量
      */
@@ -75,7 +75,7 @@ public class Orders implements Serializable {
         super();
     }
 
-    public Orders(Integer orderid, User userid, Shanghu shid, Integer ordercount, Double ordermoney, String orderbianhao, Timestamp ordertime, String consigneename, String consigneenumber, String consigneeaddress, Integer orderstate, Integer isdelete, Double shshouru) {
+    public Orders(Integer orderid, User userid, User shid, Integer ordercount, Double ordermoney, String orderbianhao, Timestamp ordertime, String consigneename, String consigneenumber, String consigneeaddress, Integer orderstate, Integer isdelete, Double shshouru) {
         this.orderid = orderid;
         this.userid = userid;
         this.shid = shid;
@@ -91,7 +91,7 @@ public class Orders implements Serializable {
         this.shshouru = shshouru;
     }
 
-    public Orders(Integer orderid, User userid, Shanghu shid, Integer ordercount, Double ordermoney, String orderbianhao, Timestamp ordertime, String consigneename, String consigneenumber, String consigneeaddress, Integer orderstate, Integer isdelete, Double shshouru, List<Orderxq> orderxqs) {
+    public Orders(Integer orderid, User userid, User shid, Integer ordercount, Double ordermoney, String orderbianhao, Timestamp ordertime, String consigneename, String consigneenumber, String consigneeaddress, Integer orderstate, Integer isdelete, Double shshouru, List<Orderxq> orderxqs) {
         this.orderid = orderid;
         this.userid = userid;
         this.shid = shid;
@@ -130,11 +130,11 @@ public class Orders implements Serializable {
         return userid;
     }
 
-    public void setShid(Shanghu shid) {
+    public void setShid(User shid) {
         this.shid = shid;
     }
 
-    public Shanghu getShid() {
+    public User getShid() {
         return shid;
     }
 

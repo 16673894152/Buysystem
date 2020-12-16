@@ -26,6 +26,9 @@ public class WarehouseController {
         System.out.println(warehouse+"添加或编辑的仓库"+warehouse);
         Map<String, String> map = new HashMap<String, String>();
         if(warehouse.getWareid()==null){//添加
+            warehouse.setJingdu(111);
+            warehouse.setWeidu(111);
+            warehouse.setIsdelete(1);
             int num = warehouseService.insert(warehouse);
             if (num > 0) {
                 map.put("msg", "添加成功");

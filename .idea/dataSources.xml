@@ -16,5 +16,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://rm-bp12j3557106p4p0e1250108m.mysql.rds.aliyuncs.com:3306/s3xiangmu4</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="s3xiangmu4@rm-bp12j3557106p4p0e1250108m.mysql.rds.aliyuncs.com [2]" uuid="1f4b3cb8-1865-43e8-b184-309530780900">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://rm-bp12j3557106p4p0e1250108m.mysql.rds.aliyuncs.com:3306/s3xiangmu4</jdbc-url>
+    </data-source>
   </component>
 </project>
