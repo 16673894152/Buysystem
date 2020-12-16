@@ -16,6 +16,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -50,16 +51,17 @@ public class UserController {
 
     @RequestMapping("/deluser.action")
     @ResponseBody
+    @CrossOrigin
     public Map deluser(User user) {
         User user1=new User();
-        user1.setUserid(1);
+        user1.setUserid(user.getUserid());
         user1.setIsdelete(0);
         Map<String, String> map = new HashMap<String, String>();
             int num = userService.updateById(user1);
             if (num > 0) {
-                map.put("msg", "删除成功");
+                map.put("msg", "1");
             } else {
-                map.put("msg", "删除失败");
+                map.put("msg", "0");
             }
         return map;
     }

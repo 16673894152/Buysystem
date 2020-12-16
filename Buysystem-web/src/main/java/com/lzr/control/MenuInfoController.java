@@ -25,7 +25,7 @@ public class MenuInfoController {
     public List<MenuInfo> queryallmenus(HttpServletRequest request){
         /*查出该用户拥有的菜单按钮*/
         List<String> list=menuInfoService.queryallmenus3(3,1);
-        System.out.println(list);
+        //System.out.println(list);
         request.getSession().setAttribute("menulist",list);
 
         //返回所有的菜单
@@ -39,7 +39,7 @@ public class MenuInfoController {
     @CrossOrigin
     public List<MenuInfo> queryallmenus2(Integer rid){
        // System.out.println(rid+"rid:");
-        System.out.println(menuInfoService.queryallmenubyrid(3,1));
+        //System.out.println(menuInfoService.queryallmenubyrid(3,1));
         return  menuInfoService.queryallmenubyrid(3,1);
     }
 
@@ -56,7 +56,7 @@ public class MenuInfoController {
         List<String> list=menuInfoService.queryallmenus3(3,empid);
         request.getSession().removeAttribute("menulist");
         request.getSession().setAttribute("menulist",list);
-        System.out.println("empid"+empid);
+       // System.out.println("empid"+empid);
         int num=menuInfoService.shouquan(roleid,str1);
         if(num>0){
             return "授权成功";
@@ -78,7 +78,7 @@ public class MenuInfoController {
     @ResponseBody
     @CrossOrigin
     public List<MenuInfo> queryallmenus3(int rid){
-        System.out.println(rid);
+        //System.out.println(rid);
         return  menuInfoService.xianshishouquan(rid);
     }
 }

@@ -75,6 +75,7 @@
                  <if test="hyid.hyid != null"> and hyid like concat('%',#{hyid.hyid},'%')</if>
 --             </if>
             <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if>
+             and isdelete !=0
             <if test="name != null"> and name like concat('%',#{name},'%')</if>
         </where>
     </select>
@@ -98,12 +99,8 @@
             <if test="hyid != null">
                 <if test="hyid.hyid != null">hyid = #{hyid.hyid},</if>
             </if>
-            <if test="isdelete != null">isdelete = #{isdelete},</if>
+            <if test="isdelete != null">isdelete = #{isdelete}</if>
         </set>
         where userid = #{userid}
     </update>
-    <!-- 根据User条件删除单条数据方法,从传入对象获取id -->
-    <delete id="deleteById" parameterType="int">
-        delete from user where userid = #{userid};
-    </delete>
 </mapper>
