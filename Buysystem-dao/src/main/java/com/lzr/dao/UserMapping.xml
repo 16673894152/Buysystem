@@ -22,23 +22,23 @@
         <result column="shstate" property="shstate"/>
         <result column="shmoney" property="shmoney"/>
         <association property="hyid" column="hyid"
-           select="com.lzr.dao.HuiyuanMapping.queryById" javaType="Huiyuan" fetchType="lazy"/>
+                     select="com.lzr.dao.HuiyuanMapping.queryById" javaType="Huiyuan" fetchType="lazy"/>
 
         <collection property="userorderss" javaType="list" ofType="com.lzr.vo.Orders"
-           column="userid" select="com.lzr.dao.OrdersMapping.queryByuserid" fetchType="lazy"/>
+                    column="userid" select="com.lzr.dao.OrdersMapping.queryByuserid" fetchType="lazy"/>
 
         <collection property="shhuorderss" javaType="list" ofType="com.lzr.vo.Orders"
-                    column="userid" select="com.lzr.dao.OrdersMapping.queryByuserid" fetchType="lazy"/>
+                    column="userid" select="com.lzr.dao.OrdersMapping.queryByshid" fetchType="lazy"/>
         <collection property="shopgouwus" javaType="list" ofType="com.lzr.vo.Shopgouwu"
-           column="userid" select="com.lzr.dao.ShopgouwuMapping.queryByuserid" fetchType="lazy"/>
+                    column="userid" select="com.lzr.dao.ShopgouwuMapping.queryByuserid" fetchType="lazy"/>
 
         <collection property="shoppingjias" javaType="list" ofType="com.lzr.vo.Shoppingjia"
-           column="userid" select="com.lzr.dao.ShoppingjiaMapping.queryByuserid" fetchType="lazy"/>
+                    column="userid" select="com.lzr.dao.ShoppingjiaMapping.queryByuserid" fetchType="lazy"/>
     </resultMap>
 
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="UserMap">
-       select * from user where isdelete=1
+       select * from user
 
     </select>
 

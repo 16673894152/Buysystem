@@ -2,10 +2,11 @@ package com.lzr.vo;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.sql.Timestamp;
 import java.util.List;
-
+@JsonIgnoreProperties(value = "handler")
 public class User {
 
     private Integer userid;

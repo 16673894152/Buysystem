@@ -1,8 +1,8 @@
 package com.lzr.control;
 
 
+import com.github.pagehelper.Page;
 import com.lzr.service.UserService;
-import com.lzr.vo.Employ;
 import com.lzr.vo.PageVo;
 import com.lzr.vo.User;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -123,14 +123,16 @@ public class UserController {
         return map;
     }
     /*模糊查询查看用户列表信息*/
-    @RequestMapping("/querylike2.action")
+    @RequestMapping("/querylike.action")
     @ResponseBody
     @CrossOrigin
-    public PageVo<User> querylike2(User user,
-                                   @RequestParam(value = "page", defaultValue = "1") int page,
-                                   @RequestParam(value = "rows", defaultValue = "5") int rows) {
-       User user1=new User();
-        return userService.queryLike(user1, page, rows);
+    public PageVo<User> querall(User user,
+                              @RequestParam(value = "page",defaultValue ="1") int page,
+                              @RequestParam(value = "rows",defaultValue = "5") int rows){
+        User user1=new User();
+        System.out.println(userService.queryAll(user1,page,rows));
+        return userService.queryAll(user1,1,5);
+
     }
     /****************************************   商户 ******************************************************************/
     //注测商户  先登录用户再注册 或者输入用户名
