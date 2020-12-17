@@ -130,4 +130,7 @@
     <delete id="deleteById" parameterType="int">
         delete from user where userid=#{userid}
     </delete>
+    <select id="getuser" parameterType="user" resultMap="UserMap">
+        select * from user where username=#{username}
+    </select>
 </mapper>

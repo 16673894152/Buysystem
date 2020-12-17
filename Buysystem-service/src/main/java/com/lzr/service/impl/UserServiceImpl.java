@@ -67,4 +67,9 @@ public class UserServiceImpl implements UserService {
 
         return pageVo;
     }
+
+    @Override
+    public User GETALL(User user) {
+        return userMapping.getuser(user);
+    }
 }

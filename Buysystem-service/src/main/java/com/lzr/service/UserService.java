@@ -45,5 +45,6 @@ public interface UserService {
    * 根据Employ条件模糊查询多条数据方法  分页查询
    */
   PageVo<User> queryLike(User user, int page, int rows);
-
+  /*根据用户名查询用户*/
+    public  User GETALL(User user);
 }

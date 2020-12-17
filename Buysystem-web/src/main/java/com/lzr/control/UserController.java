@@ -130,8 +130,19 @@ public class UserController {
                               @RequestParam(value = "page",defaultValue ="1") int page,
                               @RequestParam(value = "rows",defaultValue = "5") int rows){
         User user1=new User();
-        System.out.println(userService.queryAll(user1,page,rows));
+        System.out.println(userService.queryAll(user,page,rows));
         return userService.queryAll(user1,1,5);
+
+    }
+    /*根据用户名查询用户*/
+    @RequestMapping("/queryuser.action")
+    @ResponseBody
+    @CrossOrigin
+    public User queryadmin(User user){
+        User user1=new User();
+        user1.setUsername("admin");
+        System.out.println(userService.GETALL(user1));
+        return userService.GETALL(user1);
 
     }
     /****************************************   商户 ******************************************************************/
