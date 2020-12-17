@@ -150,7 +150,6 @@ public class Warehouse implements Serializable {
 	public Integer getIsdelete(){
 		return isdelete;
 	}
-
 	public void setTypecount(int typecount) {
 		this.typecount = typecount;
 	}

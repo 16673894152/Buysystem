@@ -31,13 +31,15 @@ public class Shop implements Serializable {
 	private List<Shopxq>  shopxqs;
 	private double minprice;
 	private double maxprice;
+	private int number;
+	private int wareid;
 	/*评价*/
 	private List<Shoppingjia>  shoppingjias;
 	public Shop() {
 		super();
 	}
 
-	public Shop(Integer shopid, String shopname, Shoptype shoptyid, String shopmiaoshu, double shopprice, String shopdanwei, String shopimg, Integer isdelete, List<Shopxq> shopxqs, double minprice, double maxprice, List<Shoppingjia> shoppingjias) {
+	public Shop(Integer shopid, String shopname, Shoptype shoptyid, String shopmiaoshu, double shopprice, String shopdanwei, String shopimg, Integer isdelete, List<Shopxq> shopxqs, double minprice, double maxprice, int number, int wareid, List<Shoppingjia> shoppingjias) {
 		this.shopid = shopid;
 		this.shopname = shopname;
 		this.shoptyid = shoptyid;
@@ -49,7 +51,25 @@ public class Shop implements Serializable {
 		this.shopxqs = shopxqs;
 		this.minprice = minprice;
 		this.maxprice = maxprice;
+		this.number = number;
+		this.wareid = wareid;
 		this.shoppingjias = shoppingjias;
+	}
+
+	public int getWareid() {
+		return wareid;
+	}
+
+	public void setWareid(int wareid) {
+		this.wareid = wareid;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 	public List<Shoppingjia> getShoppingjias() {
@@ -162,6 +182,8 @@ public class Shop implements Serializable {
 				", shopxqs=" + shopxqs +
 				", minprice=" + minprice +
 				", maxprice=" + maxprice +
+				", number=" + number +
+				", wareid=" + wareid +
 				", shoppingjias=" + shoppingjias +
 				'}';
 	}

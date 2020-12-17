@@ -93,7 +93,7 @@
             <if test="wareid != null">
                 <if test="wareid.wareid != null">wareid = #{wareid.wareid},</if>
             </if>
-            <if test="shopcount != null">shopcount = #{shopcount},</if>
+            <if test="shopcount != null">shopcount +=#{shopcount},</if>
             <if test="isdelete != null">isdelete = #{isdelete},</if>
         </set>
         where wsshid = #{wsshid}

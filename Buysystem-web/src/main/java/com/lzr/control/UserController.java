@@ -129,7 +129,6 @@ public class UserController {
     public PageVo<User> querylike(User user,
                                   @RequestParam(value = "page", defaultValue = "1") int page,
                                   @RequestParam(value = "rows", defaultValue = "5") int rows) {
-
         return userService.queryLike(user, page, rows);
     }
     /****************************************   商户 ******************************************************************/
