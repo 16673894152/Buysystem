@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,5 +83,21 @@ public class ShoptypeController {
     @ResponseBody
     public List<Shoptype> queryall() {
         return shoptypeService.queryAll();
+    }
+
+    @RequestMapping("/addgoods.action")
+    @CrossOrigin
+    public Map addGoods(Shop shop, MultipartFile shopimg) throws IOException {
+        Map<String,String> map =new HashMap<String,String>();
+        String str = "";
+        shop.setShopimg("./src/images/houtai/"+shopimg.getOriginalFilename());  //保存到数据库的【相对路径】
+        System.out.println(shopimg.getBytes().length);
+        //将上传的文件保存到服务器上的前端项目的【绝对路径】
+        shopimg.transferTo(new File("E:\\vue\\src\\images\\houtai"+shopimg.getOriginalFilename()));
+        System.out.println(shop);
+        map.put("code","0");
+        map.put("msg","添加成功");
+
+        return map;
     }
 }

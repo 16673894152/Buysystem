@@ -30,9 +30,9 @@ public class UserController {
     @RequestMapping("/login.action")
     @ResponseBody
     public Map login(User user) {
+        System.out.println(user+"user");
         Map<String, String> map = new HashMap<String, String>();
-        Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUserpass(), 5);
-        user.setUserpass(md5Hash.toString());
+        Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUsername(), 5);
         User user1 = new User();
         user1.setUsername(user.getUsername());
         //判断账号是否存在
@@ -46,7 +46,7 @@ public class UserController {
             map.put("msg", "密码错误,请重新输入");
             map.put("code", "0");
         } else {
-            map.put("employ", userList1.get(0).getUsername());
+            map.put("username   ", userList1.get(0).getUsername());
             System.out.println("用户名" + userList1.get(0).getUsername());
             map.put("msg", "登录成功,欢迎你:");
             map.put("code", "1");

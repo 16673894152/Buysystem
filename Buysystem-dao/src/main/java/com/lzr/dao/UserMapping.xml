@@ -96,10 +96,8 @@
     <!-- 根据User插入数据方法 -->
     <insert id="insert" parameterType="User" useGeneratedKeys="false" keyColumn="userid" keyProperty="userid">
         insert into user
-         (zhucetime,username,sex,userpass,usernumber,usercard,userimg,hyid,
-         usertype,shaddress,shmoney,shstate,shstatehuifu,isdelete,shzhucetime,name)
-        values (now(),#{username},1,#{userpass},null,null,
-        null,1,1,null,0,1,null,1,null,null);
+         (username,userpass)
+        values (#{username},#{userpass});
     </insert>
 
     <!-- 根据User条件修改单条数据方法,从传入对象获取主键id -->
