@@ -34,6 +34,8 @@ public class UserController {
         Map<String, String> map = new HashMap<String, String>();
         Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUsername(), 5);
         User user1 = new User();
+        System.out.println("密码"+md5Hash.toString());
+        user.setUserpass(md5Hash.toString());
         user1.setUsername(user.getUsername());
         //判断账号是否存在
         List<User> userList = userService.query(user1);
@@ -48,7 +50,7 @@ public class UserController {
         } else {
             map.put("username   ", userList1.get(0).getUsername());
             System.out.println("用户名" + userList1.get(0).getUsername());
-            map.put("msg", "登录成功,欢迎你:");
+            map.put("msg", "登录成功,欢迎你:"+user.getUsername());
             map.put("code", "1");
         }
         return map;
