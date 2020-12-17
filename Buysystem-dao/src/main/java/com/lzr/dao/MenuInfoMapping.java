@@ -22,7 +22,7 @@ public interface MenuInfoMapping {
   /**
    * 查询所有方法
    */
-  public List<MenuInfo> querymenuBypidandnodeType(@Param("pid") int pid, @Param("nodeType") int nodeType, @Param("empid") int empid);
+  public List<MenuInfo> querymenuBypidandnodeType(@Param("pid") int pid, @Param("nodeType") int nodeType, @Param("empid") int empid );
   public List<String> querymenuBypidandnodeType3(@Param("nodeType") int nodeType, @Param("empid") int empid);
 
   public List<MenuInfo> querymenuBypidandnodeType1(@Param("pid") int pid, @Param("nodeType") int nodeType);
@@ -50,4 +50,6 @@ public interface MenuInfoMapping {
    */
   int updateById(MenuInfo menuinfo);
 
+/*根据用户名查询拥有的菜单*/
+  public List<MenuInfo> querymenuall(@Param("pid") int pid, @Param("nodeType") int nodeType, @Param("username") String username );
 }

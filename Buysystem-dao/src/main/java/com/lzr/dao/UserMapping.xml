@@ -26,6 +26,7 @@
 
         <collection property="userorderss" javaType="list" ofType="com.lzr.vo.Orders"
            column="userid" select="com.lzr.dao.OrdersMapping.queryByuserid" fetchType="lazy"/>
+
         <collection property="shhuorderss" javaType="list" ofType="com.lzr.vo.Orders"
                     column="userid" select="com.lzr.dao.OrdersMapping.queryByuserid" fetchType="lazy"/>
         <collection property="shopgouwus" javaType="list" ofType="com.lzr.vo.Shopgouwu"
@@ -37,7 +38,8 @@
 
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="UserMap">
-       select * from user where isdelete=1;
+       select * from user where isdelete=1
+
     </select>
 
     <!-- 根据主键id查询数据方法 -->
@@ -93,8 +95,11 @@
 
     <!-- 根据User插入数据方法 -->
     <insert id="insert" parameterType="User" useGeneratedKeys="false" keyColumn="userid" keyProperty="userid">
-        insert into user (userid,zhucetime,username,sex,userpass,usernumber,usercard,userimg,hyid,usertype,shaddress,shmoney,shstate,shstatehuifu,isdelete,shzhucetime,name)
-        values (#{userid},now(),#{username},1,#{userpass},#{usernumber},#{usercard},#{userimg},1,1,#{shaddress},0,1,#{shstatehuifu},1,now(),#{name});
+        insert into user
+         (zhucetime,username,sex,userpass,usernumber,usercard,userimg,hyid,
+         usertype,shaddress,shmoney,shstate,shstatehuifu,isdelete,shzhucetime,name)
+        values (now(),#{username},1,#{userpass},null,null,
+        null,1,1,null,0,1,null,1,null,null);
     </insert>
 
     <!-- 根据User条件修改单条数据方法,从传入对象获取主键id -->

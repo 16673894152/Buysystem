@@ -58,7 +58,7 @@ public class UserController {
     @RequestMapping("/adduser.action")
     @ResponseBody
     public Map adduser(User user) {
-        /*用户注册时只需要传输用户名 手机 密码即可*/
+        /*用户注册时只需要传输用户名  密码即可*/
         System.out.println(user + "添加或编辑的用户");
         Map<String, String> map = new HashMap<String, String>();
         if (user.getUserid() == null) {//添加
@@ -123,18 +123,20 @@ public class UserController {
         return map;
     }
     /*模糊查询查看用户列表信息*/
-    @RequestMapping("/querylike.action")
+    @RequestMapping("/querylike2.action")
     @ResponseBody
     @CrossOrigin
-    public PageVo<User> querylike(User user,
-                                  @RequestParam(value = "page", defaultValue = "1") int page,
-                                  @RequestParam(value = "rows", defaultValue = "5") int rows) {
-        return userService.queryLike(user, page, rows);
+    public PageVo<User> querylike2(User user,
+                                   @RequestParam(value = "page", defaultValue = "1") int page,
+                                   @RequestParam(value = "rows", defaultValue = "5") int rows) {
+       User user1=new User();
+        return userService.queryLike(user1, page, rows);
     }
     /****************************************   商户 ******************************************************************/
     //注测商户  先登录用户再注册 或者输入用户名
     @RequestMapping("/zhuceshanghu.action")
     @ResponseBody
+    @CrossOrigin
     public Map zhuceshanghu(User user) {
       /*  用户需要添加的字段名:* 用户名username 密码userpass 手机号usernumber 身份证号码:usercard 用户头像:userimg  性别:男 会员:1  用户类型usertype 1
         商户地址为空shaddress  商户余额 shmoney:0 商户申请状态 shstate 商户回复shstatehuifu 空 */
@@ -167,6 +169,7 @@ public class UserController {
         user.setShstate(3);
         //商户
         user.setUsertype(2);
+
         return userService.queryLike(user, page, rows);
     }
 

@@ -15,7 +15,7 @@ public interface UserService {
   /**
    * 查询所有方法
    */
-  List<User> queryAll();
+  public PageVo<User> queryAll(User user, int page, int rows);
 
   /**
    * 根据主键userid(User.userid)查询单条数据方法

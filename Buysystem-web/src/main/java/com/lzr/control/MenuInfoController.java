@@ -1,6 +1,7 @@
 package com.lzr.control;
 
 import com.lzr.service.MenuInfoService;
+import com.lzr.vo.Employ;
 import com.lzr.vo.MenuInfo;
 import com.lzr.vo.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,5 +81,21 @@ public class MenuInfoController {
     public List<MenuInfo> queryallmenus3(int rid){
         //System.out.println(rid);
         return  menuInfoService.xianshishouquan(rid);
+    }
+
+
+    //查询出所有的菜单信息(菜单显示用，有层级关系)  菜单首页
+    @RequestMapping("/queryall.action")
+    @ResponseBody
+    @CrossOrigin
+    public List<MenuInfo> queryalls(Employ employ){
+        /*查出该用户拥有的菜单按钮*/
+        //System.out.println("username"+employ.getUsername());
+        //List<String> list=menuInfoService.querymenuall(3,employ.getUsername());
+        //System.out.println(list);
+        //request.getSession().setAttribute("menulist",list);
+
+        //返回所有的菜单
+        return  menuInfoService.querymenuall(2,employ.getUsername());
     }
 }

@@ -10,7 +10,7 @@ public interface UserMapping {
     /**
      * 查询所有方法
      */
-    List<User> queryAll();
+    List<User> queryAll(User user);
 
     /**
      * 根据主键userid(User.userid)查询单条数据方法

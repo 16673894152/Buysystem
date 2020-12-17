@@ -16,8 +16,17 @@ public class UserServiceImpl implements UserService {
      UserMapping userMapping;
 
     @Override
-    public List<User> queryAll() {
-        return userMapping.queryAll();
+        public PageVo<User> queryAll(User user, int page, int rows) {
+            PageVo<User> pageVo = new PageVo<>();
+            //在需要分页的代码调用前 执行以下代码
+            PageHelper.startPage(page, rows);
+            //获取分页后 显示的数据集合
+            pageVo.setRows(userMapping.queryAll(user));
+            //获取总的记录数量
+            pageVo.setTotal(userMapping.queryAll(user).size());
+
+            return pageVo;
+
     }
 
     @Override
