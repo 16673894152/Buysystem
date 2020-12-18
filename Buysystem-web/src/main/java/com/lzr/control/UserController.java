@@ -70,9 +70,9 @@ public class UserController {
             user.setUserpass(md5Hash.toString());
             int num = userService.insert(user);
             if (num > 0) {
-                map.put("msg", "添加成功");
+                map.put("msg", "注册成功");
             } else {
-                map.put("msg", "添加失败");
+                map.put("msg", "注册失败");
             }
         }
         return map;
@@ -132,7 +132,6 @@ public class UserController {
                               @RequestParam(value = "page",defaultValue ="1") int page,
                               @RequestParam(value = "rows",defaultValue = "5") int rows){
         User user1=new User();
-        System.out.println(user+"33333");
         System.out.println(userService.queryAll(user,page,rows));
         return userService.queryAll(user,1,5);
 
