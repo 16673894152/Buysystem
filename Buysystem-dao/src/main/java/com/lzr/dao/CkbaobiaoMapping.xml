@@ -10,61 +10,65 @@
         <result column="count" property="count"/>
         <result column="type" property="type"/>
         <result column="time" property="time"/>
+        <result column="isdelete" property="isdelete"/>
+        <association property="empid" column="empid"
+                     select="com.lzr.dao.EmployMapping.queryById" javaType="Employ" fetchType="lazy"/>
         <association property="shopid" column="shopid"
-           select="com.lzr.dao.ShopMapping.queryById" javaType="Shop" fetchType="lazy"/>
+                     select="com.lzr.dao.ShopMapping.queryById" javaType="Shop" fetchType="lazy"/>
         <association property="wareid" column="wareid"
-           select="com.lzr.dao.WarehouseMapping.queryById" javaType="Warehouse" fetchType="lazy"/>
+                     select="com.lzr.dao.WarehouseMapping.queryById" javaType="Warehouse" fetchType="lazy"/>
     </resultMap>
 
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="CkbaobiaoMap">
-       select ckbbid,wareid,count,shopid,time,type from ckbaobiao;
+        select * from ckbaobiao;
     </select>
 
     <!-- 根据主键id查询数据方法 -->
     <select id="queryById" parameterType="int" resultMap="CkbaobiaoMap">
-       select ckbbid,wareid,count,shopid,time,type from ckbaobiao where ckbbid = #{ckbbid};
+        select * from ckbaobiao where ckbbid = #{ckbbid};
     </select>
 
     <!-- 根据Ckbaobiao条件查询数据方法 -->
     <select id="query" resultMap="CkbaobiaoMap">
-        select ckbbid,wareid,count,shopid,time,type 
-        from ckbaobiao 
+        select * from ckbaobiao
         <where>
-            <if test="ckbbid != null"> and ckbbid = #{ckbbid}</if>
+            <if test="ckbbid != null">and ckbbid = #{ckbbid}</if>
             <if test="shopid != null">
-                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
+                <if test="shopid.id != null">and shopid = #{shopid.id}</if>
             </if>
             <if test="wareid != null">
-                 <if test="wareid.wareid != null"> and wareid = #{wareid.wareid}</if>
+                <if test="wareid.wareid != null">and wareid = #{wareid.wareid}</if>
             </if>
-            <if test="count != null"> and count = #{count}</if>
-            <if test="type != null"> and type = #{type}</if>
-            <if test="time != null"> and time = #{time}</if> 
+            <if test="count != null">and count = #{count}</if>
+            <if test="type != null">and type = #{type}</if>
+            <if test="time != null">and time = #{time}</if>
         </where>
     </select>
 
     <!-- 根据Ckbaobiao条件模糊查询数据方法 -->
     <select id="queryLike" resultMap="CkbaobiaoMap">
-        select ckbbid,wareid,count,shopid,time,type 
-        from ckbaobiao 
+        select * from ckbaobiao
         <where>
-            <if test="ckbbid != null"> and ckbbid like concat('%',#{ckbbid},'%')</if>
+            <if test="ckbbid != null">and ckbbid like concat('%',#{ckbbid},'%')</if>
             <if test="shopid != null">
-                 <if test="shopid.id != null"> and shopid like concat('%',#{shopid.id},'%')</if>
+                <if test="shopid.id != null">and shopid like concat('%',#{shopid.id},'%')</if>
+            </if>
+            <if test="employ != null">
+                <if test="employ.empid != null">and empid like concat('%',#{employ.empid},'%')</if>
             </if>
             <if test="wareid != null">
-                 <if test="wareid.wareid != null"> and wareid like concat('%',#{wareid.wareid},'%')</if>
+                <if test="wareid.wareid != null">and wareid like concat('%',#{wareid.wareid},'%')</if>
             </if>
-            <if test="count != null"> and count like concat('%',#{count},'%')</if>
-            <if test="type != null"> and type like concat('%',#{type},'%')</if>
-            <if test="time != null"> and time like concat('%',#{time},'%')</if> 
+            <if test="count != null">and count like concat('%',#{count},'%')</if>
+            <if test="type != null">and type like concat('%',#{type},'%')</if>
+            <if test="time != null">and time like concat('%',#{time},'%')</if>
         </where>
     </select>
     <!-- 根据Ckbaobiao插入数据方法 -->
     <insert id="insert" parameterType="Ckbaobiao" useGeneratedKeys="true" keyColumn="ckbbid" keyProperty="ckbbid">
-        insert into ckbaobiao (ckbbid,shopid,wareid,count,type,time) 
-        values (#{ckbbid},#{shopid.shopid},#{wareid.wareid},#{count},#{type},#{time}); 
+        insert into ckbaobiao (ckbbid, shopid, wareid, empid,count, type, time,isdelete)
+        values (#{ckbbid}, #{shopid.shopid}, #{wareid.wareid},#{employ.empid}, #{count}, #{type},now(),1);
     </insert>
 
     <!-- 根据Ckbaobiao条件删除单条数据方法,从传入对象获取id -->

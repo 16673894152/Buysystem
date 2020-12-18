@@ -44,7 +44,6 @@ public class WarehouseServiceImpl implements WarehouseService {
                 }
             }
         }
-        System.out.println(pageVo.getRows()+"数据");
         return pageVo;
     }
 
@@ -55,7 +54,14 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public Warehouse queryById(int id) {
-        return warehouseMapping.queryById(id);
+        List<Warehouse> querylist=warehouseMapping.queryLike1();
+        Warehouse warehouse1=warehouseMapping.queryById(id);
+        for(Warehouse warehouse:querylist){
+            if(warehouse.getWareid()==warehouse1.getWareid()){
+                    warehouse1.setShopcount(warehouse.getShopcount());
+            }
+        }
+        return warehouse1;
     }
 
     @Override

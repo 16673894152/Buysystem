@@ -39,7 +39,7 @@
 
     <!--根据wareid查看 商品及商品数量-->
     <select id="queryByWareid" parameterType="int" resultMap="WareshopMap1">
-        SELECT wareshop.* FROM wareshop,warehouse WHERE wareshop.`wareid`=warehouse.`wareid` AND warehouse.wareid=#{wareid}
+        SELECT wareshop.* FROM wareshop,warehouse WHERE wareshop.`wareid`=warehouse.`wareid` AND warehouse.wareid=#{wareid} ORDER BY shopcount DESC
     </select>
 
 
@@ -50,7 +50,7 @@
         <where>
             <if test="wsshid != null">and wsshid = #{wsshid}</if>
             <if test="shopid != null">
-                <if test="shopid.id != null">and shopid = #{shopid.id}</if>
+                <if test="shopid.shopid != null">and shopid = #{shopid.shopid}</if>
             </if>
             <if test="wareid != null">
                 <if test="wareid.wareid != null">and wareid = #{wareid.wareid}</if>
@@ -67,7 +67,7 @@
         <where>
             <if test="wsshid != null">and wsshid like concat('%',#{wsshid},'%')</if>
             <if test="shopid != null">
-                <if test="shopid.id != null">and shopid like concat('%',#{shopid.id},'%')</if>
+                <if test="shopid.shopid != null">and shopid like concat('%',#{shopid.shopid},'%')</if>
             </if>
             <if test="wareid != null">
                 <if test="wareid.wareid != null">and wareid like concat('%',#{wareid.wareid},'%')</if>
@@ -88,12 +88,12 @@
         update wareshop
         <set>
             <if test="shopid != null">
-                <if test="shopid.id != null">shopid = #{shopid.id},</if>
+                <if test="shopid.id != null">shopid = #{shopid.shopid},</if>
             </if>
             <if test="wareid != null">
                 <if test="wareid.wareid != null">wareid = #{wareid.wareid},</if>
             </if>
-            <if test="shopcount != null">shopcount +=#{shopcount},</if>
+            <if test="shopcount != null">shopcount=shopcount+#{shopcount},</if>
             <if test="isdelete != null">isdelete = #{isdelete},</if>
         </set>
         where wsshid = #{wsshid}

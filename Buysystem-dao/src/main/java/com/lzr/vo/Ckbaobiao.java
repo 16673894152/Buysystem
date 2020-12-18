@@ -35,8 +35,13 @@ public class Ckbaobiao implements Serializable {
      */
     private Integer type;
     /**
+     * 操作员
+     */
+    private Employ employ;
+    /**
      * 时间
      */
+    private int isdelete;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp time;
 
@@ -44,13 +49,31 @@ public class Ckbaobiao implements Serializable {
         super();
     }
 
-    public Ckbaobiao(Integer ckbbid, Shop shopid, Warehouse wareid, Integer count, Integer type, Timestamp time) {
+    public Ckbaobiao(Integer ckbbid, Shop shopid, Warehouse wareid, Integer count, Integer type, Employ employ, int isdelete, Timestamp time) {
         this.ckbbid = ckbbid;
         this.shopid = shopid;
         this.wareid = wareid;
         this.count = count;
         this.type = type;
+        this.employ = employ;
+        this.isdelete = isdelete;
         this.time = time;
+    }
+
+    public Employ getEmploy() {
+        return employ;
+    }
+
+    public void setEmploy(Employ employ) {
+        this.employ = employ;
+    }
+
+    public int getIsdelete() {
+        return isdelete;
+    }
+
+    public void setIsdelete(int isdelete) {
+        this.isdelete = isdelete;
     }
 
     /**
@@ -127,14 +150,16 @@ public class Ckbaobiao implements Serializable {
 
     @Override
     public String toString() {
-        return "ckbaobiao[" +
-                "ckbbid = " + ckbbid +
-                ", shopid = " + shopid +
-                ", wareid = " + wareid +
-                ", count = " + count +
-                ", type = " + type +
-                ", time = " + time +
-                "]";
+        return "Ckbaobiao{" +
+                "ckbbid=" + ckbbid +
+                ", shopid=" + shopid +
+                ", wareid=" + wareid +
+                ", count=" + count +
+                ", type=" + type +
+                ", employ=" + employ +
+                ", isdelete=" + isdelete +
+                ", time=" + time +
+                '}';
     }
 }
 
