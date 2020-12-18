@@ -1,8 +1,8 @@
 package com.lzr.control;
 
 
+import com.github.pagehelper.Page;
 import com.lzr.service.UserService;
-import com.lzr.vo.Employ;
 import com.lzr.vo.PageVo;
 import com.lzr.vo.User;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -30,10 +30,12 @@ public class UserController {
     @RequestMapping("/login.action")
     @ResponseBody
     public Map login(User user) {
+        System.out.println(user+"user");
         Map<String, String> map = new HashMap<String, String>();
-        Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUserpass(), 5);
-        user.setUserpass(md5Hash.toString());
+        Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUsername(), 5);
         User user1 = new User();
+        System.out.println("密码"+md5Hash.toString());
+        user.setUserpass(md5Hash.toString());
         user1.setUsername(user.getUsername());
         //判断账号是否存在
         List<User> userList = userService.query(user1);
@@ -46,9 +48,9 @@ public class UserController {
             map.put("msg", "密码错误,请重新输入");
             map.put("code", "0");
         } else {
-            map.put("employ", userList1.get(0).getUsername());
+            map.put("username   ", userList1.get(0).getUsername());
             System.out.println("用户名" + userList1.get(0).getUsername());
-            map.put("msg", "登录成功,欢迎你:");
+            map.put("msg", "登录成功,欢迎你:"+user.getUsername());
             map.put("code", "1");
         }
         return map;
@@ -123,14 +125,27 @@ public class UserController {
         return map;
     }
     /*模糊查询查看用户列表信息*/
-    @RequestMapping("/querylike2.action")
+    @RequestMapping("/querylike.action")
     @ResponseBody
     @CrossOrigin
-    public PageVo<User> querylike2(User user,
-                                   @RequestParam(value = "page", defaultValue = "1") int page,
-                                   @RequestParam(value = "rows", defaultValue = "5") int rows) {
-       User user1=new User();
-        return userService.queryLike(user1, page, rows);
+    public PageVo<User> querall(User user,
+                              @RequestParam(value = "page",defaultValue ="1") int page,
+                              @RequestParam(value = "rows",defaultValue = "5") int rows){
+        User user1=new User();
+        System.out.println(userService.queryAll(user,page,rows));
+        return userService.queryAll(user1,1,5);
+
+    }
+    /*根据用户名查询用户*/
+    @RequestMapping("/queryuser.action")
+    @ResponseBody
+    @CrossOrigin
+    public User queryadmin(User user){
+        User user1=new User();
+        user1.setUsername("admin");
+        System.out.println(userService.GETALL(user1));
+        return userService.GETALL(user1);
+
     }
     /****************************************   商户 ******************************************************************/
     //注测商户  先登录用户再注册 或者输入用户名

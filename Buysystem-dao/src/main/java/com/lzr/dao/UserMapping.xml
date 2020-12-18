@@ -22,23 +22,23 @@
         <result column="shstate" property="shstate"/>
         <result column="shmoney" property="shmoney"/>
         <association property="hyid" column="hyid"
-           select="com.lzr.dao.HuiyuanMapping.queryById" javaType="Huiyuan" fetchType="lazy"/>
+                     select="com.lzr.dao.HuiyuanMapping.queryById" javaType="Huiyuan" fetchType="lazy"/>
 
         <collection property="userorderss" javaType="list" ofType="com.lzr.vo.Orders"
-           column="userid" select="com.lzr.dao.OrdersMapping.queryByuserid" fetchType="lazy"/>
+                    column="userid" select="com.lzr.dao.OrdersMapping.queryByuserid" fetchType="lazy"/>
 
         <collection property="shhuorderss" javaType="list" ofType="com.lzr.vo.Orders"
-                    column="userid" select="com.lzr.dao.OrdersMapping.queryByuserid" fetchType="lazy"/>
+                    column="userid" select="com.lzr.dao.OrdersMapping.queryByshid" fetchType="lazy"/>
         <collection property="shopgouwus" javaType="list" ofType="com.lzr.vo.Shopgouwu"
-           column="userid" select="com.lzr.dao.ShopgouwuMapping.queryByuserid" fetchType="lazy"/>
+                    column="userid" select="com.lzr.dao.ShopgouwuMapping.queryByuserid" fetchType="lazy"/>
 
         <collection property="shoppingjias" javaType="list" ofType="com.lzr.vo.Shoppingjia"
-           column="userid" select="com.lzr.dao.ShoppingjiaMapping.queryByuserid" fetchType="lazy"/>
+                    column="userid" select="com.lzr.dao.ShoppingjiaMapping.queryByuserid" fetchType="lazy"/>
     </resultMap>
 
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="UserMap">
-       select * from user where isdelete=1
+       select * from user
 
     </select>
 
@@ -96,10 +96,8 @@
     <!-- 根据User插入数据方法 -->
     <insert id="insert" parameterType="User" useGeneratedKeys="false" keyColumn="userid" keyProperty="userid">
         insert into user
-         (zhucetime,username,sex,userpass,usernumber,usercard,userimg,hyid,
-         usertype,shaddress,shmoney,shstate,shstatehuifu,isdelete,shzhucetime,name)
-        values (now(),#{username},1,#{userpass},null,null,
-        null,1,1,null,0,1,null,1,null,null);
+         (username,userpass)
+        values (#{username},#{userpass});
     </insert>
 
     <!-- 根据User条件修改单条数据方法,从传入对象获取主键id -->
@@ -130,4 +128,7 @@
     <delete id="deleteById" parameterType="int">
         delete from user where userid=#{userid}
     </delete>
+    <select id="getuser" parameterType="user" resultMap="UserMap">
+        select * from user where username=#{username}
+    </select>
 </mapper>

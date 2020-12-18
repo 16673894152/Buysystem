@@ -22,7 +22,8 @@ public class UserServiceImpl implements UserService {
             PageHelper.startPage(page, rows);
             //获取分页后 显示的数据集合
             pageVo.setRows(userMapping.queryAll(user));
-            //获取总的记录数量
+            //获取总的记录数量ssou
+        System.out.println(userMapping.queryAll(user).size());
             pageVo.setTotal(userMapping.queryAll(user).size());
 
             return pageVo;
@@ -65,5 +66,10 @@ public class UserServiceImpl implements UserService {
         pageVo.setTotal(userMapping.queryLike(user).size());
 
         return pageVo;
+    }
+
+    @Override
+    public User GETALL(User user) {
+        return userMapping.getuser(user);
     }
 }

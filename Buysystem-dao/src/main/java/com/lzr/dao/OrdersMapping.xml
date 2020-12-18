@@ -36,9 +36,7 @@
         <result column="orderstate" property="orderstate"/>
         <result column="isdelete" property="isdelete"/>
         <result column="shshouru" property="shshouru"/>
-        <association property="shid" column="userid"
-                     select="com.lzr.dao.UserMapping.queryById" javaType="User" fetchType="lazy"/>
-        <collection property="orderxqs" javaType="list" ofType="com.lzr.vo.Orderxq"
+       <collection property="orderxqs" javaType="list" ofType="com.lzr.vo.Orderxq"
                     column="orderid" select="com.lzr.dao.OrderxqMapping.queryByorderid" fetchType="lazy"/>
     </resultMap>
     <!-- 查询所有方法 -->
