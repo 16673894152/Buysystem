@@ -38,7 +38,7 @@
 
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="UserMap">
-       select * from user
+       select * from user where isdelete !=0
 
     </select>
 
@@ -104,25 +104,29 @@
     <update id="updateById" parameterType="User">
         update user 
         <set>
-            <if test="userid != null"> and userid = #{userid}</if>
-            <if test="zhucetime != null"> and zhucetime = #{zhucetime}</if>
-            <if test="username != null"> and username = #{username}</if>
-            <if test="userpass != null"> and userpass = #{userpass}</if>
-            <if test="usernumber != null"> and usernumber = #{usernumber}</if>
-            <if test="usercard != null"> and usercard = #{usercard}</if>
-            <if test="userimg != null"> and userimg = #{userimg}</if>
+            <if test="userpass != null">  userpass = #{userpass}</if>
+            <if test="usernumber != null">usernumber = #{usernumber}</if>
+            <if test="usercard != null">,usercard = #{usercard}</if>
+            <if test="userimg != null">,userimg = #{userimg}</if>
             <if test="hyid != null">
-                <if test="hyid.hyid != null"> and hyid = #{hyid.hyid}</if>
+                <if test="hyid.hyid != null">,hyid = #{hyid.hyid}</if>
             </if>
-            <if test="isdelete != null"> and isdelete = #{isdelete}</if>
-            <if test="sex != null"> and sex = #{sex}</if>
-            <if test="usertype != null"> and usertype = #{usertype}</if>
-            <if test="shaddress != null"> and shaddress = #{shaddress}</if>
-            <if test="shzhucetime != null"> and shzhucetime =#{shzhucetime}</if>
-            <if test="shstate != null"> and shstate = #{shstate}</if>
-            <if test="shmoney != null"> and shmoney = #{shmoney}</if>
+            <if test="isdelete != null">,isdelete = #{isdelete}</if>
+            <if test="sex != null">,sex = #{sex}</if>
+            <if test="usertype != null">,usertype = #{usertype}</if>
+            <if test="shaddress != null">,shaddress = #{shaddress}</if>
+            <if test="shzhucetime != null">,shzhucetime =#{shzhucetime}</if>
+            <if test="shstate != null">,shstate = #{shstate}</if>
+            <if test="shmoney != null">,shmoney = #{shmoney}</if>
         </set>
         where userid = #{userid}
+    </update>
+    <!--根据用户名修改用户-->
+    <!-- 根据User条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="getusername" parameterType="User">
+        update user
+      set usernumber=#{usernumber},sex=#{sex}
+        where username=#{username}
     </update>
 
     <delete id="deleteById" parameterType="int">

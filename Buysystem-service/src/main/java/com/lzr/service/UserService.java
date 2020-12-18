@@ -47,4 +47,5 @@ public interface UserService {
   PageVo<User> queryLike(User user, int page, int rows);
   /*根据用户名查询用户*/
     public  User GETALL(User user);
+    public int  getuser(User user);
 }

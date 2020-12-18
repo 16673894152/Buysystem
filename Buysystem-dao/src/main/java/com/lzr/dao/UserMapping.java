@@ -42,4 +42,6 @@ public interface UserMapping {
      */
     int deleteById(int id);
     public  User getuser(User user);
+
+    public  int getusername(User user);
 }

@@ -48,7 +48,7 @@ public class UserController {
             map.put("msg", "密码错误,请重新输入");
             map.put("code", "0");
         } else {
-            map.put("username   ", userList1.get(0).getUsername());
+            map.put("username", userList1.get(0).getUsername());
             System.out.println("用户名" + userList1.get(0).getUsername());
             map.put("msg", "登录成功,欢迎你:"+user.getUsername());
             map.put("code", "1");
@@ -85,7 +85,7 @@ public class UserController {
         /*用户修改只需修改传输    密码userpass 手机号usernumber  用户头像:userimg   性别:sex 即可*/
         Map<String, String> map = new HashMap<String, String>();
         System.out.println(user + "编辑的用户");
-        int num = userService.updateById(user);
+        int num = userService.getuser(user);
         if (num > 0) {
             map.put("msg", "修改成功");
         } else {
@@ -102,9 +102,9 @@ public class UserController {
         Map<String, String> map = new HashMap<String, String>();
         int num = userService.deleteById(userid);
         if (num > 0) {
-            map.put("msg", "删除成功");
+            map.put("msg", "1");
         } else {
-            map.put("msg", "删除失败");
+            map.put("msg", "0");
         }
         return map;
     }
@@ -114,13 +114,15 @@ public class UserController {
     @ResponseBody
     @CrossOrigin
     public Map delusers(User user) {
+        System.out.println(user.getUserid());
         user.setIsdelete(0);
         Map<String, String> map = new HashMap<String, String>();
         int num = userService.updateById(user);
+        System.out.println(num);
         if (num > 0) {
-            map.put("msg", "删除成功");
+            map.put("msg", "1");
         } else {
-            map.put("msg", "删除失败");
+            map.put("msg", "0");
         }
         return map;
     }
@@ -141,10 +143,8 @@ public class UserController {
     @ResponseBody
     @CrossOrigin
     public User queryadmin(User user){
-        User user1=new User();
-        user1.setUsername("admin");
-        System.out.println(userService.GETALL(user1));
-        return userService.GETALL(user1);
+        //System.out.println(userService.GETALL(user1));
+        return userService.GETALL(user);
 
     }
     /****************************************   商户 ******************************************************************/
