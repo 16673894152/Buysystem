@@ -76,7 +76,7 @@
         <where>
             <if test="userid != null"> and userid like concat('%',#{userid},'%')</if>
             <if test="zhucetime != null"> and zhucetime like concat('%',#{zhucetime},'%')</if>
-            <if test="username != null"> and username like concat('%',#{username != null},'%')</if>
+            <if test="username != null"> and username like concat('%',#{username},'%')</if>
             <if test="userpass != null"> and userpass like concat('%',#{userpass},'%')</if>
             <if test="usernumber != null"> and usernumber like concat('%',#{usernumber},'%')</if>
             <if test="usercard != null"> and usercard like concat('%',#{usercard},'%')</if>

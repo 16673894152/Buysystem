@@ -132,8 +132,9 @@ public class UserController {
                               @RequestParam(value = "page",defaultValue ="1") int page,
                               @RequestParam(value = "rows",defaultValue = "5") int rows){
         User user1=new User();
+        System.out.println(user+"33333");
         System.out.println(userService.queryAll(user,page,rows));
-        return userService.queryAll(user1,1,5);
+        return userService.queryAll(user,1,5);
 
     }
     /*根据用户名查询用户*/

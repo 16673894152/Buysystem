@@ -21,10 +21,10 @@ public class UserServiceImpl implements UserService {
             //在需要分页的代码调用前 执行以下代码
             PageHelper.startPage(page, rows);
             //获取分页后 显示的数据集合
-            pageVo.setRows(userMapping.queryAll(user));
+            pageVo.setRows(userMapping.queryLike(user));
             //获取总的记录数量ssou
-        System.out.println(userMapping.queryAll(user).size());
-            pageVo.setTotal(userMapping.queryAll(user).size());
+        System.out.println(userMapping.queryLike(user).size());
+            pageVo.setTotal(userMapping.queryLike(user).size());
 
             return pageVo;
 
