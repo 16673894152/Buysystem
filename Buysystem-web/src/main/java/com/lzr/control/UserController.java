@@ -188,4 +188,39 @@ public class UserController {
         return userService.queryLike(user, page, rows);
     }
 
+    @RequestMapping("/login2.action")
+    @ResponseBody
+    public Map login2(User user) {
+        System.out.println(user+"user");
+        Map<String, String> map = new HashMap<String, String>();
+        Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUsername(), 5);
+        User user1 = new User();
+        System.out.println("密码"+md5Hash.toString());
+        user.setUserpass(md5Hash.toString());
+        user1.setUsername(user.getUsername());
+        //判断账号是否存在
+        List<User> userList = userService.query(user1);
+        //判断账号密码是否正确
+        List<User> userList1 = userService.query(user);
+        if (userList.size() == 0) {
+            map.put("msg", "账号不存在,请重新输入");
+            map.put("code", "0");
+        } else if (userList1.size() == 0) {
+            map.put("msg", "密码错误,请重新输入");
+            map.put("code", "0");
+        } else if (userList.get(0).getUsertype()!=2) {
+            map.put("msg", "该用户不是商户");
+            map.put("code", "0");
+        } else if (userList.get(0).getShstate()==5) {
+            map.put("msg", "该商户被冻结");
+            map.put("code", "0");
+        } else {
+            map.put("shname",userList1.get(0).getUsername());
+            map.put("id", userList1.get(0).getUserid().toString());
+            map.put("msg", "登录成功,欢迎你:"+user.getUsername());
+            map.put("code", "1");
+        }
+        return map;
+    }
+
 }
