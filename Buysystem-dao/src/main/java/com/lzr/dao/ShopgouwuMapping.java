@@ -17,6 +17,7 @@ public interface ShopgouwuMapping {
    * 根据主键shopgwid(Shopgouwu.userid)查询单条数据方法
    */
   List<Shopgouwu> queryByuserid(int userid);
+
   /**
    * 根据主键shopgwid(Shopgouwu.shopgwid)查询单条数据方法 
    */
