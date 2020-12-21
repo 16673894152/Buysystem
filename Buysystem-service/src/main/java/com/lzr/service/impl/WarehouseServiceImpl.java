@@ -12,9 +12,8 @@ import java.util.List;
 
 @Service
 public class WarehouseServiceImpl implements WarehouseService {
-     @Autowired
-     WarehouseMapping warehouseMapping;
-
+    @Autowired
+    WarehouseMapping warehouseMapping;
 
 
     @Override
@@ -26,19 +25,10 @@ public class WarehouseServiceImpl implements WarehouseService {
         pageVo.setRows(warehouseMapping.queryLike(warehouse));
         //获取总的记录数量
         pageVo.setTotal(warehouseMapping.queryLike(warehouse).size());
-        /*  List<RoleInfo> querycount=roleInfoMapping.querycount();
-        //将人数传入querylike集合里面的属性里面去
-        for (RoleInfo roleall: pageVo.getRows()){
-            for(RoleInfo role:querycount){
-                if(roleall.getRid() == role.getRid()){
-                    roleall.setCount(role.getCount());
-                }
-            }
-        }*/
-        List<Warehouse> querylist=warehouseMapping.queryLike1();
-        for (Warehouse warehouseall: pageVo.getRows()){
-            for(Warehouse warehouse1:querylist){
-                if(warehouseall.getWareid() == warehouse1.getWareid()){
+        List<Warehouse> querylist = warehouseMapping.queryLike1();
+        for (Warehouse warehouseall : pageVo.getRows()) {
+            for (Warehouse warehouse1 : querylist) {
+                if (warehouseall.getWareid() == warehouse1.getWareid()) {
                     warehouseall.setShopcount(warehouse1.getShopcount());
                     warehouseall.setTypecount(warehouse1.getTypecount());
                 }
@@ -49,16 +39,26 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public List<Warehouse> queryAll() {
-        return warehouseMapping.queryAll();
+        List<Warehouse> quaryall = warehouseMapping.queryAll();
+        List<Warehouse> querylist = warehouseMapping.queryLike1();
+        for (Warehouse warehouseall : quaryall) {
+            for (Warehouse warehouse1 : querylist) {
+                if (warehouseall.getWareid() == warehouse1.getWareid()) {
+                    warehouseall.setShopcount(warehouse1.getShopcount());
+                    warehouseall.setTypecount(warehouse1.getTypecount());
+                }
+            }
+        }
+        return quaryall;
     }
 
     @Override
     public Warehouse queryById(int id) {
-        List<Warehouse> querylist=warehouseMapping.queryLike1();
-        Warehouse warehouse1=warehouseMapping.queryById(id);
-        for(Warehouse warehouse:querylist){
-            if(warehouse.getWareid()==warehouse1.getWareid()){
-                    warehouse1.setShopcount(warehouse.getShopcount());
+        List<Warehouse> querylist = warehouseMapping.queryLike1();
+        Warehouse warehouse1 = warehouseMapping.queryById(id);
+        for (Warehouse warehouse : querylist) {
+            if (warehouse.getWareid() == warehouse1.getWareid()) {
+                warehouse1.setShopcount(warehouse.getShopcount());
             }
         }
         return warehouse1;

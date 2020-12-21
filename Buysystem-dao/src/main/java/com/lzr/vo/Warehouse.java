@@ -19,7 +19,7 @@ public class Warehouse implements Serializable {
 	/**仓库备注*/
 	private String wareremark;
 	/**仓库最大容量*/
-	private String warecount;
+	private int warecount;
 	/**仓库负责人--员工对象*/
 	private Employ empid;
 	/**仓库地址*/
@@ -41,7 +41,7 @@ public class Warehouse implements Serializable {
 		super();
 	}
 
-	public Warehouse(Integer wareid, String warename, String wareremark, String warecount, Employ empid, String wareaddress, Integer jingdu, Integer weidu, Integer isdelete, int typecount, int shopcount, List<Wareshop> wareshops) {
+	public Warehouse(Integer wareid, String warename, String wareremark, int warecount, Employ empid, String wareaddress, Integer jingdu, Integer weidu, Integer isdelete, int typecount, int shopcount, List<Wareshop> wareshops) {
 		this.wareid = wareid;
 		this.warename = warename;
 		this.wareremark = wareremark;
@@ -105,11 +105,11 @@ public class Warehouse implements Serializable {
 		return wareremark;
 	}
 	/**设置"仓库最大容量"*/
-	public void setWarecount(String warecount){
+	public void setWarecount(int warecount){
 		this.warecount = warecount;
 	}
 	/**获取"仓库最大容量"*/
-	public String getWarecount(){
+	public int getWarecount(){
 		return warecount;
 	}
 	public void setEmpid(Employ empid){
