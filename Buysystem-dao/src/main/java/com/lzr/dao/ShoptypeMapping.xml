@@ -9,7 +9,17 @@
         <result column="shoptyname" property="shoptyname"/>
         <result column="shopremart" property="shopremart"/>
     </resultMap>
-
+    <!-- resultMap映射 -->
+    <resultMap id="ShoptypeMap1" type="Shoptype">
+        <id column="shoptyid" property="shoptyid"/>
+        <result column="shoptyname" property="shoptyname"/>
+        <result column="shopremart" property="shopremart"/>
+        <result column="shuliang" property="count"/>
+    </resultMap>
+    <!---->
+    <select id="querycount" resultMap="ShoptypeMap1">
+    SELECT shoptype.*,COUNT(*) AS shuliang FROM shop,shoptype WHERE shop.shoptyid=shoptype.`shoptyid` and shop.isdelete=1  GROUP BY shoptyid;
+    </select>
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="ShoptypeMap">
        select shoptyname,shopremart,shoptyid from shoptype;

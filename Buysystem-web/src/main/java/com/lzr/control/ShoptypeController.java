@@ -81,6 +81,7 @@ public class ShoptypeController {
     }
     @RequestMapping("/queryall.action")
     @ResponseBody
+    @CrossOrigin
     public List<Shoptype> queryall() {
         return shoptypeService.queryAll();
     }

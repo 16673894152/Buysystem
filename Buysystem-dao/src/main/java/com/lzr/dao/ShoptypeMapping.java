@@ -18,7 +18,10 @@ public interface ShoptypeMapping {
      * 查询所有方法
      */
     List<Shoptype> queryAll();
-
+    /**
+     * 查询所有类型中的数量
+     */
+    List<Shoptype> querycount();
     /**
      * 根据主键shoptyid(Shoptype.shoptyid)查询单条数据方法
      */
