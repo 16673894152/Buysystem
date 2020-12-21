@@ -11,6 +11,8 @@
         <result column="price" property="price"/>
         <association property="shopid" column="shopid"
                      select="com.lzr.dao.ShopMapping.queryById" javaType="Shop" fetchType="lazy"/>
+        <association property="userid" column="userid"
+                     select="com.lzr.dao.UserMapping.queryById" javaType="com.lzr.vo.User" fetchType="lazy"/>
     </resultMap>
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="ShopgouwuMap">
@@ -57,7 +59,7 @@
                 <if test="shopid.shopid != null"> and shopid like concat('%',#{shopid.shopid},'%')</if>
             </if>
             <if test="number != null"> and number like concat('%',#{number},'%')</if>
-            <if test="price != null"> and price like concat('%',#{price},'%')</if>
+            <if test="price != 0.0"> and price like concat('%',#{price},'%')</if>
         </where>
     </select>
     <!-- 根据Shopgouwu插入数据方法 -->
