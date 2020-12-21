@@ -31,5 +31,4 @@ public class ShopputController {
         System.out.println(shopput);
         return shopputService.queryLike(shopput);
     }
-
 }

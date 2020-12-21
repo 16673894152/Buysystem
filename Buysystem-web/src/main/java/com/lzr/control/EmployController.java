@@ -3,9 +3,9 @@ package com.lzr.control;
 import com.lzr.service.EmployService;
 import com.lzr.vo.Employ;
 import com.lzr.vo.PageVo;
-import org.apache.shiro.SecurityUtils;
+
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.session.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
