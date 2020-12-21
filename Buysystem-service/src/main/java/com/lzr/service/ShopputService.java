@@ -15,6 +15,15 @@ public interface ShopputService {
    */
   List<Shopput> queryAll();
 
+  /*
+   *  今日精选
+   * */
+  List<Shopput> queryDistilled();
+
+  /*
+  *  querylike
+  * */
+  List<Shopput> queryLike(Shopput shopput);
   /**
    * 根据主键shopputid(Shopput.shopputid)查询单条数据方法
    */

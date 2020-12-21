@@ -21,6 +21,16 @@ public class ShopputServiceImpl implements ShopputService {
     }
 
     @Override
+    public List<Shopput> queryDistilled() {
+        return shopputMapping.queryDistilled();
+    }
+
+    @Override
+    public List<Shopput> queryLike(Shopput shopput) {
+        return shopputMapping.queryLike(shopput);
+    }
+
+    @Override
     public Shopput queryById(int id) {
         return shopputMapping.queryById(id);
     }

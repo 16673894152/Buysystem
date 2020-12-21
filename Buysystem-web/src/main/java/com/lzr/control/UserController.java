@@ -61,12 +61,12 @@ public class UserController {
     @ResponseBody
     public Map adduser(User user) {
         /*用户注册时只需要传输用户名  密码即可*/
-        System.out.println(user + "添加或编辑的用户");
+        /*System.out.println(user + "添加或编辑的用户");*/
         Map<String, String> map = new HashMap<String, String>();
         if (user.getUserid() == null) {//添加
             //加密
             Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUsername(), 5);
-            System.out.println("加密后的密码：" + md5Hash.toString());
+         /*   System.out.println("加密后的密码：" + md5Hash.toString());*/
             user.setUserpass(md5Hash.toString());
             int num = userService.insert(user);
             if (num > 0) {

@@ -18,6 +18,12 @@ public interface ShopputMapping {
    */
   List<Shopput> queryAll();
 
+  /*
+  *  今日精选
+  * */
+  List<Shopput> queryDistilled();
+
+
   /**
    * 根据主键shopputid(Shopput.shopputid)查询单条数据方法 
    */
