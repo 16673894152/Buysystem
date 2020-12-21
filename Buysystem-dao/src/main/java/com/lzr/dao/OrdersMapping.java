@@ -54,4 +54,6 @@ public interface OrdersMapping {
    * 根据Orders条件删除单条数据方法,从传入对象获取id 
    */
   int deleteById(int id);
+  /*用户查询订单*/
+  List<Orders> getdingdanall(Orders orders);
 }

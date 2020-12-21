@@ -140,4 +140,11 @@
     <delete id="deleteById" parameterType="int">
         delete from orders where orderid = #{orderid};
     </delete>
+            <!--用户查询订单-->
+    <select id="getdingdanall" parameterType="orders" resultMap="OrdersMap">
+        select * from orders
+        <where >
+            <if test="orderstate!=null">orderstate=#{orderstate}</if>
+        </where>
+    </select>
 </mapper>
