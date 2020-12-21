@@ -33,10 +33,18 @@ public class User {
     private List<Shopgouwu> shopgouwus;
     private List<Shoppingjia> shoppingjias;
     private List<Orders> shhuorderss;
+    //商户负责人
+    private String shname;
+    //商户门店名
+    private String storename;
+    //商户联系方式
+    private String storenumber;
+    //用户收货地址
+    private String useraddress;
     public User() {
     }
 
-    public User(Integer userid, Timestamp zhucetime, String username, Integer sex, String userpass, String usernumber, String usercard, String userimg, Huiyuan hyid, Integer usertype, String shaddress, double shmoney, Integer shstate, String shstatehuifu, Integer isdelete,String name, Timestamp shzhucetime, List<Orders> userorderss,List<Orders> shhuorderss,  List<Shopgouwu> shopgouwus, List<Shoppingjia> shoppingjias) {
+    public User(Integer userid, Timestamp zhucetime, String username, Integer sex, String userpass, String usernumber, String usercard, String userimg, Huiyuan hyid, Integer usertype, String shaddress, double shmoney, Integer shstate, String shstatehuifu, Integer isdelete, Timestamp shzhucetime, String name, List<Orders> userorderss, List<Shopgouwu> shopgouwus, List<Shoppingjia> shoppingjias, List<Orders> shhuorderss, String shname, String storename, String storenumber, String useraddress) {
         this.userid = userid;
         this.zhucetime = zhucetime;
         this.username = username;
@@ -58,6 +66,42 @@ public class User {
         this.shopgouwus = shopgouwus;
         this.shoppingjias = shoppingjias;
         this.shhuorderss = shhuorderss;
+        this.shname = shname;
+        this.storename = storename;
+        this.storenumber = storenumber;
+        this.useraddress = useraddress;
+    }
+
+    public String getShname() {
+        return shname;
+    }
+
+    public void setShname(String shname) {
+        this.shname = shname;
+    }
+
+    public String getStorename() {
+        return storename;
+    }
+
+    public void setStorename(String storename) {
+        this.storename = storename;
+    }
+
+    public String getStorenumber() {
+        return storenumber;
+    }
+
+    public void setStorenumber(String storenumber) {
+        this.storenumber = storenumber;
+    }
+
+    public String getUseraddress() {
+        return useraddress;
+    }
+
+    public void setUseraddress(String useraddress) {
+        this.useraddress = useraddress;
     }
 
     public Integer getUserid() {
@@ -252,6 +296,10 @@ public class User {
                 ", shopgouwus=" + shopgouwus +
                 ", shoppingjias=" + shoppingjias +
                 ", shhuorderss=" + shhuorderss +
+                ", shname='" + shname + '\'' +
+                ", storename='" + storename + '\'' +
+                ", storenumber='" + storenumber + '\'' +
+                ", useraddress='" + useraddress + '\'' +
                 '}';
     }
 }

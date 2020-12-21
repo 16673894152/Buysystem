@@ -21,6 +21,10 @@
         <result column="shstatehuifu" property="shstatehuifu"/>
         <result column="shstate" property="shstate"/>
         <result column="shmoney" property="shmoney"/>
+        <result column="shname" property="shname"/>
+        <result column="storenumber" property="storenumber"/>
+        <result column="useraddress" property="useraddress"/>
+        <result column="storename" property="storename"/>
         <association property="hyid" column="hyid"
                      select="com.lzr.dao.HuiyuanMapping.queryById" javaType="Huiyuan" fetchType="lazy"/>
 
@@ -66,10 +70,13 @@
             <if test="usertype != null"> and usertype = #{usertype}</if>
             <if test="shaddress != null"> and shaddress = #{shaddress}</if>
             <if test="shzhucetime != null"> and shzhucetime #{shzhucetime}</if>
+            <if test="storename != null"> and storename = #{storename}</if>
             <if test="shstate != null"> and shstate = #{shstate}</if>
+            <if test="useraddress != null"> and useraddress = #{useraddress}</if>
+            <if test="shname != null"> and shname = #{shname}</if>
+            <if test="storenumber != null"> and storenumber = #{storenumber}</if>
         </where>
     </select>
-
     <!-- 根据User条件模糊查询数据方法 -->
     <select id="queryLike" resultMap="UserMap">
         select *  from user
@@ -90,9 +97,12 @@
             <if test="shaddress != null"> and shaddress like concat('%',#{shaddress},'%')</if>
             <if test="shzhucetime != null"> and shzhucetime like concat('%',#{shzhucetime},'%')</if>
             <if test="shstate != null"> and shstate like concat('%',#{shstate},'%')</if>
+            <if test="storename != null"> and storename like concat('%',#{storename},'%')</if>
+            <if test="useraddress != null"> and useraddress like concat('%',#{useraddress},'%')</if>
+            <if test="shname != null"> and shname like concat('%',#{shname},'%')</if>
+            <if test="storenumber != null"> and storenumber like concat('%',#{storenumber},'%')</if>
         </where>
     </select>
-
     <!-- 根据User插入数据方法 -->
     <insert id="insert" parameterType="User" useGeneratedKeys="false" keyColumn="userid" keyProperty="userid">
         insert into user
@@ -118,6 +128,10 @@
             <if test="shzhucetime != null">,shzhucetime =#{shzhucetime}</if>
             <if test="shstate != null">,shstate = #{shstate}</if>
             <if test="shmoney != null">,shmoney = #{shmoney}</if>
+            <if test="storename != null"> and storename = #{storename}</if>
+            <if test="useraddress != null"> and useraddress = #{useraddress}</if>
+            <if test="shname != null"> and shname = #{shname}</if>
+            <if test="storenumber != null"> and storenumber = #{storenumber}</if>
         </set>
         where userid = #{userid}
     </update>
