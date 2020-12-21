@@ -6,6 +6,7 @@ import com.lzr.service.ShoptypeService;
 import com.lzr.vo.PageVo;
 import com.lzr.vo.Shop;
 import com.lzr.vo.Shoptype;
+import com.lzr.vo.Warehouse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +41,15 @@ public class ShoptypeServiceImpl implements ShoptypeService {
         pageVo.setRows(shoptypeMapping.queryLike(shoptype));
         //获取总的记录数量
         pageVo.setTotal(shoptypeMapping.queryLike(shoptype).size());
+        /**/
+        List<Shoptype> list=shoptypeMapping.querycount();
+        for (Shoptype shoptype1: pageVo.getRows()){
+            for(Shoptype shoptype2:list){
+                if(shoptype1.getShoptyid() == shoptype2.getShoptyid()){
+                    shoptype1.setCount(shoptype2.getCount());
+                }
+            }
+        }
         return pageVo;
     }
 

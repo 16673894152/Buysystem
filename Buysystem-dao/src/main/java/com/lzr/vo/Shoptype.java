@@ -18,14 +18,17 @@ public class Shoptype implements Serializable {
 	private String shoptyname;
 	/**类型备注*/
 	private String shopremart;
-
+	/**类型数量*/
+	private int count;
 	public Shoptype() {
 		super();
 	}
-	public Shoptype(Integer shoptyid,String shoptyname,String shopremart) {
+
+	public Shoptype(Integer shoptyid, String shoptyname, String shopremart, int count) {
 		this.shoptyid = shoptyid;
 		this.shoptyname = shoptyname;
 		this.shopremart = shopremart;
+		this.count = count;
 	}
 
 	/**设置"商品类型id"*/
@@ -52,13 +55,23 @@ public class Shoptype implements Serializable {
 	public String getShopremart(){
 		return shopremart;
 	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	@Override
 	public String toString() {
-		return "shoptype[" + 
-			"shoptyid = " + shoptyid + 
-			", shoptyname = " + shoptyname + 
-			", shopremart = " + shopremart +
-			"]";
+		return "Shoptype{" +
+				"shoptyid=" + shoptyid +
+				", shoptyname='" + shoptyname + '\'' +
+				", shopremart='" + shopremart + '\'' +
+				", count='" + count + '\'' +
+				'}';
 	}
 }
 
