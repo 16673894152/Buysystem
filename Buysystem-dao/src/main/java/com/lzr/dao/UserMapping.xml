@@ -39,7 +39,30 @@
         <collection property="shoppingjias" javaType="list" ofType="com.lzr.vo.Shoppingjia"
                     column="userid" select="com.lzr.dao.ShoppingjiaMapping.queryByuserid" fetchType="lazy"/>
     </resultMap>
-
+    <resultMap id="UserMap1" type="User">
+        <id column="userid" property="userid"/>
+        <result column="zhucetime" property="zhucetime"/>
+        <result column="username" property="username"/>
+        <result column="userpass" property="userpass"/>
+        <result column="usernumber" property="usernumber"/>
+        <result column="usercard" property="usercard"/>
+        <result column="userimg" property="userimg"/>
+        <result column="isdelete" property="isdelete"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="usertype" property="usertype"/>
+        <result column="shaddress" property="shaddress"/>
+        <result column="shzhucetime" property="shzhucetime"/>
+        <result column="shstatehuifu" property="shstatehuifu"/>
+        <result column="shstate" property="shstate"/>
+        <result column="shmoney" property="shmoney"/>
+        <result column="shname" property="shname"/>
+        <result column="storenumber" property="storenumber"/>
+        <result column="useraddress" property="useraddress"/>
+        <result column="storename" property="storename"/>
+        <association property="hyid" column="hyid"
+                     select="com.lzr.dao.HuiyuanMapping.queryById" javaType="Huiyuan" fetchType="lazy"/>
+    </resultMap>
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="UserMap">
        select * from user where isdelete !=0
@@ -49,6 +72,10 @@
     <!-- 根据主键id查询数据方法 -->
     <select id="queryById" parameterType="int" resultMap="UserMap">
        select * from user where userid = #{userid};
+    </select>
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById1" parameterType="int" resultMap="UserMap1">
+        select * from user where userid = #{userid};
     </select>
 
     <!-- 根据User条件查询数据方法 -->

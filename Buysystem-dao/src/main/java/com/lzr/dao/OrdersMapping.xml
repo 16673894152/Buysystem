@@ -17,11 +17,11 @@
         <result column="isdelete" property="isdelete"/>
         <result column="shshouru" property="shshouru"/>
         <association property="userid" column="userid"
-           select="com.lzr.dao.UserMapping.queryById" javaType="User" fetchType="lazy"/>
+           select="com.lzr.dao.UserMapping.queryById1" javaType="User" fetchType="lazy"/>
         <association property="shid" column="shid"
-           select="com.lzr.dao.UserMapping.queryById" javaType="User" fetchType="lazy"/>
+           select="com.lzr.dao.UserMapping.queryById1" javaType="User" fetchType="lazy"/>
         <collection property="orderxqs" javaType="list" ofType="com.lzr.vo.Orderxq"
-           column="orderid" select="com.lzr.dao.OrderxqMapping.queryByorderid" fetchType="lazy"/>
+                    column="orderid" select="com.lzr.dao.OrderxqMapping.queryByorderid" fetchType="lazy"/>
     </resultMap>
 
     <resultMap id="OrdersMap1" type="Orders">
@@ -83,10 +83,8 @@
 
     <!-- 根据Orders条件模糊查询数据方法 -->
     <select id="queryLike" resultMap="OrdersMap">
-        select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete 
-        from orders 
+        select * from orders
         <where>
-            <if test="orderid != null"> and orderid like concat('%',#{orderid},'%')</if>
             <if test="userid != null">
                  <if test="userid.userid != null"> and userid like concat('%',#{userid.userid},'%')</if>
             </if>

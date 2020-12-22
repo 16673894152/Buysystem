@@ -16,7 +16,10 @@ public interface UserMapping {
      * 根据主键userid(User.userid)查询单条数据方法
      */
     User queryById(int id);
-
+    /**
+     * 根据主键userid(User.userid)查询单条数据方法
+     */
+    User queryById1(int id);
     /**
      * 根据User条件查询多条数据方法
      */

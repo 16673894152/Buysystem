@@ -10,18 +10,6 @@
         <result column="orderxqcount" property="orderxqcount"/>
         <result column="orderxqmoney" property="orderxqmoney"/>
         <association property="shopid" column="shopid"
-           select="com.lzr.dao.ShopMapping.queryById" javaType="Shop" fetchType="lazy"/>
-
-        <association property="orderid" column="orderid"
-           select="com.lzr.dao.OrdersMapping.queryById" javaType="Orders" fetchType="lazy"/>
-    </resultMap>
-
-    <!-- resultMap映射 -->
-    <resultMap id="OrderxqMap1" type="Orderxq">
-        <id column="orderxqid" property="orderxqid"/>
-        <result column="orderxqcount" property="orderxqcount"/>
-        <result column="orderxqmoney" property="orderxqmoney"/>
-        <association property="shopid" column="shopid"
                      select="com.lzr.dao.ShopMapping.queryById" javaType="Shop" fetchType="lazy"/>
     </resultMap>
     <!-- 查询所有方法 -->
@@ -36,7 +24,7 @@
 
 
     <!-- 根据主键orderid查询数据方法 -->
-    <select id="queryByorderid" parameterType="int" resultMap="OrderxqMap1">
+    <select id="queryByorderid" parameterType="int" resultMap="OrderxqMap">
         select orderxqcount,orderid,shopid,orderxqid,orderxqmoney from orderxq where orderid = #{orderid};
     </select>
 
