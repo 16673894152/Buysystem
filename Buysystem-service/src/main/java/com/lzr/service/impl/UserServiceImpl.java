@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User GETALL(User user) {
+    public User getall(User user) {
         return userMapping.getuser(user);
     }
 

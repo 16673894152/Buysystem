@@ -1,7 +1,7 @@
 package com.lzr.control;
 
 
-import com.github.pagehelper.Page;
+
 import com.lzr.service.UserService;
 import com.lzr.vo.PageVo;
 import com.lzr.vo.User;
@@ -143,8 +143,11 @@ public class UserController {
     @ResponseBody
     @CrossOrigin
     public User queryadmin(User user){
-        //System.out.println(userService.GETALL(user1));
-        return userService.GETALL(user);
+        System.out.println(user.getUsername());
+        User user1=userService.getall(user);
+       System.out.println(user1);
+        //System.out.println("222");
+        return userService.getall(user1);
 
     }
     /****************************************   商户 ******************************************************************/

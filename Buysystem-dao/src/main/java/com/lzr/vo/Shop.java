@@ -36,7 +36,7 @@ public class Shop implements Serializable {
 	/*评价*/
 	private List<Shoppingjia>  shoppingjias;
 	public Shop() {
-		super();
+
 	}
 
 	public Shop(Integer shopid, String shopname, Shoptype shoptyid, String shopmiaoshu, double shopprice, String shopdanwei, String shopimg, Integer isdelete, List<Shopxq> shopxqs, double minprice, double maxprice, int number, int wareid, List<Shoppingjia> shoppingjias) {
