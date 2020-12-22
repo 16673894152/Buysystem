@@ -39,6 +39,8 @@
         <collection property="shoppingjias" javaType="list" ofType="com.lzr.vo.Shoppingjia"
                     column="userid" select="com.lzr.dao.ShoppingjiaMapping.queryByuserid" fetchType="lazy"/>
     </resultMap>
+
+    <!---->
     <resultMap id="UserMap1" type="User">
         <id column="userid" property="userid"/>
         <result column="zhucetime" property="zhucetime"/>
@@ -63,8 +65,9 @@
         <association property="hyid" column="hyid"
                      select="com.lzr.dao.HuiyuanMapping.queryById" javaType="Huiyuan" fetchType="lazy"/>
     </resultMap>
+
     <!-- 查询所有方法 -->
-    <select id="queryAll" resultMap="UserMap">
+    <select id="queryAll" resultMap="UserMap2" parameterType="user">
        select * from user where isdelete !=0
 
     </select>
@@ -72,10 +75,6 @@
     <!-- 根据主键id查询数据方法 -->
     <select id="queryById" parameterType="int" resultMap="UserMap">
        select * from user where userid = #{userid};
-    </select>
-    <!-- 根据主键id查询数据方法 -->
-    <select id="queryById1" parameterType="int" resultMap="UserMap1">
-        select * from user where userid = #{userid};
     </select>
 
     <!-- 根据User条件查询数据方法 -->
@@ -105,7 +104,7 @@
         </where>
     </select>
     <!-- 根据User条件模糊查询数据方法 -->
-    <select id="queryLike" resultMap="UserMap">
+    <select id="queryLike" parameterType="user" resultMap="UserMap">
         select *  from user
         <where>
             <if test="userid != null"> and userid like concat('%',#{userid},'%')</if>
@@ -162,6 +161,17 @@
         </set>
         where userid = #{userid}
     </update>
+    <!-- 根据主键id查询数据方法 -->
+    <select id="queryById1" parameterType="int" resultMap="UserMap1">
+        select * from user where userid = #{userid};
+    </select>
+
+    <delete id="deleteById" parameterType="int">
+        delete from user where userid=#{userid}
+    </delete>
+    <select id="getuser" parameterType="user" resultMap="UserMap1">
+        select * from user where username=#{username}
+    </select>
     <!--根据用户名修改用户-->
     <!-- 根据User条件修改单条数据方法,从传入对象获取主键id -->
     <update id="getusername" parameterType="User">
@@ -169,11 +179,10 @@
       set usernumber=#{usernumber},sex=#{sex}
         where username=#{username}
     </update>
+    <!--实名-->
+    <update id="getupdata" parameterType="user">
+        update  user set shname = #{shname},usercard=#{usercard}
+        where username=#{username}
+    </update>
 
-    <delete id="deleteById" parameterType="int">
-        delete from user where userid=#{userid}
-    </delete>
-    <select id="getuser" parameterType="user" resultMap="UserMap">
-        select * from user where username=#{username}
-    </select>
 </mapper>

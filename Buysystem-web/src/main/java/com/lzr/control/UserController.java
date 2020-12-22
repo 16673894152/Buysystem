@@ -150,6 +150,17 @@ public class UserController {
         return userService.getall(user1);
 
     }
+    /*实名认证*/
+    @RequestMapping("/updatayonghu.action")
+    @ResponseBody
+    @CrossOrigin
+    public int  getupdata(User user){
+        System.out.println(user.getUsername());
+        int num =userService.getupdata(user);
+
+        return userService.getupdata(user);
+
+    }
     /****************************************   商户 ******************************************************************/
     //注测商户  先登录用户再注册 或者输入用户名
     @RequestMapping("/zhuceshanghu.action")

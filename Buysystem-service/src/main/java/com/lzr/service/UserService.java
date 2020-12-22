@@ -48,4 +48,6 @@ public interface UserService {
   /*根据用户名查询用户*/
     public  User getall(User user);
     public int  getuser(User user);
+  /*实名认证*/
+  public int getupdata(User user);
 }
