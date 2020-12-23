@@ -19,12 +19,12 @@ public class Shopgouwu implements Serializable {
 	/**数量*/
 	private Integer number;
 	/**商品金额*/
-	private double price;
+	private float price;
 
 	public Shopgouwu() {
 		super();
 	}
-	public Shopgouwu(Integer shopgwid,Shop shopid,User userid,Integer number,double price) {
+	public Shopgouwu(Integer shopgwid,Shop shopid,User userid,Integer number,float price) {
 		this.shopgwid = shopgwid;
 		this.shopid = shopid;
 		this.userid = userid;
@@ -62,11 +62,11 @@ public class Shopgouwu implements Serializable {
 		return number;
 	}
 	/**设置"商品金额"*/
-	public void setPrice(double price){
+	public void setPrice(float price){
 		this.price = price;
 	}
 	/**获取"商品金额"*/
-	public double getPrice(){
+	public float getPrice(){
 		return price;
 	}
 	@Override
