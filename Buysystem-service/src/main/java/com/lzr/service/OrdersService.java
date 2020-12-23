@@ -7,4 +7,5 @@ import com.lzr.vo.RoleInfo;
 public interface OrdersService {
     /*用户查询所有*/
     PageVo<Orders> queryLike(Orders orders, int page, int rows);
+    PageVo<Orders> queryLikept(Orders orders, int page, int rows);
 }

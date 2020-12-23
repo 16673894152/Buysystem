@@ -39,7 +39,10 @@ public interface OrdersMapping {
    * 根据Orders条件模糊查询多条数据方法 
    */
   List<Orders> queryLike(Orders orders);
-
+  /**
+   * 根据Orders条件模糊查询多条数据方法
+   */
+  List<Orders> queryLikept(Orders orders);
   /**
    * 根据Orders插入数据方法 
    */

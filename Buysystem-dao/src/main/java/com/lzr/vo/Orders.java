@@ -69,13 +69,17 @@ public class Orders implements Serializable {
      * 商户收入
      */
     private Double shshouru;
+    /**
+     * 商户收入
+     */
+    private Double youhuiprice;
     private List<Orderxq> orderxqs;
 
     public Orders() {
         super();
     }
 
-    public Orders(Integer orderid, User userid, User shid, Integer ordercount, Double ordermoney, String orderbianhao, Timestamp ordertime, String consigneename, String consigneenumber, String consigneeaddress, Integer orderstate, Integer isdelete, Double shshouru) {
+    public Orders(Integer orderid, User userid, User shid, Integer ordercount, Double ordermoney, String orderbianhao, Timestamp ordertime, String consigneename, String consigneenumber, String consigneeaddress, Integer orderstate, Integer isdelete, Double shshouru, Double youhuiprice, List<Orderxq> orderxqs) {
         this.orderid = orderid;
         this.userid = userid;
         this.shid = shid;
@@ -89,22 +93,7 @@ public class Orders implements Serializable {
         this.orderstate = orderstate;
         this.isdelete = isdelete;
         this.shshouru = shshouru;
-    }
-
-    public Orders(Integer orderid, User userid, User shid, Integer ordercount, Double ordermoney, String orderbianhao, Timestamp ordertime, String consigneename, String consigneenumber, String consigneeaddress, Integer orderstate, Integer isdelete, Double shshouru, List<Orderxq> orderxqs) {
-        this.orderid = orderid;
-        this.userid = userid;
-        this.shid = shid;
-        this.ordercount = ordercount;
-        this.ordermoney = ordermoney;
-        this.orderbianhao = orderbianhao;
-        this.ordertime = ordertime;
-        this.consigneename = consigneename;
-        this.consigneenumber = consigneenumber;
-        this.consigneeaddress = consigneeaddress;
-        this.orderstate = orderstate;
-        this.isdelete = isdelete;
-        this.shshouru = shshouru;
+        this.youhuiprice = youhuiprice;
         this.orderxqs = orderxqs;
     }
 
@@ -286,24 +275,33 @@ public class Orders implements Serializable {
         return orderxqs;
     }
 
+    public Double getYouhuiprice() {
+        return youhuiprice;
+    }
+
+    public void setYouhuiprice(Double youhuiprice) {
+        this.youhuiprice = youhuiprice;
+    }
+
     @Override
     public String toString() {
-        return "orders[" +
-                "orderid = " + orderid +
-                ", userid = " + userid +
-                ", shid = " + shid +
-                ", ordercount = " + ordercount +
-                ", ordermoney = " + ordermoney +
-                ", orderbianhao = " + orderbianhao +
-                ", ordertime = " + ordertime +
-                ", consigneename = " + consigneename +
-                ", consigneenumber = " + consigneenumber +
-                ", consigneeaddress = " + consigneeaddress +
-                ", orderstate = " + orderstate +
-                ", isdelete = " + isdelete +
-                ", shshouru = " + shshouru +
-                ", orderxqs = " + orderxqs +
-                "]";
+        return "Orders{" +
+                "orderid=" + orderid +
+                ", userid=" + userid +
+                ", shid=" + shid +
+                ", ordercount=" + ordercount +
+                ", ordermoney=" + ordermoney +
+                ", orderbianhao='" + orderbianhao + '\'' +
+                ", ordertime=" + ordertime +
+                ", consigneename='" + consigneename + '\'' +
+                ", consigneenumber='" + consigneenumber + '\'' +
+                ", consigneeaddress='" + consigneeaddress + '\'' +
+                ", orderstate=" + orderstate +
+                ", isdelete=" + isdelete +
+                ", shshouru=" + shshouru +
+                ", youhuiprice=" + youhuiprice +
+                ", orderxqs=" + orderxqs +
+                '}';
     }
 }
 
