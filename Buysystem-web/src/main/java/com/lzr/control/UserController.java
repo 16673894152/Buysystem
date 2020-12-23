@@ -135,7 +135,7 @@ public class UserController {
                               @RequestParam(value = "rows",defaultValue = "5") int rows){
         User user1=new User();
         System.out.println(userService.queryAll(user,page,rows));
-        return userService.queryAll(user,1,5);
+        return userService.queryAll(user,page,rows);
 
     }
     /*根据用户名查询用户*/
@@ -198,12 +198,13 @@ public class UserController {
         user.setShstate(3);
         //商户
         user.setUsertype(2);
-
+        System.out.println(user+"条件");
         return userService.queryLike(user, page, rows);
     }
 
     @RequestMapping("/login2.action")
     @ResponseBody
+    @CrossOrigin
     public Map login2(User user) {
         System.out.println(user+"user");
         Map<String, String> map = new HashMap<String, String>();
@@ -236,5 +237,75 @@ public class UserController {
         }
         return map;
     }
+
+    @RequestMapping("/Shanghugrwh.action")
+    @ResponseBody
+    @CrossOrigin
+    public User querById(int shid) {
+        return userService.queryById(shid);
+    }
+
+    //用户修改
+    @RequestMapping("/edituser1.action")
+    @ResponseBody
+    public Map updateUser1(User user) {
+        Map<String, String> map = new HashMap<String, String>();
+        System.out.println(user + "修改的用户");
+        Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUsername(), 5);
+        user.setUserpass(md5Hash.toString());
+        int num = userService.updateById(user);
+        if (num > 0) {
+            map.put("msg", "修改成功");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+    /*模糊查询查看商户列表信息*/
+    @RequestMapping("/querylike2.action")
+    @ResponseBody
+    @CrossOrigin
+    public PageVo<User> querylike2(User user,
+                                   @RequestParam(value = "page", defaultValue = "1") int page,
+                                   @RequestParam(value = "rows", defaultValue = "5") int rows) {
+        System.out.println(user+"条件");
+        return userService.queryLike1(user,page,rows);
+    }
+
+    //商户修改
+    @RequestMapping("/editsh.action")
+    @ResponseBody
+    public Map updateSh(User user) {
+        Map<String, String> map = new HashMap<String, String>();
+        System.out.println(user + "修改的商户");
+        int num = userService.updateById(user);
+        if (num > 0) {
+            map.put("msg", "修改成功");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+    //商户修改
+    @RequestMapping("/shdj.action")
+    @ResponseBody
+    public Map updateIsdelete(User user) {
+        Map<String, String> map = new HashMap<String, String>();
+        if(user.getIsdelete()==1){
+            user.setIsdelete(0);
+        }else{
+            user.setIsdelete(1);
+        }
+        int num = userService.updateIsdelete(user);
+        if (num > 0) {
+            map.put("msg", "成功");
+        } else {
+            map.put("msg", "失败");
+        }
+        return map;
+    }
+
 
 }

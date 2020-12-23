@@ -50,4 +50,19 @@ public interface UserService {
     public int  getuser(User user);
   /*实名认证*/
   public int getupdata(User user);
+
+  /**
+   * 根据Employ条件模糊查询多条数据方法  分页查询
+   */
+  PageVo<User> queryLike1(User user, int page, int rows);
+
+  /**
+   * 根据User条件修改单条数据方法,从传入对象获取id
+   */
+  int updateById1(User user);
+
+  /**
+   * 根据Id修改商户冻结状态,从传入对象获取id
+   */
+  int updateIsdelete(User user);
 }

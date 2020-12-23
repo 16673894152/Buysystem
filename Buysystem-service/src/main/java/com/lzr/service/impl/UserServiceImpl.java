@@ -84,4 +84,27 @@ public class UserServiceImpl implements UserService {
     public int getupdata(User user) {
         return userMapping.getupdata(user);
     }
+
+    @Override
+    public PageVo<User> queryLike1(User user, int page, int rows) {
+        PageVo<User> pageVo = new PageVo<>();
+        //在需要分页的代码调用前 执行以下代码
+        PageHelper.startPage(page, rows);
+        //获取分页后 显示的数据集合
+        pageVo.setRows(userMapping.queryLike1(user));
+        //获取总的记录数量ssou
+        pageVo.setTotal(userMapping.queryLike1(user).size());
+
+        return pageVo;
+    }
+
+    @Override
+    public int updateById1(User user) {
+        return userMapping.updateById1(user);
+    }
+
+    @Override
+    public int updateIsdelete(User user) {
+        return userMapping.updateIsdelete(user);
+    }
 }
