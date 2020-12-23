@@ -12,7 +12,7 @@
         <association property="shopid" column="shopid"
                      select="com.lzr.dao.ShopMapping.queryById" javaType="Shop" fetchType="lazy"/>
         <association property="userid" column="userid"
-                     select="com.lzr.dao.UserMapping.queryById" javaType="com.lzr.vo.User" fetchType="lazy"/>
+                     select="com.lzr.dao.UserMapping.queryById1" javaType="com.lzr.vo.User" fetchType="lazy"/>
     </resultMap>
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="ShopgouwuMap">
@@ -41,7 +41,7 @@
                 <if test="shopid.shopid != null"> and shopid = #{shopid.shopid}</if>
             </if>
             <if test="number != null"> and number = #{number}</if>
-            <if test="price != null"> and price = #{price}</if>
+            <if test="price != 0.0"> and price = #{price}</if>
         </where>
     </select>
 
@@ -64,23 +64,23 @@
     </select>
     <!-- 根据Shopgouwu插入数据方法 -->
     <insert id="insert" parameterType="Shopgouwu" useGeneratedKeys="true" keyColumn="shopgwid" keyProperty="shopgwid">
-        insert into shopgouwu (shopgwid,shopid,userid,number,price)
-        values (#{shopgwid},#{shopid.shopid},#{userid.userid},#{number},#{price});
+        insert into shopgouwu (shopid,userid,number,price)
+        values (#{shopid.shopid},#{userid.userid},#{number},#{price});
     </insert>
 
     <!-- 根据Shopgouwu条件修改单条数据方法,从传入对象获取主键id -->
     <update id="updateById" parameterType="Shopgouwu">
         update shopgouwu
         <set>
-            <if test="shopid != null">shopid = #{shopid},</if>
+           <!-- <if test="shopid != null">shopid = #{shopid},</if>
             <if test="userid != null">
                 <if test="userid.userid != null">userid = #{userid.userid},</if>
             </if>
             <if test="shopid != null">
                 <if test="shopid.shopid != null"> and shopid = #{shopid.shopid},</if>
-            </if>
-            <if test="number != null">number = #{number},</if>
-            <if test="price != null">price = #{price},</if>
+            </if>-->
+            <if test="number != null">number = number + #{number},</if>
+            <if test="price != null">price = price + #{price},</if>
         </set>
         where shopgwid = #{shopgwid}
     </update>
