@@ -45,6 +45,8 @@ public interface UserMapping {
      */
     int deleteById(int id);
     public  User getuser(User user);
-
+    /*修改个人信息*/
     public  int getusername(User user);
+    /*实名认证*/
+    public int getupdata(User user);
 }
