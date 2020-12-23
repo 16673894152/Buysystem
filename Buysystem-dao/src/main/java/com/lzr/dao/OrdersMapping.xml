@@ -16,6 +16,7 @@
         <result column="orderstate" property="orderstate"/>
         <result column="isdelete" property="isdelete"/>
         <result column="shshouru" property="shshouru"/>
+        <result column="youhuiprice" property="youhuiprice"/>
         <association property="userid" column="userid"
            select="com.lzr.dao.UserMapping.queryById1" javaType="User" fetchType="lazy"/>
         <association property="shid" column="shid"
@@ -41,19 +42,19 @@
     </resultMap>
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="OrdersMap">
-       select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete from orders;
+       select * from orders;
     </select>
     <!-- 根据外键userid查询数据方法 -->
     <select id="queryByuserid" parameterType="int" resultMap="OrdersMap1">
-        select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete from orders where userid = #{userid};
+        select * from orders where userid = #{userid};
     </select>
     <!-- 根据主外键shid查询数据方法 -->
     <select id="queryByshid" parameterType="int" resultMap="OrdersMap1">
-        select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete from orders where shid = #{shid};
+        select* from orders where shid = #{shid};
     </select>
     <!-- 根据主键id查询数据方法 -->
     <select id="queryById" parameterType="int" resultMap="OrdersMap">
-       select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete from orders where orderid = #{orderid};
+       select * from orders where orderid = #{orderid};
     </select>
 
     <!-- 根据Orders条件查询数据方法 -->
@@ -104,10 +105,32 @@
         </where>
     </select>
 
+
+    <select id="queryLikept" resultMap="OrdersMap">
+        select * from orders
+        <where>
+            <if test="userid != null">
+                <if test="userid.userid != null"> and userid like concat('%',#{userid.userid},'%')</if>
+            </if>
+            <if test="shid != null">
+                <if test="shid.shid != null"> and shid like concat('%',#{shid.shid},'%')</if>
+            </if>
+            <if test="ordercount != null"> and ordercount like concat('%',#{ordercount},'%')</if>
+            <if test="ordermoney != null"> and ordermoney like concat('%',#{ordermoney},'%')</if>
+            <if test="orderbianhao != null"> and orderbianhao like concat('%',#{orderbianhao},'%')</if>
+            <if test="ordertime != null"> and ordertime like concat('%',#{ordertime},'%')</if>
+            <if test="consigneename != null"> and consigneename like concat('%',#{consigneename},'%')</if>
+            <if test="consigneenumber != null"> and consigneenumber like concat('%',#{consigneenumber},'%')</if>
+            <if test="consigneeaddress != null"> and consigneeaddress like concat('%',#{consigneeaddress},'%')</if>
+            <if test="orderstate != null"> and orderstate like concat('%',#{orderstate},'%')</if>
+            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if>
+            <if test="shshouru != null"> and shshouru like concat('%',#{shshouru},'%')</if>
+        </where>
+    </select>
     <!-- 根据Orders插入数据方法 -->
     <insert id="insert" parameterType="Orders" useGeneratedKeys="true" keyColumn="orderid" keyProperty="orderid">
-        insert into orders (orderid,userid,shid,ordercount,ordermoney,orderbianhao,ordertime,consigneename,consigneenumber,consigneeaddress,orderstate,isdelete,shshouru) 
-        values (#{orderid},#{userid.userid},#{shid.shid},#{ordercount},#{ordermoney},#{orderbianhao},#{ordertime},#{consigneename},#{consigneenumber},#{consigneeaddress},#{orderstate},#{isdelete},#{shshouru}); 
+        insert into orders (orderid,userid,shid,ordercount,ordermoney,orderbianhao,ordertime,consigneename,consigneenumber,consigneeaddress,orderstate,isdelete,shshouru,youhuiprice)
+        values (#{orderid},#{userid.userid},#{shid.shid},#{ordercount},#{ordermoney},#{orderbianhao},#{ordertime},#{consigneename},#{consigneenumber},#{consigneeaddress},#{orderstate},#{isdelete},#{shshouru},#{youhuiprice});
     </insert>
 
 

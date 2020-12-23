@@ -23,4 +23,13 @@ public class OrdersController {
                                     @RequestParam(value = "rows", defaultValue = "5") int rows) {
         return ordersService.queryLike(orders, page, rows);
     }
+    @RequestMapping("/querylikept.action")
+    @ResponseBody
+    @CrossOrigin
+    public PageVo<Orders> querylikept(Orders orders,
+                                    @RequestParam(value = "page", defaultValue = "1") int page,
+                                    @RequestParam(value = "rows", defaultValue = "5") int rows) {
+        System.out.println("来了");
+        return ordersService.queryLikept(orders, page, rows);
+    }
 }
