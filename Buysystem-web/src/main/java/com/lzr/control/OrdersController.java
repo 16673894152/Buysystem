@@ -1,4 +1,5 @@
 package com.lzr.control;
+import com.alibaba.fastjson.JSONObject;
 import com.lzr.service.OrdersService;
 import com.lzr.vo.Orders;
 import com.lzr.vo.Orderxq;
@@ -16,13 +17,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-
 @Controller
 @CrossOrigin
 @RequestMapping("/orders")
 public class OrdersController {
     @Autowired
     OrdersService ordersService;
+
     @RequestMapping("/querylike.action")
     @ResponseBody
     @CrossOrigin
@@ -31,20 +32,21 @@ public class OrdersController {
                                     @RequestParam(value = "rows", defaultValue = "5") int rows) {
         return ordersService.queryLike(orders, page, rows);
     }
+
     @RequestMapping("/querylikept.action")
     @ResponseBody
     @CrossOrigin
-    public PageVo<Orders> querylikept(Orders orders,String time,
-                                    @RequestParam(value = "page", defaultValue = "1") int page,
-                                    @RequestParam(value = "rows", defaultValue = "5") int rows) {
-        String starttime1="";
-        String endtime1="";
-        if(time!=""){
+    public PageVo<Orders> querylikept(Orders orders, String time,
+                                      @RequestParam(value = "page", defaultValue = "1") int page,
+                                      @RequestParam(value = "rows", defaultValue = "5") int rows) {
+        String starttime1 = "";
+        String endtime1 = "";
+        if (time != "") {
             //如果不等于空
             String[] shopids = time.split(",");
             //拿时间
-            String starttime=shopids[0];
-            String endtime=shopids[1];
+            String starttime = shopids[0];
+            String endtime = shopids[1];
             //转值
             starttime = starttime.replace("GMT", "").replaceAll("\\(.*\\)", "");
             endtime = endtime.replace("GMT", "").replaceAll("\\(.*\\)", "");
@@ -55,29 +57,29 @@ public class OrdersController {
             try {
                 dateTrans = format.parse(starttime);
                 dateTrans1 = format.parse(endtime);
-                starttime1= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateTrans).replace("-","-");
-                endtime1= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateTrans1).replace("-","-");
+                starttime1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateTrans).replace("-", "-");
+                endtime1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateTrans1).replace("-", "-");
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
         orders.setStarttime(starttime1);
         orders.setEndtime(endtime1);
-        if(starttime1!=""){
-        }else {
+        if (starttime1 != "") {
+        } else {
             orders.setStarttime("");
         }
-        return ordersService.queryLikept(orders,page,rows);
+        return ordersService.queryLikept(orders, page, rows);
     }
 
     @RequestMapping("/querylike1.action")
     @ResponseBody
     @CrossOrigin
     public PageVo<Orders> querylike1(Orders orders,
-                                    @RequestParam(value = "page", defaultValue = "1") int page,
-                                    @RequestParam(value = "rows", defaultValue = "5") int rows) {
-        System.out.println(orders+"条件");
-        System.out.println(ordersService.queryLike1(orders,page,rows));
-        return ordersService.queryLike1(orders,page,rows);
+                                     @RequestParam(value = "page", defaultValue = "1") int page,
+                                     @RequestParam(value = "rows", defaultValue = "5") int rows) {
+        System.out.println(orders + "条件");
+        System.out.println(ordersService.queryLike1(orders, page, rows));
+        return ordersService.queryLike1(orders, page, rows);
     }
 }
