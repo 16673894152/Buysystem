@@ -107,4 +107,14 @@ public class UserServiceImpl implements UserService {
     public int updateIsdelete(User user) {
         return userMapping.updateIsdelete(user);
     }
+    /*修改个人信息*/
+    @Override
+    public int getusername(User user) {
+        return userMapping.getusername(user);
+    }
+
+    @Override
+    public int xiugaimima(User user) {
+        return userMapping.xiugaimima(user);
+    }
 }

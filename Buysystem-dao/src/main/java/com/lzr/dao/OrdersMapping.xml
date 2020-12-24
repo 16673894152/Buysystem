@@ -42,8 +42,7 @@
     </resultMap>
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="OrdersMap">
-        select *
-        from orders;
+       select * from orders;
     </select>
     <!-- 根据外键userid查询数据方法 -->
     <select id="queryByuserid" parameterType="int" resultMap="OrdersMap1">
@@ -173,17 +172,14 @@
     </select>
     <!-- 根据Orders插入数据方法 -->
     <insert id="insert" parameterType="Orders" useGeneratedKeys="true" keyColumn="orderid" keyProperty="orderid">
-        insert into orders (orderid, userid, shid, ordercount, ordermoney, orderbianhao, ordertime, consigneename,
-                            consigneenumber, consigneeaddress, orderstate, isdelete, shshouru, youhuiprice)
-        values (#{orderid}, #{userid.userid}, #{shid.shid}, #{ordercount}, #{ordermoney}, #{orderbianhao}, #{ordertime},
-                #{consigneename}, #{consigneenumber}, #{consigneeaddress}, #{orderstate}, #{isdelete}, #{shshouru},
-                #{youhuiprice});
+        insert into orders (orderid,userid,shid,ordercount,ordermoney,orderbianhao,ordertime,consigneename,consigneenumber,consigneeaddress,orderstate,isdelete,shshouru,youhuiprice)
+        values (#{orderid},#{userid.userid},#{shid.shid},#{ordercount},#{ordermoney},#{orderbianhao},#{ordertime},#{consigneename},#{consigneenumber},#{consigneeaddress},#{orderstate},#{isdelete},#{shshouru},#{youhuiprice});
     </insert>
 
 
     <!-- 根据Orders条件修改单条数据方法,从传入对象获取主键id -->
     <update id="updateById" parameterType="Orders">
-        update orders
+        update orders 
         <set>
             <if test="userid != null">
                 <if test="userid.userid != null">userid = #{userid.userid},</if>
@@ -206,15 +202,33 @@
     </update>
     <!-- 根据Orders条件删除单条数据方法,从传入对象获取id -->
     <delete id="deleteById" parameterType="int">
-        delete
-        from orders
-        where orderid = #{orderid};
+        delete from orders where orderid = #{orderid};
     </delete>
-    <!--用户查询订单-->
+            <!--用户查询订单-->
     <select id="getdingdanall" parameterType="orders" resultMap="OrdersMap">
         select * from orders
         <where>
-            <if test="orderstate!=null">orderstate=#{orderstate}</if>
+            <if test="orderstate!=null">
+                <if test="orderstate==1">
+                    orderstate=1
+                </if>
+                <if test="orderstate==2">
+                    orderstate=2 or orderstate=4
+                </if>
+                <if test="orderstate==3">
+                    orderstate=3
+                </if>
+                <if test="orderstate==4">
+                    orderstate=2 or orderstate=4
+                </if>
+                <if test="orderstate==5">
+                    orderstate=5
+                </if>
+                <if test="orderstate==6">
+                    orderstate=6
+                </if>
+            </if>
+            and userid=#{userid.userid} and isdelete=1
         </where>
     </select>
 
