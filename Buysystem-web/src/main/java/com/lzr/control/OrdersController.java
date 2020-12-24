@@ -1,5 +1,4 @@
 package com.lzr.control;
-import com.alibaba.fastjson.JSONObject;
 import com.lzr.service.OrdersService;
 import com.lzr.vo.Orders;
 import com.lzr.vo.Orderxq;
@@ -16,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 
 @Controller
 @CrossOrigin
@@ -68,5 +68,16 @@ public class OrdersController {
             orders.setStarttime("");
         }
         return ordersService.queryLikept(orders,page,rows);
+    }
+
+    @RequestMapping("/querylike1.action")
+    @ResponseBody
+    @CrossOrigin
+    public PageVo<Orders> querylike1(Orders orders,
+                                    @RequestParam(value = "page", defaultValue = "1") int page,
+                                    @RequestParam(value = "rows", defaultValue = "5") int rows) {
+        System.out.println(orders+"条件");
+        System.out.println(ordersService.queryLike1(orders,page,rows));
+        return ordersService.queryLike1(orders,page,rows);
     }
 }

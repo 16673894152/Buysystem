@@ -72,16 +72,15 @@ public class Orders implements Serializable {
     /**
      * 商户收入
      */
-    private Double youhuiprice;
-    private List<Orderxq> orderxqs;
-    /**
-     * 开始时间
-     */
     private String starttime;
     /**
      * 结束时间
      */
     private String endtime;
+
+    private Double youhuiprice;
+    private List<Orderxq> orderxqs;
+
     public Orders() {
         super();
     }
@@ -100,6 +99,8 @@ public class Orders implements Serializable {
         this.orderstate = orderstate;
         this.isdelete = isdelete;
         this.shshouru = shshouru;
+        this.starttime = starttime;
+        this.endtime = endtime;
         this.youhuiprice = youhuiprice;
         this.orderxqs = orderxqs;
         this.starttime = starttime;
