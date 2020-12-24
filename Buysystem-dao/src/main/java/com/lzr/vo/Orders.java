@@ -72,6 +72,12 @@ public class Orders implements Serializable {
     /**
      * 商户收入
      */
+    private String starttime;
+    /**
+     * 结束时间
+     */
+    private String endtime;
+
     private Double youhuiprice;
     private List<Orderxq> orderxqs;
 
@@ -79,7 +85,23 @@ public class Orders implements Serializable {
         super();
     }
 
-    public Orders(Integer orderid, User userid, User shid, Integer ordercount, Double ordermoney, String orderbianhao, Timestamp ordertime, String consigneename, String consigneenumber, String consigneeaddress, Integer orderstate, Integer isdelete, Double shshouru, Double youhuiprice, List<Orderxq> orderxqs) {
+    public String getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(String starttime) {
+        this.starttime = starttime;
+    }
+
+    public String getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(String endtime) {
+        this.endtime = endtime;
+    }
+
+    public Orders(Integer orderid, User userid, User shid, Integer ordercount, Double ordermoney, String orderbianhao, Timestamp ordertime, String consigneename, String consigneenumber, String consigneeaddress, Integer orderstate, Integer isdelete, Double shshouru, String starttime, String endtime, Double youhuiprice, List<Orderxq> orderxqs) {
         this.orderid = orderid;
         this.userid = userid;
         this.shid = shid;
@@ -93,6 +115,8 @@ public class Orders implements Serializable {
         this.orderstate = orderstate;
         this.isdelete = isdelete;
         this.shshouru = shshouru;
+        this.starttime = starttime;
+        this.endtime = endtime;
         this.youhuiprice = youhuiprice;
         this.orderxqs = orderxqs;
     }
