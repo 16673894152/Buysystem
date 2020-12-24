@@ -51,11 +51,10 @@ public class ShopgouwuController {
     * 购物车添加商品
     * */
     @RequestMapping("/addshopgouwu.action")
+    @ResponseBody
     @CrossOrigin
-    public Map addShopgouwu(Shopgouwu shopgouwu) throws IOException {
+    public Map addShopgouwu(Shopgouwu shopgouwu){
         Map<String,String> map =new HashMap<String,String>();
-        String str = "";
-
         System.out.println(shopgouwu);
         int num = shopgouwuService.insert(shopgouwu);
         if (num > 0) {
@@ -70,10 +69,8 @@ public class ShopgouwuController {
     @RequestMapping("/editshopgouwu.action")
     @ResponseBody
     @CrossOrigin
-    public Map editShopgouwu(Shopgouwu shopgouwu) throws IOException {
+    public Map editShopgouwu(Shopgouwu shopgouwu){
         Map<String,String> map =new HashMap<String,String>();
-        String str = "";
-
         System.out.println(shopgouwu);
         int num = shopgouwuService.updateById(shopgouwu);
         if (num > 0) {
