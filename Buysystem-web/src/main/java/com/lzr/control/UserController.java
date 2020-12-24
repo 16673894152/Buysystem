@@ -191,28 +191,22 @@ public class UserController {
     }
     /****************************************   商户 ******************************************************************/
     //注测商户  先登录用户再注册 或者输入用户名
-    @RequestMapping("/zhuceshanghu.action")
+    //用户申请成为商户
+    @RequestMapping("/shengqingsh.action")
     @ResponseBody
-    @CrossOrigin
-    public Map zhuceshanghu(User user) {
-      /*  用户需要添加的字段名:* 用户名username 密码userpass 手机号usernumber 身份证号码:usercard 用户头像:userimg  性别:男 会员:1  用户类型usertype 1
-        商户地址为空shaddress  商户余额 shmoney:0 商户申请状态 shstate 商户回复shstatehuifu 空 */
-
-        /*商户认证时 需要传输 商户地址  即可*/
-        System.out.println(user + "注册商户的用户");
+    public Map shengqingsh(User user) {
+        /*用户注册时只需要传输用户名  密码即可*/
+        System.out.println(user + "申请的用户");
         Map<String, String> map = new HashMap<String, String>();
-        user.setShstate(2);
-        //拿到当前注册商户的当前时间
-        Date date = new Date();
-        Timestamp nousedate = new Timestamp(date.getTime());
-        user.setShzhucetime(nousedate);
-
-        int num = userService.insert(user);
+        int num = userService.shshenqing(user);
         if (num > 0) {
             map.put("msg", "申请成功");
+            map.put("code","1");
         } else {
             map.put("msg", "申请失败");
+            map.put("code","0");
         }
+
         return map;
     }
     /*模糊查询查看商户列表信息*/

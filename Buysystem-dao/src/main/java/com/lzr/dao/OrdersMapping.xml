@@ -218,9 +218,6 @@
                 <if test="orderstate==3">
                     orderstate=3
                 </if>
-                <if test="orderstate==4">
-                    orderstate=2 or orderstate=4
-                </if>
                 <if test="orderstate==5">
                     orderstate=5
                 </if>

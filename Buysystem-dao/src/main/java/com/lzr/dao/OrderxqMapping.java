@@ -1,5 +1,6 @@
 package com.lzr.dao;
 
+import com.lzr.vo.Orders;
 import com.lzr.vo.Orderxq;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -42,4 +43,6 @@ public interface OrderxqMapping {
    * 根据Orderxq条件删除单条数据方法,从传入对象获取id 
    */
   int deleteById(int id);
+  /*查看用户订单详情*/
+  List<Orderxq> xiangqing(Orders orders);
 }

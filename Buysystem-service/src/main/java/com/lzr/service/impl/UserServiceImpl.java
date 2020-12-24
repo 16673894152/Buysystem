@@ -8,6 +8,9 @@ import com.lzr.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -121,5 +124,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public int tihuosr(User user) {
         return userMapping.tihuosr(user);
+    }
+    /*申请商户*/
+    @Override
+    public int shshenqing(User user) {
+        user.setUsertype(2);
+        user.setShstate(2);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //设置bai日期格式
+        System.out.println(df.format(new Date()));
+        // new Date()为获取当前系统时间
+        Timestamp sDate =   Timestamp.valueOf(df.format(new Date()));
+        user.setShzhucetime(sDate);
+        return userMapping.shshenqing(user);
     }
 }

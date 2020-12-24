@@ -68,6 +68,7 @@ public interface UserService {
   /*修改个人信息*/
   public int getusername(User user);
   public int xiugaimima(User user);
+  int shshenqing(User user);
 
   /**
    * 根据Id修改商户余额,从传入对象获取id

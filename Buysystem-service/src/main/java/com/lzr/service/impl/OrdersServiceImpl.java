@@ -8,6 +8,8 @@ import com.lzr.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrdersServiceImpl implements OrdersService {
     @Autowired
@@ -67,6 +69,11 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public int updatetihuo(Orders orders) {
         return ordersMapping.updatetihuo(orders);
+    }
+
+    @Override
+    public List<Orderxq> xiangqing(Orders orders) {
+        return null;
     }
 
     @Override

@@ -71,4 +71,8 @@ public interface UserMapping {
      * 根据id修改商户余额,从传入对象获取id
      */
     int tihuosr(User user);
+    /**
+     * 商户申请
+     */
+    int shshenqing(User user);
 }

@@ -189,6 +189,21 @@
         where username=#{username}
     </update>
 
+    <!--/*商户申请*/-->
+    <update id="shshenqing" parameterType="user">
+       usercard = #{usercard} ,
+	usertype = #{usertype} ,
+	shaddress = #{shaddress} ,
+	shstate = #{shstate} ,
+	shzhucetime = #{shzhucetime} ,
+	storename = #{storename} ,
+	storenumber = #{storenumber} ,
+	shname = #{shname} ,
+
+	WHERE
+	username=#{username}
+    </update>
+
     <!-- 根据User条件模糊查询数据 -->
     <select id="queryLike1" parameterType="user" resultMap="UserMap1">
         select *  from user
