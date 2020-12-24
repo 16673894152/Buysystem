@@ -1,6 +1,7 @@
 package com.lzr.dao;
 
 import com.lzr.vo.Warehouse;
+import com.lzr.vo.Wareshop;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -17,7 +18,10 @@ public interface WarehouseMapping {
    * 查询所有方法 
    */
   List<Warehouse> queryAll();
-
+  /**
+   * 根据库存和商品id查看有哪些仓库有这些商品
+   */
+  List<Warehouse> querywaresbyshopid(Wareshop wareshop);
   /**
    * 根据主键wareid(Warehouse.wareid)查询单条数据方法 
    */

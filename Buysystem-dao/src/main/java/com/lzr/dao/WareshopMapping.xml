@@ -88,7 +88,7 @@
         update wareshop
         <set>
             <if test="shopid != null">
-                <if test="shopid.id != null">shopid = #{shopid.shopid},</if>
+                <if test="shopid.shopid != null">shopid = #{shopid.shopid},</if>
             </if>
             <if test="wareid != null">
                 <if test="wareid.wareid != null">wareid = #{wareid.wareid},</if>

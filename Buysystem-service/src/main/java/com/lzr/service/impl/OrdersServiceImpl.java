@@ -2,10 +2,9 @@ package com.lzr.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.lzr.dao.OrdersMapping;
+import com.lzr.dao.WarehouseMapping;
 import com.lzr.service.OrdersService;
-import com.lzr.vo.Orders;
-import com.lzr.vo.PageVo;
-import com.lzr.vo.Shopgouwu;
+import com.lzr.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +12,8 @@ import org.springframework.stereotype.Service;
 public class OrdersServiceImpl implements OrdersService {
     @Autowired
     OrdersMapping ordersMapping;
+    @Autowired
+    WarehouseMapping warehouseMapping;
     @Override
     public PageVo<Orders> queryLike(Orders orders, int page, int rows) {
         PageVo<Orders> pageVo = new PageVo<>();
@@ -22,7 +23,6 @@ public class OrdersServiceImpl implements OrdersService {
         pageVo.setRows(ordersMapping.getdingdanall(orders));
         //获取总的记录数量
         pageVo.setTotal(ordersMapping.getdingdanall(orders).size());
-
         return pageVo;
     }
     @Override
@@ -34,7 +34,19 @@ public class OrdersServiceImpl implements OrdersService {
         pageVo.setRows(ordersMapping.queryLikept(orders));
         //获取总的记录数量
         pageVo.setTotal(ordersMapping.queryLikept(orders).size());
-
+        for (Orders orders1 :pageVo.getRows()) {
+            for (Orderxq orderxq :orders1.getOrderxqs()) {
+                Wareshop wareshop=new Wareshop();
+                wareshop.setShopid(orderxq.getShopid());
+                wareshop.setShopcount(orderxq.getOrderxqcount());
+                orderxq.setWarehouses(warehouseMapping.querywaresbyshopid(wareshop));
+            }
+        }
         return pageVo;
+    }
+
+    @Override
+    public int updateById(Orders orders) {
+        return ordersMapping.updateById(orders);
     }
 }

@@ -1,9 +1,6 @@
 package com.lzr.control;
 
-import com.lzr.service.CkbaobiaoService;
-import com.lzr.service.EmployService;
-import com.lzr.service.WarehouseService;
-import com.lzr.service.WareshopService;
+import com.lzr.service.*;
 import com.lzr.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +26,8 @@ public class WarehouseController {
     EmployService employService;
     @Autowired
     CkbaobiaoService ckbaobiaoService;
+    @Autowired
+    OrdersService ordersService;
 
     @RequestMapping("/editwarehouse.action")
     @ResponseBody
@@ -359,6 +358,63 @@ public class WarehouseController {
         } else {
             map.put("msg", "采购失败");
             map.put("type", "error");
+        }
+        return map;
+    }
+    @RequestMapping("/shopchuhuo.action")
+    @ResponseBody
+    @CrossOrigin
+    public Map<String,String> shopchuhuo(String shopids,String shopcounts,String wareids,String username,int orderid) {
+        Map<String, String> map = new HashMap<String, String>();
+        String[] shopidss = shopids.split(",");
+        String[] shopcountss = shopcounts.split(",");
+        String[] wareidss = wareids.split(",");
+        List<Integer> shopidsss = new ArrayList<>();
+        List<Integer> shopcountsss = new ArrayList<>();
+        List<Integer> wareidsss = new ArrayList<>();
+        int num = 0;
+        /**************************************************/
+        for (int i = 0; i <= shopidss.length - 1; i++) {
+            shopidsss.add(Integer.parseInt(shopidss[i]));
+            shopcountsss.add(Integer.parseInt(shopcountss[i]));
+            wareidsss.add(Integer.parseInt(wareidss[i]));
+        }
+        //for出货
+        for (int i = 0; i <= shopidss.length - 1; i++) {
+            /*进行出货 根据wsshid修改仓库商品数量---------------*/
+            Shop wshop = new Shop();
+            wshop.setShopid(shopidsss.get(i));
+            Warehouse whouse=new Warehouse();
+            whouse.setWareid(wareidsss.get(i));
+            Wareshop wareshop = new Wareshop();
+            wareshop.setShopid(wshop);
+            wareshop.setWareid(whouse);
+            Wareshop wareshop1=wareshopService.query(wareshop).get(0);
+            wareshop1.setShopcount(-shopcountsss.get(i));
+            /*仓库里面的商品减掉*/
+            int num1 = wareshopService.updateById(wareshop1);
+            //仓库报表-------------------------------
+            Employ employ = new Employ();
+            employ.setUsername(username);
+            List<Employ> employList = employService.query(employ);
+            Ckbaobiao ckbaobiao = new Ckbaobiao();
+            ckbaobiao.setEmploy(employList.get(0));
+            ckbaobiao.setShopid(wshop);
+            ckbaobiao.setWareid(whouse);
+            ckbaobiao.setCount(shopcountsss.get(i));
+            ckbaobiao.setType(1);
+            //添加到仓库报表里面
+            ckbaobiaoService.insert(ckbaobiao);
+            //更改订单状态
+            Orders orders=new Orders();
+            orders.setOrderid(orderid);
+            orders.setOrderstate(4);
+            num=ordersService.updateById(orders);
+        }
+        if (num > 0) {
+            map.put("msg", "出货成功");
+        } else {
+            map.put("msg", "出货失败");
         }
         return map;
     }

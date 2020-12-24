@@ -3,6 +3,7 @@ package com.lzr.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 表名 :  orderxq<br/>
@@ -20,17 +21,22 @@ public class Orderxq implements Serializable {
 	private Integer orderxqcount;
 	/**订单总金额*/
 	private Double orderxqmoney;
+	/**选择仓库*/
+	private List<Warehouse> warehouses;
 
 	public Orderxq() {
 		super();
 	}
-	public Orderxq(Integer orderxqid,Shop shopid,Orders orderid,Integer orderxqcount,Double orderxqmoney) {
+
+	public Orderxq(Integer orderxqid, Shop shopid, Orders orderid, Integer orderxqcount, Double orderxqmoney, List<Warehouse> warehouses) {
 		this.orderxqid = orderxqid;
 		this.shopid = shopid;
 		this.orderid = orderid;
 		this.orderxqcount = orderxqcount;
 		this.orderxqmoney = orderxqmoney;
+		this.warehouses = warehouses;
 	}
+
 	/**设置"订单详情id"*/
 	public void setOrderxqid(Integer orderxqid){
 		this.orderxqid = orderxqid;
@@ -67,14 +73,25 @@ public class Orderxq implements Serializable {
 	public Double getOrderxqmoney(){
 		return orderxqmoney;
 	}
+
+	public List<Warehouse> getWarehouses() {
+		return warehouses;
+	}
+
+	public void setWarehouses(List<Warehouse> warehouses) {
+		this.warehouses = warehouses;
+	}
+
 	@Override
 	public String toString() {
-		return "orderxq[" + 
-			"orderxqid = " + orderxqid + 
-			", shopid = " + shopid +
-			", orderxqcount = " + orderxqcount + 
-			", orderxqmoney = " + orderxqmoney + 
-			"]";
+		return "Orderxq{" +
+				"orderxqid=" + orderxqid +
+				", shopid=" + shopid +
+				", orderid=" + orderid +
+				", orderxqcount=" + orderxqcount +
+				", orderxqmoney=" + orderxqmoney +
+				", warehouses=" + warehouses +
+				'}';
 	}
 }
 

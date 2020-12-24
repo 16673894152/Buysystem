@@ -20,7 +20,18 @@
         <collection property="wareshops" column="wareid" javaType="list"
                     select="com.lzr.dao.WareshopMapping.queryByWareid"></collection>
     </resultMap>
-
+    <resultMap id="WarehouseMap1" type="Warehouse">
+        <id column="wareid" property="wareid"/>
+        <result column="warename" property="warename"/>
+        <result column="wareremark" property="wareremark"/>
+        <result column="warecount" property="warecount"/>
+        <result column="wareaddress" property="wareaddress"/>
+        <result column="jingdu" property="jingdu"/>
+        <result column="weidu" property="weidu"/>
+        <result column="isdelete" property="isdelete"/>
+        <result column="shopcount" property="shopcount"/>
+        <result column="shoptype" property="typecount"/>
+    </resultMap>
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="WarehouseMap">
         select weidu,
@@ -51,6 +62,9 @@
         where wareid = #{wareid};
     </select>
 
+    <select id="querywaresbyshopid" resultMap="WarehouseMap1" parameterType="wareshop">
+        SELECT * FROM warehouse WHERE wareid IN (SELECT wareid FROM wareshop WHERE shopid=#{shopid.shopid} AND #{shopcount}&lt;shopcount);
+    </select>
     <!-- 根据Warehouse条件查询数据方法 -->
     <select id="query" resultMap="WarehouseMap">
         select weidu,empid,wareid,jingdu,wareremark,warecount,warename,isdelete,wareaddress

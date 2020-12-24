@@ -67,9 +67,8 @@
     </resultMap>
 
     <!-- 查询所有方法 -->
-    <select id="queryAll" resultMap="UserMap2" parameterType="user">
+    <select id="queryAll" resultMap="UserMap1" parameterType="user">
        select * from user where isdelete !=0
-
     </select>
 
     <!-- 根据主键id查询数据方法 -->
