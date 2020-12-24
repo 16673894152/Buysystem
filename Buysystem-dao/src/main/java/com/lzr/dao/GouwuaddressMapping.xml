@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.GouwuaddressMapping">
+    <!-- resultMap映射 -->
+    <resultMap id="AdressMap" type="Gouwuaddress">
+        <id column="addressid" property="addressid"/>
+        <result column="beizhu" property="beizhu"/>
+        <result column="telephone" property="telephone"/>
+        <result column="nicheng" property="nicheng"/>
+        <association property="userid" column="userid"
+                     select="com.lzr.dao.UserMapping.queryById1" javaType="User" fetchType="lazy"/>
+        <association property="shid" column="shid"
+                     select="com.lzr.dao.UserMapping.queryById1" javaType="User" fetchType="lazy"/>
+         </resultMap>
+
+    <!-- 根据外键userid查询数据方法 -->
+    <select id="queryById" parameterType="int" resultMap="AdressMap">
+        SELECT 	* FROM s3xiangmu4.gouwuaddress  where userid = #{id};
+    </select>
+
+
+    <!-- 根据Orders条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="updateById" parameterType="Gouwuaddress">
+        UPDATE s3xiangmu4.gouwuaddress
+        <set>
+            <if test="shid != null">
+                <if test="shid.shid != null">shid = #{shid.shid},</if>
+            </if>
+            <if test="beizhu != null">beizhu = #{beizhu},</if>
+            <if test="telephone != null">telephone = #{telephone},</if>
+            <if test="nicheng != null">nicheng = #{nicheng},</if>
+        </set>
+        where addressid = #{addressid}
+    </update>
+    <!-- 根据Orders条件删除单条数据方法,从传入对象获取id -->
+    <delete id="deleteById" parameterType="int">
+        delete from gouwuaddress where addressid = #{id};
+    </delete>
+
+
+</mapper>
