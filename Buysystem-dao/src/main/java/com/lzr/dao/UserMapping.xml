@@ -184,6 +184,11 @@
         update  user set shname = #{shname},usercard=#{usercard}
         where username=#{username}
     </update>
+    <!--改密码-->
+    <update id="xiugaimima" parameterType="user">
+        update  user set userpass=#{userpass}
+        where username=#{username}
+    </update>
 
     <!-- 根据User条件模糊查询数据 -->
     <select id="queryLike1" parameterType="user" resultMap="UserMap1">

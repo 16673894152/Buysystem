@@ -150,7 +150,7 @@ public class UserController {
         User user1=userService.getall(user);
        System.out.println(user1);
         //System.out.println("222");
-        return userService.getall(user1);
+        return userService.getall(user);
 
     }
     /*实名认证*/
@@ -162,6 +162,31 @@ public class UserController {
         int num =userService.getupdata(user);
 
         return userService.getupdata(user);
+
+    }
+    /*修改个人信息*/
+    @RequestMapping("/xiugaigeren.action")
+    @ResponseBody
+    @CrossOrigin
+    public int  getusername(User user){
+        System.out.println(user.getUsername());
+        int num =userService.getusername(user);
+
+        return userService.getusername(user);
+
+    }
+    /*修改密码*/
+    @RequestMapping("/xiugaimima.action")
+    @ResponseBody
+    @CrossOrigin
+    public int  getuserpass(User user){
+        System.out.println(user.getUsername());
+        Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUsername(), 5);
+        user.setUserpass(md5Hash.toString());
+        System.out.println(md5Hash.toString());
+        int num =userService.xiugaimima(user);
+        System.out.println(num);
+        return userService.xiugaimima(user);
 
     }
     /****************************************   商户 ******************************************************************/

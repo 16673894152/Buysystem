@@ -65,4 +65,8 @@ public interface UserService {
    * 根据Id修改商户冻结状态,从传入对象获取id
    */
   int updateIsdelete(User user);
+  /*修改个人信息*/
+  public int getusername(User user);
+  public int xiugaimima(User user);
+
 }

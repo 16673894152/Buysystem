@@ -18,9 +18,9 @@
         <result column="shshouru" property="shshouru"/>
         <result column="youhuiprice" property="youhuiprice"/>
         <association property="userid" column="userid"
-           select="com.lzr.dao.UserMapping.queryById1" javaType="User" fetchType="lazy"/>
+                     select="com.lzr.dao.UserMapping.queryById1" javaType="User" fetchType="lazy"/>
         <association property="shid" column="shid"
-           select="com.lzr.dao.UserMapping.queryById1" javaType="User" fetchType="lazy"/>
+                     select="com.lzr.dao.UserMapping.queryById1" javaType="User" fetchType="lazy"/>
         <collection property="orderxqs" javaType="list" ofType="com.lzr.vo.Orderxq"
                     column="orderid" select="com.lzr.dao.OrderxqMapping.queryByorderid" fetchType="lazy"/>
     </resultMap>
@@ -37,7 +37,7 @@
         <result column="orderstate" property="orderstate"/>
         <result column="isdelete" property="isdelete"/>
         <result column="shshouru" property="shshouru"/>
-       <collection property="orderxqs" javaType="list" ofType="com.lzr.vo.Orderxq"
+        <collection property="orderxqs" javaType="list" ofType="com.lzr.vo.Orderxq"
                     column="orderid" select="com.lzr.dao.OrderxqMapping.queryByorderid" fetchType="lazy"/>
     </resultMap>
     <!-- 查询所有方法 -->
@@ -59,26 +59,27 @@
 
     <!-- 根据Orders条件查询数据方法 -->
     <select id="query" resultMap="OrdersMap">
-        select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete 
-        from orders 
+        select
+        consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete
+        from orders
         <where>
-            <if test="orderid != null"> and orderid = #{orderid}</if>
+            <if test="orderid != null">and orderid = #{orderid}</if>
             <if test="userid != null">
-                 <if test="userid.userid != null"> and userid = #{userid.userid}</if>
+                <if test="userid.userid != null">and userid = #{userid.userid}</if>
             </if>
             <if test="shid != null">
-                 <if test="shid.shid != null"> and shid = #{shid.shid}</if>
+                <if test="shid.shid != null">and shid = #{shid.shid}</if>
             </if>
-            <if test="ordercount != null"> and ordercount = #{ordercount}</if>
-            <if test="ordermoney != null"> and ordermoney = #{ordermoney}</if>
-            <if test="orderbianhao != null"> and orderbianhao = #{orderbianhao}</if>
-            <if test="ordertime != null"> and ordertime = #{ordertime}</if>
-            <if test="consigneename != null"> and consigneename = #{consigneename}</if>
-            <if test="consigneenumber != null"> and consigneenumber = #{consigneenumber}</if>
-            <if test="consigneeaddress != null"> and consigneeaddress = #{consigneeaddress}</if>
-            <if test="orderstate != null"> and orderstate = #{orderstate}</if>
-            <if test="isdelete != null"> and isdelete = #{isdelete}</if>
-            <if test="shshouru != null"> and shshouru = #{shshouru}</if> 
+            <if test="ordercount != null">and ordercount = #{ordercount}</if>
+            <if test="ordermoney != null">and ordermoney = #{ordermoney}</if>
+            <if test="orderbianhao != null">and orderbianhao = #{orderbianhao}</if>
+            <if test="ordertime != null">and ordertime = #{ordertime}</if>
+            <if test="consigneename != null">and consigneename = #{consigneename}</if>
+            <if test="consigneenumber != null">and consigneenumber = #{consigneenumber}</if>
+            <if test="consigneeaddress != null">and consigneeaddress = #{consigneeaddress}</if>
+            <if test="orderstate != null">and orderstate = #{orderstate}</if>
+            <if test="isdelete != null">and isdelete = #{isdelete}</if>
+            <if test="shshouru != null">and shshouru = #{shshouru}</if>
         </where>
     </select>
 
@@ -87,21 +88,21 @@
         select * from orders
         <where>
             <if test="userid != null">
-                 <if test="userid.userid != null"> and userid like concat('%',#{userid.userid},'%')</if>
+                <if test="userid.userid != null">and userid like concat('%',#{userid.userid},'%')</if>
             </if>
             <if test="shid != null">
-                 <if test="shid.shid != null"> and shid like concat('%',#{shid.shid},'%')</if>
+                <if test="shid.shid != null">and shid like concat('%',#{shid.shid},'%')</if>
             </if>
-            <if test="ordercount != null"> and ordercount like concat('%',#{ordercount},'%')</if>
-            <if test="ordermoney != null"> and ordermoney like concat('%',#{ordermoney},'%')</if>
-            <if test="orderbianhao != null"> and orderbianhao like concat('%',#{orderbianhao},'%')</if>
-            <if test="ordertime != null"> and ordertime like concat('%',#{ordertime},'%')</if>
-            <if test="consigneename != null"> and consigneename like concat('%',#{consigneename},'%')</if>
-            <if test="consigneenumber != null"> and consigneenumber like concat('%',#{consigneenumber},'%')</if>
-            <if test="consigneeaddress != null"> and consigneeaddress like concat('%',#{consigneeaddress},'%')</if>
-            <if test="orderstate != null"> and orderstate like concat('%',#{orderstate},'%')</if>
-            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if>
-            <if test="shshouru != null"> and shshouru like concat('%',#{shshouru},'%')</if> 
+            <if test="ordercount != null">and ordercount like concat('%',#{ordercount},'%')</if>
+            <if test="ordermoney != null">and ordermoney like concat('%',#{ordermoney},'%')</if>
+            <if test="orderbianhao != null">and orderbianhao like concat('%',#{orderbianhao},'%')</if>
+            <if test="ordertime != null">and ordertime like concat('%',#{ordertime},'%')</if>
+            <if test="consigneename != null">and consigneename like concat('%',#{consigneename},'%')</if>
+            <if test="consigneenumber != null">and consigneenumber like concat('%',#{consigneenumber},'%')</if>
+            <if test="consigneeaddress != null">and consigneeaddress like concat('%',#{consigneeaddress},'%')</if>
+            <if test="orderstate != null">and orderstate like concat('%',#{orderstate},'%')</if>
+            <if test="isdelete != null">and isdelete like concat('%',#{isdelete},'%')</if>
+            <if test="shshouru != null">and shshouru like concat('%',#{shshouru},'%')</if>
         </where>
     </select>
 
@@ -136,7 +137,7 @@
 
     <!-- 根据Orders条件修改单条数据方法,从传入对象获取主键id -->
     <update id="updateById" parameterType="Orders">
-        update orders 
+        update orders
         <set>
             <if test="userid != null">
                 <if test="userid.userid != null">userid = #{userid.userid},</if>
@@ -161,11 +162,31 @@
     <delete id="deleteById" parameterType="int">
         delete from orders where orderid = #{orderid};
     </delete>
-            <!--用户查询订单-->
+    <!--用户查询订单-->
     <select id="getdingdanall" parameterType="orders" resultMap="OrdersMap">
         select * from orders
-        <where >
-            <if test="orderstate!=null">orderstate=#{orderstate}</if>
+        <where>
+            <if test="orderstate!=null">
+                <if test="orderstate==1">
+                    orderstate=1
+                </if>
+                <if test="orderstate==2">
+                    orderstate=2 or orderstate=4
+                </if>
+                <if test="orderstate==3">
+                    orderstate=3
+                </if>
+                <if test="orderstate==4">
+                    orderstate=2 or orderstate=4
+                </if>
+                <if test="orderstate==5">
+                    orderstate=5
+                </if>
+                <if test="orderstate==6">
+                    orderstate=6
+                </if>
+            </if>
+            and userid=#{userid.userid} and isdelete=1
         </where>
     </select>
 

@@ -64,4 +64,6 @@ public interface UserMapping {
      * 根据id修改商户冻结状态,从传入对象获取id
      */
     int updateIsdelete(User user);
+    /*修改密码*/
+    public int  xiugaimima(User user);
 }
