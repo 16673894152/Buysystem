@@ -59,4 +59,9 @@ public interface OrdersMapping {
   int deleteById(int id);
   /*用户查询订单*/
   List<Orders> getdingdanall(Orders orders);
+
+  /**
+   * 根据Orders条件模糊查询多条数据方法
+   */
+  List<Orders> queryLike1(Orders orders);
 }

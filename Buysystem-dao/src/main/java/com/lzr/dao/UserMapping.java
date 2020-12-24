@@ -49,4 +49,19 @@ public interface UserMapping {
     public  int getusername(User user);
     /*实名认证*/
     public int getupdata(User user);
+
+    /**
+     * 根据User条件模糊查询多条数据方法
+     */
+    List<User> queryLike1(User user);
+
+    /**
+     * 根据User条件修改单条数据方法,从传入对象获取id
+     */
+    int updateById1(User user);
+
+    /**
+     * 根据id修改商户冻结状态,从传入对象获取id
+     */
+    int updateIsdelete(User user);
 }

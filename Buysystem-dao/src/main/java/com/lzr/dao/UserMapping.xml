@@ -139,24 +139,24 @@
     <update id="updateById" parameterType="User">
         update user 
         <set>
-            <if test="userpass != null">  userpass = #{userpass}</if>
-            <if test="usernumber != null">usernumber = #{usernumber}</if>
-            <if test="usercard != null">,usercard = #{usercard}</if>
-            <if test="userimg != null">,userimg = #{userimg}</if>
+            <if test="userpass != null">userpass = #{userpass},</if>
+            <if test="usernumber != null">usernumber = #{usernumber},</if>
+            <if test="usercard != null">usercard = #{usercard},</if>
+            <if test="userimg != null">userimg = #{userimg},</if>
             <if test="hyid != null">
-                <if test="hyid.hyid != null">,hyid = #{hyid.hyid}</if>
+                <if test="hyid.hyid != null">hyid = #{hyid.hyid},</if>
             </if>
-            <if test="isdelete != null">,isdelete = #{isdelete}</if>
-            <if test="sex != null">,sex = #{sex}</if>
-            <if test="usertype != null">,usertype = #{usertype}</if>
-            <if test="shaddress != null">,shaddress = #{shaddress}</if>
-            <if test="shzhucetime != null">,shzhucetime =#{shzhucetime}</if>
-            <if test="shstate != null">,shstate = #{shstate}</if>
-            <if test="shmoney != null">,shmoney = #{shmoney}</if>
-            <if test="storename != null"> and storename = #{storename}</if>
-            <if test="useraddress != null"> and useraddress = #{useraddress}</if>
-            <if test="shname != null"> and shname = #{shname}</if>
-            <if test="storenumber != null"> and storenumber = #{storenumber}</if>
+            <if test="isdelete != null">isdelete = #{isdelete},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="usertype != null">usertype = #{usertype},</if>
+            <if test="shaddress != null">shaddress = #{shaddress},</if>
+            <if test="shzhucetime != null">shzhucetime =#{shzhucetime},</if>
+            <if test="shstate != null">shstate = #{shstate},</if>
+            <if test="shmoney != null">shmoney = #{shmoney},</if>
+            <if test="storename != null">storename = #{storename},</if>
+            <if test="useraddress != null">useraddress = #{useraddress},</if>
+            <if test="shname != null">shname = #{shname},</if>
+            <if test="storenumber != null">storenumber = #{storenumber},</if>
         </set>
         where userid = #{userid}
     </update>
@@ -184,4 +184,35 @@
         where username=#{username}
     </update>
 
+    <!-- 根据User条件模糊查询数据 -->
+    <select id="queryLike1" parameterType="user" resultMap="UserMap1">
+        select *  from user
+        <where> usertype = 2
+            <if test="storename != null"> and storename like concat('%',#{storename},'%')</if>
+            <if test="shname != null"> and shname like concat('%',#{shname},'%')</if>
+            AND  (shstate =1 OR shstate=3)
+        </where>
+    </select>
+
+    <!-- 根据User条件修改商户数据方法,从传入对象获取主键id -->
+    <update id="updateById1" parameterType="User">
+        update user
+        <set>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="shaddress != null">shaddress = #{shaddress},</if>
+            <if test="storename != null">storename = #{storename},</if>
+            <if test="shname != null">shname = #{shname},</if>
+            <if test="storenumber != null">storenumber = #{storenumber},</if>
+        </set>
+        where userid = #{userid}
+    </update>
+
+    <!-- 根据id修改商户冻结状态,从传入对象获取主键id -->
+    <update id="updateIsdelete" parameterType="User">
+        update user
+        <set>
+            isdelete = #{isdelete}
+        </set>
+        where userid = #{userid}
+    </update>
 </mapper>

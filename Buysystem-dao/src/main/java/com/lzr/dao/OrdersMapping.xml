@@ -217,4 +217,24 @@
             <if test="orderstate!=null">orderstate=#{orderstate}</if>
         </where>
     </select>
+
+    <!-- 根据Orders条件模糊查询数据方法 -->
+    <select id="queryLike1" resultMap="OrdersMap">
+        select consigneename,consigneeaddress,orderid,shid,shshouru,ordermoney,ordertime,orderstate,userid,ordercount,consigneenumber,orderbianhao,isdelete
+        from orders
+        <where>
+
+            <if test="shid != null">
+                <if test="shid.shid != null"> and shid=('%',#{shid.userid},'%')</if>
+            </if>
+            <if test="orderbianhao != null"> and orderbianhao like concat('%',#{orderbianhao},'%')</if>
+            <if test="ordertime != null"> and ordertime like concat('%',#{ordertime},'%')</if>
+
+            <if test="orderstate != null">
+                <if test="orderstate == 2"> or orderstate=2 or orderstate=4</if>
+                <if test="orderstate == 5"> or orderstate=5</if>
+                <if test="orderstate == 6"> or orderstate=6 or orderstate=7</if>
+            </if>
+        </where>
+    </select>
 </mapper>

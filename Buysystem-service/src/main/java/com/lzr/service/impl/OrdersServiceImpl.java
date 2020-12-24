@@ -25,6 +25,19 @@ public class OrdersServiceImpl implements OrdersService {
         pageVo.setTotal(ordersMapping.getdingdanall(orders).size());
         return pageVo;
     }
+
+    @Override
+    public PageVo<Orders> queryLike1(Orders orders, int page, int rows) {
+        PageVo<Orders> pageVo = new PageVo<>();
+        //在需要分页的代码调用前 执行以下代码
+        PageHelper.startPage(page, rows);
+        //获取分页后 显示的数据集合
+        pageVo.setRows(ordersMapping.queryLike1(orders));
+        //获取总的记录数量
+        pageVo.setTotal(ordersMapping.queryLike1(orders).size());
+
+        return pageVo;
+    }
     @Override
     public PageVo<Orders> queryLikept(Orders orders, int page, int rows) {
         PageVo<Orders> pageVo = new PageVo<>();
