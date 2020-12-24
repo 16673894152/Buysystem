@@ -251,4 +251,46 @@
             </if>
         </where>
     </select>
+
+    <select id="queryLikept1" resultMap="OrdersMap">
+        select * from orders
+        <where>
+            and shid = #{shid.userid}
+            <if test="orderbianhao != null">and orderbianhao like concat('%',#{orderbianhao},'%')</if>
+            <if test="starttime !=''">
+                and ordertime between #{starttime} and #{endtime}
+            </if>
+            <if test="orderstate != null">
+                <if test="orderstate == 2">
+                    and (orderstate=2 or orderstate=4)
+                </if>
+                <if test="orderstate == 5">
+                    and orderstate=5
+                </if>
+                <if test="orderstate == 6">
+                    and (orderstate = 6 or orderstate = 7)
+                </if>
+            </if>
+            and orderstate != 3
+            and orderstate != 1
+            <if test="1!=2"> order by orderid DESc</if>
+        </where>
+    </select>
+    <!-- 商户收货修改订单状态 -->
+    <update id="updateshouhuo" parameterType="Orders">
+        update orders
+        <set>
+            <if test="orderstate != null">orderstate = 5,</if>
+        </set>
+        where orderid = #{orderid}
+    </update>
+
+    <!-- 商户确定提货修改订单状态 -->
+    <update id="updatetihuo" parameterType="Orders">
+        update orders
+        <set>
+            <if test="orderstate != null">orderstate = 6,</if>
+        </set>
+        where orderid = #{orderid}
+    </update>
 </mapper>

@@ -31,8 +31,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User queryById(int id) {
-        return userMapping.queryById(id);
+    public User queryById(int userid) {
+        return userMapping.queryById(userid);
     }
 
     @Override
@@ -116,5 +116,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int xiugaimima(User user) {
         return userMapping.xiugaimima(user);
+    }
+
+    @Override
+    public int tihuosr(User user) {
+        return userMapping.tihuosr(user);
     }
 }

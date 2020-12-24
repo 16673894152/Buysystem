@@ -85,7 +85,7 @@ public class Orders implements Serializable {
         super();
     }
 
-    public Orders(Integer orderid, User userid, User shid, Integer ordercount, Double ordermoney, String orderbianhao, Timestamp ordertime, String consigneename, String consigneenumber, String consigneeaddress, Integer orderstate, Integer isdelete, Double shshouru, Double youhuiprice, List<Orderxq> orderxqs, String starttime, String endtime) {
+    public Orders(Integer orderid, User userid, User shid, Integer ordercount, Double ordermoney, String orderbianhao, Timestamp ordertime, String consigneename, String consigneenumber, String consigneeaddress, Integer orderstate, Integer isdelete, Double shshouru, String starttime, String endtime, Double youhuiprice, List<Orderxq> orderxqs) {
         this.orderid = orderid;
         this.userid = userid;
         this.shid = shid;
@@ -103,24 +103,6 @@ public class Orders implements Serializable {
         this.endtime = endtime;
         this.youhuiprice = youhuiprice;
         this.orderxqs = orderxqs;
-        this.starttime = starttime;
-        this.endtime = endtime;
-    }
-
-    public String getStarttime() {
-        return starttime;
-    }
-
-    public void setStarttime(String starttime) {
-        this.starttime = starttime;
-    }
-
-    public String getEndtime() {
-        return endtime;
-    }
-
-    public void setEndtime(String endtime) {
-        this.endtime = endtime;
     }
 
     /**
@@ -309,6 +291,22 @@ public class Orders implements Serializable {
         this.youhuiprice = youhuiprice;
     }
 
+    public String getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(String starttime) {
+        this.starttime = starttime;
+    }
+
+    public String getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(String endtime) {
+        this.endtime = endtime;
+    }
+
     @Override
     public String toString() {
         return "Orders{" +
@@ -327,8 +325,6 @@ public class Orders implements Serializable {
                 ", shshouru=" + shshouru +
                 ", youhuiprice=" + youhuiprice +
                 ", orderxqs=" + orderxqs +
-                ", starttime='" + starttime + '\'' +
-                ", endtime='" + endtime + '\'' +
                 '}';
     }
 }

@@ -269,8 +269,8 @@ public class UserController {
     @RequestMapping("/Shanghugrwh.action")
     @ResponseBody
     @CrossOrigin
-    public User querById(int shid) {
-        return userService.queryById(shid);
+    public User querById(int userid) {
+        return userService.queryById(userid);
     }
 
     //用户修改

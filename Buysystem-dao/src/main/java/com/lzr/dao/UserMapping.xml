@@ -220,4 +220,13 @@
         </set>
         where userid = #{userid}
     </update>
+
+    <!-- 根据id修改商户收入,从传入对象获取主键id -->
+    <update id="tihuosr" parameterType="User">
+        update user
+        <set>
+            shmoney =shmoney+ #{shmoney}
+        </set>
+        where userid = #{userid}
+    </update>
 </mapper>

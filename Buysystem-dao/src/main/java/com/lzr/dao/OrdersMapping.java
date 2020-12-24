@@ -64,4 +64,19 @@ public interface OrdersMapping {
    * 根据Orders条件模糊查询多条数据方法
    */
   List<Orders> queryLike1(Orders orders);
+
+  /**
+   * 根据Orders条件模糊查询多条数据方法
+   */
+  List<Orders> queryLikept1(Orders orders);
+
+  /**
+   * 商户收货修改订单状态,从传入对象获取id
+   */
+  int updateshouhuo(Orders orders);
+
+  /**
+   * 商户提货修改订单状态,从传入对象获取id
+   */
+  int updatetihuo(Orders orders);
 }

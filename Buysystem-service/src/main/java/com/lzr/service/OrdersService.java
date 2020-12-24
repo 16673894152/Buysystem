@@ -10,4 +10,9 @@ public interface OrdersService {
     PageVo<Orders> queryLikept(Orders orders, int page, int rows);
     int updateById(Orders orders);
     PageVo<Orders> queryLike1(Orders orders, int page, int rows);
+    PageVo<Orders> queryLikept1(Orders orders, int page, int rows);
+    //商户收货修改订单状态
+    int updateshouhuo(Orders orders);
+    //商户提货修改订单状态
+    int updatetihuo(Orders orders);
 }

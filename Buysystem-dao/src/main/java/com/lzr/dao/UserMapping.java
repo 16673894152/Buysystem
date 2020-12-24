@@ -15,7 +15,7 @@ public interface UserMapping {
     /**
      * 根据主键userid(User.userid)查询单条数据方法
      */
-    User queryById(int id);
+    User queryById(int userid);
     /**
      * 根据主键userid(User.userid)查询单条数据方法
      */
@@ -66,4 +66,9 @@ public interface UserMapping {
     int updateIsdelete(User user);
     /*修改密码*/
     public int  xiugaimima(User user);
+
+    /**
+     * 根据id修改商户余额,从传入对象获取id
+     */
+    int tihuosr(User user);
 }

@@ -20,7 +20,7 @@ public interface UserService {
   /**
    * 根据主键userid(User.userid)查询单条数据方法
    */
-  User queryById(int id);
+  User queryById(int userid);
 
   /**
    * 根据User条件查询多条数据方法
@@ -68,5 +68,10 @@ public interface UserService {
   /*修改个人信息*/
   public int getusername(User user);
   public int xiugaimima(User user);
+
+  /**
+   * 根据Id修改商户余额,从传入对象获取id
+   */
+  int tihuosr(User user);
 
 }
