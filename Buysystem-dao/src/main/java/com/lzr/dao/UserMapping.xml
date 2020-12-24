@@ -191,6 +191,7 @@
 
     <!--/*商户申请*/-->
     <update id="shshenqing" parameterType="user">
+            update  user set
        usercard = #{usercard} ,
 	usertype = #{usertype} ,
 	shaddress = #{shaddress} ,
@@ -198,7 +199,7 @@
 	shzhucetime = #{shzhucetime} ,
 	storename = #{storename} ,
 	storenumber = #{storenumber} ,
-	shname = #{shname} ,
+	shname = #{shname}
 
 	WHERE
 	username=#{username}
