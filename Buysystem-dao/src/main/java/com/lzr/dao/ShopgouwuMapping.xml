@@ -9,36 +9,39 @@
         <id column="shopgwid" property="shopgwid"/>
         <result column="number" property="number"/>
         <result column="price" property="price"/>
-        <association property="shopid" column="shopid"
-                     select="com.lzr.dao.ShopMapping.queryById" javaType="Shop" fetchType="lazy"/>
+        <association property="shopputid" column="shopputid"
+                     select="com.lzr.dao.ShopputMapping.queryById" javaType="Shopput" fetchType="lazy"/>
         <association property="userid" column="userid"
                      select="com.lzr.dao.UserMapping.queryById1" javaType="com.lzr.vo.User" fetchType="lazy"/>
     </resultMap>
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="ShopgouwuMap">
-       select number,shopgwid,price,shopid,userid from shopgouwu;
+       select * from shopgouwu;
     </select>
 
     <!-- 根据主键id查询数据方法 -->
     <select id="queryById" parameterType="int" resultMap="ShopgouwuMap">
-       select number,shopgwid,price,shopid,userid from shopgouwu where shopgwid = #{shopgwid};
+       select * from shopgouwu where shopgwid = #{shopgwid};
     </select>
 
     <!-- 根据userid查询数据方法 -->
     <select id="queryByuserid" parameterType="int" resultMap="ShopgouwuMap">
-        select number,shopgwid,price,shopid,userid from shopgouwu where userid = #{userid};
+        select *from shopgouwu where userid = #{userid};
     </select>
     <!-- 根据Shopgouwu条件查询数据方法 -->
     <select id="query" resultMap="ShopgouwuMap">
-        select number,shopgwid,price,shopid,userid
+        select *
         from shopgouwu
         <where>
             <if test="shopgwid != null"> and shopgwid = #{shopgwid}</if>
             <if test="userid != null">
                  <if test="userid.userid != null"> and userid = #{userid.userid}</if>
             </if>
-            <if test="shopid != null">
-                <if test="shopid.shopid != null"> and shopid = #{shopid.shopid}</if>
+            <if test="shopputid != null">
+                <if test="shopputid.shopid != null">
+                    <if test="shopputid.shopid.shopid != null">
+                    and shopputid = #{shopputid.shopid.shopid}
+                </if></if>
             </if>
             <if test="number != null"> and number = #{number}</if>
             <if test="price != 0.0"> and price = #{price}</if>
@@ -47,7 +50,7 @@
 
     <!-- 根据Shopgouwu条件模糊查询数据方法 -->
     <select id="queryLike" resultMap="ShopgouwuMap">
-        select number,shopgwid,price,shopid,userid
+        select number,shopgwid,price,shopputid,userid
         from shopgouwu
         <where>
             <if test="shopgwid != null"> and shopgwid like concat('%',#{shopgwid},'%')</if>
@@ -55,30 +58,47 @@
             <if test="userid != null">
                  <if test="userid.userid != null"> and userid like concat('%',#{userid.userid},'%')</if>
             </if>
-            <if test="shopid != null">
-                <if test="shopid.shopid != null"> and shopid like concat('%',#{shopid.shopid},'%')</if>
+            <if test="shopputid != null">
+                <if test="shopputid.shopid != null">
+                    <if test="shopputid.shopid.shopid != null">
+                        and shopputid like concat('%',#{shopputid.shopid.shopid},'%')
+                    </if></if>
             </if>
+
             <if test="number != null"> and number like concat('%',#{number},'%')</if>
             <if test="price != 0.0"> and price like concat('%',#{price},'%')</if>
         </where>
     </select>
     <!-- 根据Shopgouwu插入数据方法 -->
     <insert id="insert" parameterType="Shopgouwu" useGeneratedKeys="true" keyColumn="shopgwid" keyProperty="shopgwid">
-        insert into shopgouwu (shopid,userid,number,price)
-        values (#{shopid.shopid},#{userid.userid},#{number},#{price});
+        insert into shopgouwu (shopputid,userid,number,price)
+        values (#{shopputid.shopputid},#{userid.userid},#{number},#{price});
     </insert>
 
     <!-- 根据Shopgouwu条件修改单条数据方法,从传入对象获取主键id -->
     <update id="updateById" parameterType="Shopgouwu">
         update shopgouwu
         <set>
-           <!-- <if test="shopid != null">shopid = #{shopid},</if>
-            <if test="userid != null">
-                <if test="userid.userid != null">userid = #{userid.userid},</if>
-            </if>
-            <if test="shopid != null">
-                <if test="shopid.shopid != null"> and shopid = #{shopid.shopid},</if>
-            </if>-->
+            <if test="number != null">number = number + #{number},</if>
+            <if test="price != null">price = price + #{price},</if>
+        </set>
+        where shopgwid = #{shopgwid}
+    </update>
+
+    <!-- 根据Shopgouwu条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="downNumerById" parameterType="Shopgouwu">
+        update shopgouwu
+        <set>
+            <if test="number != null">number = number - #{number},</if>
+            <if test="price != null">price = price - #{price},</if>
+        </set>
+        where shopgwid = #{shopgwid}
+    </update>
+
+    <!-- 根据Shopgouwu条件修改单条数据方法,从传入对象获取主键id -->
+    <update id="upNumerById" parameterType="Shopgouwu">
+        update shopgouwu
+        <set>
             <if test="number != null">number = number + #{number},</if>
             <if test="price != null">price = price + #{price},</if>
         </set>
