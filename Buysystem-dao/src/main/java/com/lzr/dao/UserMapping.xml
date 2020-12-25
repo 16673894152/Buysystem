@@ -72,7 +72,7 @@
     </select>
 
     <!-- 根据主键id查询数据方法 -->
-    <select id="queryById" parameterType="int" resultMap="UserMap">
+    <select id="queryById" parameterType="int" resultMap="UserMap1">
        select * from user where userid = #{userid};
     </select>
 

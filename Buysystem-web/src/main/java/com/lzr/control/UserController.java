@@ -228,7 +228,6 @@ public class UserController {
     @ResponseBody
     @CrossOrigin
     public Map login2(User user) {
-        System.out.println(user+"user");
         Map<String, String> map = new HashMap<String, String>();
         Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUsername(), 5);
         User user1 = new User();
@@ -252,7 +251,9 @@ public class UserController {
             map.put("msg", "该商户被冻结");
             map.put("code", "0");
         } else {
-            map.put("shname",userList1.get(0).getUsername());
+            map.put("shlat",userList1.get(0).getShlat());
+            map.put("shlng",userList1.get(0).getShlng());
+            map.put("storename", userList1.get(0).getStorename());
             map.put("id", userList1.get(0).getUserid().toString());
             map.put("msg", "登录成功,欢迎你:"+user.getUsername());
             map.put("code", "1");
@@ -263,8 +264,10 @@ public class UserController {
     @RequestMapping("/Shanghugrwh.action")
     @ResponseBody
     @CrossOrigin
-    public User querById(int userid) {
+    public User querById(User user) {
+        int userid=user.getUserid();
         return userService.queryById(userid);
+
     }
 
     //用户修改
@@ -354,6 +357,15 @@ public class UserController {
     public String shshty(User user) {
         userService.shshty(user);
         return "成功";
+    }
+
+    /*根据id查询单信息*/
+    @RequestMapping("/queryById.action")
+    @ResponseBody
+    @CrossOrigin
+    public User  queryById(int userid) {
+        System.out.println(userService.queryById(userid));
+        return userService.queryById(userid);
     }
 
 }

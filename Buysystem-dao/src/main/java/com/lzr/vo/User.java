@@ -41,10 +41,14 @@ public class User {
     private String storenumber;
     //用户收货地址
     private String useraddress;
+    //门店横坐标
+    private String shlat;
+    //门店纵坐标
+    private String shlng;
     public User() {
     }
 
-    public User(Integer userid, Timestamp zhucetime, String username, Integer sex, String userpass, String usernumber, String usercard, String userimg, Huiyuan hyid, Integer usertype, String shaddress, double shmoney, Integer shstate, String shstatehuifu, Integer isdelete, Timestamp shzhucetime, String name, List<Orders> userorderss, List<Shopgouwu> shopgouwus, List<Shoppingjia> shoppingjias, List<Orders> shhuorderss, String shname, String storename, String storenumber, String useraddress) {
+    public User(Integer userid, Timestamp zhucetime, String username, Integer sex, String userpass, String usernumber, String usercard, String userimg, Huiyuan hyid, Integer usertype, String shaddress, double shmoney, Integer shstate, String shstatehuifu, Integer isdelete, Timestamp shzhucetime, String name, List<Orders> userorderss, List<Shopgouwu> shopgouwus, List<Shoppingjia> shoppingjias, List<Orders> shhuorderss, String shname, String storename, String storenumber, String useraddress, String shlat, String shlng) {
         this.userid = userid;
         this.zhucetime = zhucetime;
         this.username = username;
@@ -70,38 +74,8 @@ public class User {
         this.storename = storename;
         this.storenumber = storenumber;
         this.useraddress = useraddress;
-    }
-
-    public String getShname() {
-        return shname;
-    }
-
-    public void setShname(String shname) {
-        this.shname = shname;
-    }
-
-    public String getStorename() {
-        return storename;
-    }
-
-    public void setStorename(String storename) {
-        this.storename = storename;
-    }
-
-    public String getStorenumber() {
-        return storenumber;
-    }
-
-    public void setStorenumber(String storenumber) {
-        this.storenumber = storenumber;
-    }
-
-    public String getUseraddress() {
-        return useraddress;
-    }
-
-    public void setUseraddress(String useraddress) {
-        this.useraddress = useraddress;
+        this.shlat = shlat;
+        this.shlng = shlng;
     }
 
     public Integer getUserid() {
@@ -272,6 +246,54 @@ public class User {
         this.shhuorderss = shhuorderss;
     }
 
+    public String getShname() {
+        return shname;
+    }
+
+    public void setShname(String shname) {
+        this.shname = shname;
+    }
+
+    public String getStorename() {
+        return storename;
+    }
+
+    public void setStorename(String storename) {
+        this.storename = storename;
+    }
+
+    public String getStorenumber() {
+        return storenumber;
+    }
+
+    public void setStorenumber(String storenumber) {
+        this.storenumber = storenumber;
+    }
+
+    public String getUseraddress() {
+        return useraddress;
+    }
+
+    public void setUseraddress(String useraddress) {
+        this.useraddress = useraddress;
+    }
+
+    public String getShlat() {
+        return shlat;
+    }
+
+    public void setShlat(String shlat) {
+        this.shlat = shlat;
+    }
+
+    public String getShlng() {
+        return shlng;
+    }
+
+    public void setShlng(String shlng) {
+        this.shlng = shlng;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -300,6 +322,8 @@ public class User {
                 ", storename='" + storename + '\'' +
                 ", storenumber='" + storenumber + '\'' +
                 ", useraddress='" + useraddress + '\'' +
+                ", shlat='" + shlat + '\'' +
+                ", shlng='" + shlng + '\'' +
                 '}';
     }
 }
