@@ -29,6 +29,7 @@ public class ShopputController {
     @ResponseBody
     public List<Shopput> queryLike(Shopput shopput) {
         System.out.println(shopput);
+        System.out.println(shopputService.queryLike(shopput).size());
         return shopputService.queryLike(shopput);
     }
 }

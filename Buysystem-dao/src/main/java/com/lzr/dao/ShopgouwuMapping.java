@@ -47,4 +47,14 @@ public interface ShopgouwuMapping {
    * 根据Shopgouwu条件删除单条数据方法,从传入对象获取id 
    */
   int deleteById(int id);
+
+  /*
+  * 减少商品数量,从传入对象获取id
+   * */
+  int downNumerById(Shopgouwu shopgouwu);
+
+  /*
+   * 添加商品数量,从传入对象获取id
+   * */
+  int upNumerById(Shopgouwu shopgouwu);
 }

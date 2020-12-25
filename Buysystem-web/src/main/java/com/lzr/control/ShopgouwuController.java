@@ -98,4 +98,43 @@ public class ShopgouwuController {
 
     }
 
+    /*
+     * 购物车添加商品
+     * */
+    @RequestMapping("/upNumer.action")
+    @ResponseBody
+    @CrossOrigin
+    public Map upNumerById(Shopgouwu shopgouwu){
+        Map<String,String> map =new HashMap<String,String>();
+        System.out.println(shopgouwu);
+        int num = shopgouwuService.upNumerById(shopgouwu);
+        if (num > 0) {
+            map.put("msg", "添加成功");
+            return map;
+        } else {
+            map.put("msg", "加入失败");
+            return map;
+        }
+    }
+
+    /*
+     * 购物车添加商品
+     * */
+
+    @RequestMapping("/downNumer.action")
+    @ResponseBody
+    @CrossOrigin
+    public Map downNumerById(Shopgouwu shopgouwu){
+        Map<String,String> map =new HashMap<String,String>();
+        System.out.println(shopgouwu);
+        int num = shopgouwuService.downNumerById(shopgouwu);
+        if (num > 0) {
+            map.put("msg", "删除成功");
+            return map;
+        } else {
+            map.put("msg", "加入失败");
+            return map;
+        }
+    }
+
 }

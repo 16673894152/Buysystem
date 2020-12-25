@@ -11,7 +11,7 @@
         <result column="shopputprice" property="shopputprice"/>
         <result column="isdelete" property="isdelete"/>
         <association property="shopid" column="shopid"
-           select="com.lzr.dao.ShopMapping.queryById" javaType="Shop" fetchType="lazy"/>
+                     select="com.lzr.dao.ShopMapping.queryById" javaType="Shop" fetchType="lazy"/>
     </resultMap>
 
     <!-- 查询所有方法 -->
@@ -29,13 +29,13 @@
         select shopzhe,shopid,isdelete,shopputprice,shopputid
         from shopput
         <where>
-            <if test="shopputid != null"> and shopputid = #{shopputid}</if>
+            <if test="shopputid != null">and shopputid = #{shopputid}</if>
             <if test="shopid != null">
-                 <if test="shopid.shopid != null"> and shopid = #{shopid.shopid}</if>
+                <if test="shopid.shopid != null">and shopid = #{shopid.shopid}</if>
             </if>
-            <if test="shopzhe != null"> and shopzhe = #{shopzhe}</if>
-            <if test="shopputprice != null"> and shopputprice = #{shopputprice}</if>
-            <if test="isdelete != null"> and isdelete = #{isdelete}</if>
+            <if test="shopzhe != null">and shopzhe = #{shopzhe}</if>
+            <if test="shopputprice != null">and shopputprice = #{shopputprice}</if>
+            <if test="isdelete != null">and isdelete = #{isdelete}</if>
         </where>
     </select>
 
@@ -45,18 +45,25 @@
     </select>
 
     <!-- 根据Shopput条件模糊查询数据方法 -->
-    <select id="queryLike" resultMap="ShopputMap">
-        select *
-        from shopput 
+    <select id="queryLike" resultMap="ShopputMap" parameterType="shopput">
+        select * from shopput where shopid in(
+        select shopid from shop
         <where>
-            <if test="shopputid != null"> and shopputid like concat('%',#{shopputid},'%')</if>
             <if test="shopid != null">
-                 <if test="shopid.shopid != null"> and shopid like concat('%',#{shopid.shopid},'%')</if>
+                <if test="shopid.shopid != null">
+                    and shopid = #{shopid.shopid}
+                </if>
+                <if test="shopid.shoptyid != null">
+                    and shoptyid = #{shopid.shoptyid.shoptyid}
+                </if>
+                <if test="shopid.shopname != null">
+                    and  shopname like concat('%',#{shopid.shopname},'%')
+                </if>
             </if>
-            <if test="shopzhe != null"> and shopzhe like concat('%',#{shopzhe},'%')</if>
-            <if test="shopputprice != null"> and shopputprice like concat('%',#{shopputprice},'%')</if>
-             and isdelete = 1
         </where>
+        )
+
+
     </select>
 
     <!-- 根据Shopput插入数据方法 -->
@@ -68,7 +75,7 @@
 
     <!-- 根据Shopput条件修改单条数据方法,从传入对象获取主键id -->
     <update id="updateById" parameterType="Shopput">
-        update shopput 
+        update shopput
         <set>
             <if test="shopid != null">
                 <if test="shopid.id != null">shopid = #{shopid.id},</if>
@@ -87,16 +94,18 @@
 
     <!-- 根据Shopput条件删除多条数据方法,从传入对象获取删除条件 -->
     <delete id="deleteBy">
-        delete from shopput 
+        delete from shopput
         <where>
-            <if test="shopputid == null and shopid == null and shopzhe == null and shopputprice == null and isdelete == null "> 1 = 2</if>
-            <if test="shopputid != null"> and shopputid = #{shopputid}</if>
-            <if test="shopid != null">
-                 <if test="shopid.id != null"> and shopid = #{shopid.id}</if>
+            <if test="shopputid == null and shopid == null and shopzhe == null and shopputprice == null and isdelete == null ">
+                1 = 2
             </if>
-            <if test="shopzhe != null"> and shopzhe = #{shopzhe}</if>
-            <if test="shopputprice != null"> and shopputprice = #{shopputprice}</if>
-            <if test="isdelete != null"> and isdelete = #{isdelete}</if> 
+            <if test="shopputid != null">and shopputid = #{shopputid}</if>
+            <if test="shopid != null">
+                <if test="shopid.id != null">and shopid = #{shopid.id}</if>
+            </if>
+            <if test="shopzhe != null">and shopzhe = #{shopzhe}</if>
+            <if test="shopputprice != null">and shopputprice = #{shopputprice}</if>
+            <if test="isdelete != null">and isdelete = #{isdelete}</if>
         </where>
     </delete>
 
