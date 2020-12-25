@@ -75,4 +75,19 @@ public interface UserService {
    */
   int tihuosr(User user);
 
+  /**
+   * 查询所有未审核商户
+   */
+  PageVo<User> queryshshenhe(int page, int rows);
+
+  /**
+   * 商户审核拒绝,从传入对象获取id
+   */
+  int shjujue(User user);
+
+  /**
+   * 商户审核拒绝,从传入对象获取id
+   */
+  int shshty(User user);
+
 }

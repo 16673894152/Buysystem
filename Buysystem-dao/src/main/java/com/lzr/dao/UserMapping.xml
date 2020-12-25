@@ -210,7 +210,7 @@
         <where> usertype = 2
             <if test="storename != null"> and storename like concat('%',#{storename},'%')</if>
             <if test="shname != null"> and shname like concat('%',#{shname},'%')</if>
-            AND  (shstate =1 OR shstate=3)
+            AND  (shstate =5 OR shstate=3)
         </where>
     </select>
 
@@ -241,6 +241,34 @@
         update user
         <set>
             shmoney =shmoney+ #{shmoney}
+        </set>
+        where userid = #{userid}
+    </update>
+
+    <!-- 查询所有未审核商户-->
+    <select id="queryshshenhe" resultMap="UserMap1">
+        select *  from user
+        <where> usertype = 1
+            AND shstate =2
+        </where>
+    </select>
+
+    <!-- 拒绝商户审核,从传入对象获取主键id -->
+    <update id="shjujue" parameterType="User">
+        update user
+        <set>
+            shstate =1,
+            shstatehuifu=#{shstatehuifu}
+        </set>
+        where userid = #{userid}
+    </update>
+
+    <!-- 同意商户审核,从传入对象获取主键id -->
+    <update id="shshty" parameterType="User">
+        update user
+        <set>
+            shstate =3,
+            usertype=2
         </set>
         where userid = #{userid}
     </update>

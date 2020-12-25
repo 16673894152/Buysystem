@@ -75,4 +75,19 @@ public interface UserMapping {
      * 商户申请
      */
     int shshenqing(User user);
+
+    /**
+     * 查询所有未审核商户
+     */
+    List<User> queryshshenhe();
+
+    /**
+     * 商户审核拒绝,从传入对象获取id
+     */
+    int shjujue(User user);
+
+    /**
+     * 商户审核同意,从传入对象获取id
+     */
+    int shshty(User user);
 }

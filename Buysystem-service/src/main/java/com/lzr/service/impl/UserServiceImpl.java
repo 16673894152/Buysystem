@@ -125,6 +125,30 @@ public class UserServiceImpl implements UserService {
     public int tihuosr(User user) {
         return userMapping.tihuosr(user);
     }
+
+    @Override
+    public PageVo<User> queryshshenhe(int page, int rows) {
+        PageVo<User> pageVo = new PageVo<>();
+        //在需要分页的代码调用前 执行以下代码
+        PageHelper.startPage(page, rows);
+        //获取分页后 显示的数据集合
+        pageVo.setRows(userMapping.queryshshenhe());
+        //获取总的记录数量ssou
+        pageVo.setTotal(userMapping.queryshshenhe().size());
+
+        return pageVo;
+    }
+
+    @Override
+    public int shjujue(User user) {
+        return userMapping.shjujue(user);
+    }
+
+    @Override
+    public int shshty(User user) {
+        return userMapping.shshty(user);
+    }
+
     /*申请商户*/
     @Override
     public int shshenqing(User user) {

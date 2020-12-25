@@ -329,5 +329,31 @@ public class UserController {
         return map;
     }
 
+    /*查询未审核商户列表信息*/
+    @RequestMapping("/queryshshenhe.action")
+    @ResponseBody
+    @CrossOrigin
+    public PageVo<User> queryshshenhe(@RequestParam(value = "page", defaultValue = "1") int page,
+                                   @RequestParam(value = "rows", defaultValue = "5") int rows) {
+        return userService.queryshshenhe(page,rows);
+    }
+
+    /*商户审核拒绝*/
+    @RequestMapping("/shjujue.action")
+    @ResponseBody
+    @CrossOrigin
+    public String shjujue(User user) {
+        userService.shjujue(user);
+        return "成功";
+    }
+
+    /*商户审核同意*/
+    @RequestMapping("/shshty.action")
+    @ResponseBody
+    @CrossOrigin
+    public String shshty(User user) {
+        userService.shshty(user);
+        return "成功";
+    }
 
 }
