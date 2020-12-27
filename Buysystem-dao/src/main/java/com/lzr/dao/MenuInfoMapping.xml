@@ -55,11 +55,36 @@
     </select>
         <!--根据用户名查询拥有的菜单-->
     <select id="querymenuall"  resultMap="menumap">
-        SELECT * from menu_info  where isdelete=0 and parentid =#{pid} and nodetype = #{nodeType} and id in(
-            select DISTINCT  rolemenu_info.mid from rolemenu_info,employrole_info where employrole_info.rid=rolemenu_info.rid
-                                                                                  and rolemenu_info.rid in (select employrole_info.rid from employ,employrole_info where employ.empid=employrole_info.empid  and employ.username=#{username})
+        SELECT * from menu_info
+         where isdelete=0 and parentid =#{pid}
+         and nodetype = #{nodeType}
+         and id in(
+        select DISTINCT  rolemenu_info.mid from rolemenu_info,employrole_info
+        where employrole_info.rid=rolemenu_info.rid
+        and rolemenu_info.rid in
+         (select employrole_info.rid from employ,employrole_info
+          where employ.empid=employrole_info.empid  and employ.username=#{username})
         )
     </select>
+    <!--根据jueseid查询拥有的菜单-->
+    <select id="queryridjuese"  resultMap="menumap">
+        SELECT * from menu_info
+        where isdelete=0 and parentid =#{pid} and nodetype = #{nodeType} and id in(
+        select DISTINCT  rolemenu_info.mid from rolemenu_info,employrole_info
+        where employrole_info.rid=rolemenu_info.rid
+        and rolemenu_info.rid=#{rid}
+        )
+    </select>
+
+    <!---->
+    <insert id="addmenujue">
+            INSERT INTO rolemenu_info
+                 (rid, mid)VALUES(#{rid}, #{mid})
+    </insert>
+    <delete id="deletemenujue">
+        DELETE FROM rolemenu_info
+	        WHERE rid = #{rid}
+    </delete>
 
 
 </mapper>

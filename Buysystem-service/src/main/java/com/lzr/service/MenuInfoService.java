@@ -24,8 +24,11 @@ public interface MenuInfoService {
 
     MenuInfo queryById(int id);
 
-    public List<MenuInfo> xianshishouquan(int rid1);
+    public List<MenuInfo> xianshishouquan(int rid,int nodetype);
     /*根据用户名查询拥有的菜单*/
     public List<MenuInfo> querymenuall(int nodetype, String username);
-
+    /*根据用户名查询拥有的菜单,获取权限*/
+    public List<MenuInfo> querymenuallquanxian(int nodetype, String username);
+    /*将角色id和菜单id加入角色菜单表*/
+    public int addmenujue(int rid, String mids);
 }

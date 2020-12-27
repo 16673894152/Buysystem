@@ -59,6 +59,7 @@ public class MenuInfo {
 	/**
 	 * 子菜单集合
 	 */
+	private  String lable;
 	List<MenuInfo> childMenu;
 	private boolean checked;
 	public int isdelete;
@@ -77,7 +78,15 @@ public class MenuInfo {
 		return disabled;
 	}
 
-	public MenuInfo(Integer id, String name, String menuCode, Integer parentId, Integer nodeType, String iconurl, Integer sort, String linkurl, Integer level, String path, List<MenuInfo> childMenu, boolean checked, int isdelete, boolean disabled, List<MenuInfo> children, String label) {
+	public String getLable() {
+		return lable;
+	}
+
+	public void setLable(String lable) {
+		this.lable = lable;
+	}
+
+	public MenuInfo(Integer id, String name, String menuCode, Integer parentId, Integer nodeType, String iconurl, Integer sort, String linkurl, Integer level, String path, String lable, List<MenuInfo> childMenu, boolean checked, int isdelete, boolean disabled, List<MenuInfo> children, String label) {
 		this.id = id;
 		this.name = name;
 		this.menuCode = menuCode;
@@ -88,6 +97,7 @@ public class MenuInfo {
 		this.linkurl = linkurl;
 		this.level = level;
 		this.path = path;
+		this.lable = lable;
 		this.childMenu = childMenu;
 		this.checked = checked;
 		this.isdelete = isdelete;

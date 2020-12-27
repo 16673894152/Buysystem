@@ -120,23 +120,6 @@ public class MenuInfoImpl implements MenuInfoService {
     }
 
     @Override
-    public List<MenuInfo> xianshishouquan(int rid) {
-        //查询所有的父菜单  父节点为0  菜单类型为1
-        List<MenuInfo> menu1 = menuInfoMapping.querymenuBypidandnodeType1(0, 1);
-        for (MenuInfo menus : menu1) {
-           //把子菜单存入父菜单chirld中
-           menus.setChildMenu(menuInfoMapping.querymenuBypidandnodeType1(menus.getId(),2));
-        }
-        for (MenuInfo menus : menu1) {
-            for (MenuInfo menuss : menus.getChildMenu()) {
-               menuss.setChildMenu(menuInfoMapping.querymenuBypidandnodeType1(menuss.getId(),3));
-            }
-        }
-        System.out.println(menu1);
-        return menu1;
-    }
-    /*根据用户名查询拥有的菜单*/
-    @Override
     public List<MenuInfo> querymenuall(int nodetype,String username) {
         //查询所有的父菜单  父节点为0  菜单类型为1
         List<MenuInfo> menus = menuInfoMapping.querymenuall(0, 1, username);
@@ -144,10 +127,12 @@ public class MenuInfoImpl implements MenuInfoService {
 
         //将所有的父菜单的子菜单查询出来，绑定好
         for (MenuInfo menu : menus) {
+
             //查询所有的父菜单子菜单
             List<MenuInfo> childsmenu = menuInfoMapping.querymenuall(menu.getId(), 2, username);
+
             //打印子菜单数量
-          //  System.out.println(childsmenu.size());
+            //  System.out.println(childsmenu.size());
             //进行绑定
             menu.setChildMenu(childsmenu);
 
@@ -164,5 +149,88 @@ public class MenuInfoImpl implements MenuInfoService {
         }
         return menus;
     }
+/*根据角色名查询菜单*/
+    @Override
+    public List<MenuInfo> xianshishouquan(int rid,int nodetype) {
+        //查询所有的父菜单  父节点为0  菜单类型为1
+        List<MenuInfo> menus = menuInfoMapping.queryridjuese(rid,1,0);
+        //System.out.println("父菜单"+menus);
+
+        //将所有的父菜单的子菜单查询出来，绑定好
+        for (MenuInfo menu : menus) {
+            menu.setLabel(menu.getName());
+            //查询所有的父菜单子菜单s
+            List<MenuInfo> childsmenu = menuInfoMapping.queryridjuese(rid,2,menu.getId() );
+            for (MenuInfo menuss : childsmenu) {
+                //打印子菜单数量
+                //  System.out.println(childsmenu.size());
+                //进行绑定
+                menuss.setLabel(menuss.getName());
+            }
+            menu.setChildren(childsmenu);
+            //判断如果节点等于3
+            if (nodetype == 3) {
+                for (MenuInfo menu2 : childsmenu) {
+                    menu2.setLabel(menu2.getName());
+                    //查出节点等于3的菜单
+                    List<MenuInfo> childsmenu2 = menuInfoMapping.queryridjuese(rid,3, menu2.getId());
+                    //进行绑定
+                    menu2.setChildMenu(childsmenu2);
+                }
+            }
+
+        }
+        return menus;
+    }
+
+    /*根据用户名查询菜单*/
+    @Override
+    public List<MenuInfo> querymenuallquanxian(int nodetype, String username) {
+        //查询所有的父菜单  父节点为0  菜单类型为1
+        List<MenuInfo> menus = menuInfoMapping.querymenuall(0, 1, username);
+        //System.out.println("父菜单"+menus);
+
+        //将所有的父菜单的子菜单查询出来，绑定好
+        for (MenuInfo menu : menus) {
+                menu.setLabel(menu.getName());
+            //查询所有的父菜单子菜单s
+            List<MenuInfo> childsmenu = menuInfoMapping.querymenuall(menu.getId(), 2, username);
+            for (MenuInfo menuss : childsmenu) {
+                //打印子菜单数量
+                //  System.out.println(childsmenu.size());
+                //进行绑定
+                menuss.setLabel(menuss.getName());
+            }
+            menu.setChildren(childsmenu);
+            //判断如果节点等于3
+            if (nodetype == 3) {
+                for (MenuInfo menu2 : childsmenu) {
+                    menu2.setLabel(menu2.getName());
+                    //查出节点等于3的菜单
+                    List<MenuInfo> childsmenu2 = menuInfoMapping.querymenuall(menu2.getId(), 3, username);
+                    //进行绑定
+                    menu2.setChildMenu(childsmenu2);
+                }
+            }
+
+        }
+        return menus;
+    }
+    /*将角色id和菜单id加入角色菜单表*/
+    @Override
+    public int addmenujue(int rid, String mids) {
+        String[] id = mids.split(",");
+        int num = 0;
+        //System.out.println("rid"+rid);
+        menuInfoMapping.deletemenujue(rid);
+        //System.out.println("1111");
+        for (int i = 0; i < id.length; i++) {
+            //System.out.println("menuid"+Integer.parseInt(id[i]));
+            num = menuInfoMapping.addmenujue(rid, Integer.parseInt(id[i]));
+        }
+        return num;
+    }
+
+
 
 }

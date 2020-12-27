@@ -51,5 +51,17 @@ public interface MenuInfoMapping {
   int updateById(MenuInfo menuinfo);
 
 /*根据用户名查询拥有的菜单*/
-  public List<MenuInfo> querymenuall(@Param("pid") int pid, @Param("nodeType") int nodeType, @Param("username") String username );
+  public List<MenuInfo> querymenuall(@Param("pid") int pid,
+                                     @Param("nodeType") int nodeType,
+                                     @Param("username") String username );
+  /*根据角色名查询拥有的菜单*/
+  public List<MenuInfo> queryridjuese(@Param("rid") int rid,
+                                     @Param("nodeType") int nodeType,
+                                      @Param("pid") int pid);
+
+  /*将角色id和菜单id加入角色菜单表*/
+  public int addmenujue(@Param("rid") int rid,
+                        @Param("mid")int mid);
+  /*将该角色的菜单全部删除*/
+  public int deletemenujue(@Param("rid") int rid);
 }

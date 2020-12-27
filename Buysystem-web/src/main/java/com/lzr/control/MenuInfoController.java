@@ -80,7 +80,7 @@ public class MenuInfoController {
     @CrossOrigin
     public List<MenuInfo> queryallmenus3(int rid){
         System.out.println(rid);
-        return  menuInfoService.xianshishouquan(rid);
+        return  menuInfoService.xianshishouquan(rid,2);
     }
 
 
@@ -89,13 +89,32 @@ public class MenuInfoController {
     @ResponseBody
     @CrossOrigin
     public List<MenuInfo> queryalls(Employ employ){
-        /*查出该用户拥有的菜单按钮*/
-        //System.out.println("username"+employ.getUsername());
-        //List<String> list=menuInfoService.querymenuall(3,employ.getUsername());
-        //System.out.println(list);
-        //request.getSession().setAttribute("menulist",list);
 
         //返回所有的菜单
         return  menuInfoService.querymenuall(2,employ.getUsername());
+    }
+    //查询出所有的菜单信息(菜单显示用，有层级关系)  授权页面
+    @RequestMapping("/querycaishou.action")
+    @ResponseBody
+    @CrossOrigin
+    public List<MenuInfo> querymenuallquanxian(Employ employ){
+
+        //返回所有的菜单
+        return  menuInfoService.querymenuallquanxian(2,employ.getUsername());
+    }
+
+
+    /*将角色id和菜单id加入角色菜单表*/
+    @RequestMapping("/addmenujue.action")
+    @ResponseBody
+    @CrossOrigin
+    public int addmenujue(int rid, String mids) {
+        //System.out.println("rid1"+rid);
+       // System.out.println("mids"+mids);
+        if (menuInfoService.addmenujue(rid, mids) > 0) {
+            //返回所有的菜单
+            return 1;
+        }
+        return 0;
     }
 }

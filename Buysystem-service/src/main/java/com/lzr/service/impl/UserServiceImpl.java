@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
     /*申请商户*/
     @Override
     public int shshenqing(User user) {
-        user.setUsertype(2);
+        user.setUsertype(1);
         user.setShstate(2);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //设置bai日期格式
