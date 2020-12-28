@@ -1,7 +1,9 @@
 package com.lzr.service;
 
+import com.lzr.vo.Ckbaobiao;
 import com.lzr.vo.Cwbaobiao;
 import com.lzr.vo.PageVo;
+import com.lzr.vo.YearTj;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -45,6 +47,5 @@ public interface CwbaobiaoService {
    */
   int deleteById(int id);
 
-
-
+  PageVo<Cwbaobiao> querycwbaobiao3(Cwbaobiao cwbaobiao, int page, int rows);
 }

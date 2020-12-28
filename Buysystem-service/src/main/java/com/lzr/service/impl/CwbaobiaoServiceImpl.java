@@ -4,19 +4,22 @@ package com.lzr.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.lzr.dao.CwbaobiaoMapping;
+import com.lzr.dao.YearTjMapping;
 import com.lzr.service.CwbaobiaoService;
+import com.lzr.vo.Ckbaobiao;
 import com.lzr.vo.Cwbaobiao;
 import com.lzr.vo.PageVo;
+import com.lzr.vo.YearTj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CwbaobiaoServiceImpl implements CwbaobiaoService {
      @Autowired
      CwbaobiaoMapping cwbaobiaoMapping;
-
 
     @Override
     public List<Cwbaobiao> queryAll() {
@@ -55,4 +58,18 @@ public class CwbaobiaoServiceImpl implements CwbaobiaoService {
     public int deleteById(int id) {
         return cwbaobiaoMapping.deleteById(id);
     }
+
+    @Override
+    public PageVo<Cwbaobiao> querycwbaobiao3(Cwbaobiao cwbaobiao, int page, int rows) {
+        PageVo<Cwbaobiao> pageVo = new PageVo<>();
+        //在需要分页的代码调用前 执行以下代码
+        PageHelper.startPage(page, rows);
+        //获取分页后 显示的数据集合
+        pageVo.setRows(cwbaobiaoMapping.querycwbaobiao3(cwbaobiao));
+        //获取总的记录数量
+        pageVo.setTotal(cwbaobiaoMapping.querycwbaobiao3(cwbaobiao).size());
+
+        return pageVo;
+    }
+
 }

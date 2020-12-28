@@ -11,24 +11,36 @@
         <result column="type" property="type"/>
         <result column="time" property="time"/>
         <result column="isdelete" property="isdelete"/>
-        <association property="empid" column="empid"
+        <association property="employ" column="empid"
                      select="com.lzr.dao.EmployMapping.queryById" javaType="Employ" fetchType="lazy"/>
         <association property="shopid" column="shopid"
                      select="com.lzr.dao.ShopMapping.queryById" javaType="Shop" fetchType="lazy"/>
         <association property="wareid" column="wareid"
                      select="com.lzr.dao.WarehouseMapping.queryById" javaType="Warehouse" fetchType="lazy"/>
     </resultMap>
-
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="CkbaobiaoMap">
-        select * from ckbaobiao;
+        select *
+        from ckbaobiao;
     </select>
 
     <!-- 根据主键id查询数据方法 -->
     <select id="queryById" parameterType="int" resultMap="CkbaobiaoMap">
-        select * from ckbaobiao where ckbbid = #{ckbbid};
+        select *
+        from ckbaobiao
+        where ckbbid = #{ckbbid};
     </select>
 
+    <select id="querybaobiao2" resultMap="CkbaobiaoMap" parameterType="Ckbaobiao">
+        SELECT * FROM ckbaobiao
+        <where>
+            <if test="1 != 2">and TIME like concat('%',#{times},'%')</if>
+            <if test="type != 0">
+                <if test="type != null">and type=#{type}</if>
+            </if>
+        </where>
+        order by ckbbid desc
+    </select>
     <!-- 根据Ckbaobiao条件查询数据方法 -->
     <select id="query" resultMap="CkbaobiaoMap">
         select * from ckbaobiao
@@ -67,12 +79,14 @@
     </select>
     <!-- 根据Ckbaobiao插入数据方法 -->
     <insert id="insert" parameterType="Ckbaobiao" useGeneratedKeys="true" keyColumn="ckbbid" keyProperty="ckbbid">
-        insert into ckbaobiao (ckbbid, shopid, wareid, empid,count, type, time,isdelete)
-        values (#{ckbbid}, #{shopid.shopid}, #{wareid.wareid},#{employ.empid}, #{count}, #{type},now(),1);
+        insert into ckbaobiao (ckbbid, shopid, wareid, empid, count, type, time, isdelete)
+        values (#{ckbbid}, #{shopid.shopid}, #{wareid.wareid}, #{employ.empid}, #{count}, #{type}, now(), 1);
     </insert>
 
     <!-- 根据Ckbaobiao条件删除单条数据方法,从传入对象获取id -->
     <delete id="deleteById" parameterType="int">
-        delete from ckbaobiao where ckbbid = #{ckbbid};
+        delete
+        from ckbaobiao
+        where ckbbid = #{ckbbid};
     </delete>
 </mapper>

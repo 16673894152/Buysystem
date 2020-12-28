@@ -39,18 +39,45 @@ public class Xsbaobiao implements Serializable {
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp time;
-
+    /*前台查询时间字段名*/
+    private String querytime;
+    /*前台查询类型字段名*/
+    private int querytype;
     public Xsbaobiao() {
         super();
     }
 
-    public Xsbaobiao(Integer xsbbid, Shop shopid, Integer count, Double money, Integer type, Timestamp time) {
+    public Xsbaobiao(Integer xsbbid, Shop shopid, Integer count, Double money, Integer type, Timestamp time, String querytime, int querytype) {
         this.xsbbid = xsbbid;
         this.shopid = shopid;
         this.count = count;
         this.money = money;
         this.type = type;
         this.time = time;
+        this.querytime = querytime;
+        this.querytype = querytype;
+    }
+
+    @Override
+    public String toString() {
+        return "Xsbaobiao{" +
+                "xsbbid=" + xsbbid +
+                ", shopid=" + shopid +
+                ", count=" + count +
+                ", money=" + money +
+                ", type=" + type +
+                ", time=" + time +
+                ", querytime='" + querytime + '\'' +
+                ", querytype=" + querytype +
+                '}';
+    }
+
+    public int getQuerytype() {
+        return querytype;
+    }
+
+    public void setQuerytype(int querytype) {
+        this.querytype = querytype;
     }
 
     /**
@@ -131,16 +158,13 @@ public class Xsbaobiao implements Serializable {
         return time;
     }
 
-    @Override
-    public String toString() {
-        return "xsbaobiao[" +
-                "xsbbid = " + xsbbid +
-                ", shopid = " + shopid +
-                ", count = " + count +
-                ", money = " + money +
-                ", type = " + type +
-                ", time = " + time +
-                "]";
+    public String getQuerytime() {
+        return querytime;
     }
+
+    public void setQuerytime(String querytime) {
+        this.querytime = querytime;
+    }
+
 }
 

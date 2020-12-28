@@ -1,6 +1,7 @@
 package com.lzr.dao;
 
 import com.lzr.vo.Ckbaobiao;
+import com.lzr.vo.Cwbaobiao;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -13,7 +14,8 @@ public interface CkbaobiaoMapping {
    * 查询所有方法 
    */
   List<Ckbaobiao> queryAll();
-
+  //*仓库报表显示*/
+  List<Ckbaobiao> querybaobiao2(Ckbaobiao ckbaobiao);
   /**
    * 根据主键ckbbid(Ckbaobiao.ckbbid)查询单条数据方法 
    */

@@ -17,7 +17,10 @@ public interface CwbaobiaoMapping {
    * 查询所有方法 
    */
   List<Cwbaobiao> queryAll();
-
+  /**
+   * 查询所有方法
+   */
+  List<Cwbaobiao> querycwbaobiao3(Cwbaobiao cwbaobiao);
   /**
    * 根据主键cwbbid(Cwbaobiao.cwbbid)查询单条数据方法 
    */

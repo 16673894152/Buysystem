@@ -45,6 +45,19 @@ public class XsbaobiaoServiceImpl implements XsbaobiaoService {
     }
 
     @Override
+    public PageVo<Xsbaobiao> queryxsbaobiao3(Xsbaobiao xsbaobiao, int page, int rows) {
+        PageVo<Xsbaobiao> pageVo = new PageVo<>();
+        //在需要分页的代码调用前 执行以下代码
+        PageHelper.startPage(page, rows);
+        //获取分页后 显示的数据集合
+        pageVo.setRows(xsbaobiaoMapping.queryxsbaobiao3(xsbaobiao));
+        //获取总的记录数量
+        pageVo.setTotal(xsbaobiaoMapping.queryxsbaobiao3(xsbaobiao).size());
+
+        return pageVo;
+    }
+
+    @Override
     public int insert(Xsbaobiao xsbaobiao) {
         return xsbaobiaoMapping.insert(xsbaobiao);
     }

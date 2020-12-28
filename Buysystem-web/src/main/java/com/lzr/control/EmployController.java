@@ -1,9 +1,12 @@
 package com.lzr.control;
 
 import com.lzr.service.EmployService;
+import com.lzr.service.EmployroleService;
 import com.lzr.vo.Employ;
+import com.lzr.vo.EmployroleInfo;
 import com.lzr.vo.PageVo;
 
+import com.lzr.vo.RoleInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +27,8 @@ public class EmployController {
 
     @Autowired
     EmployService employService;
-
+    @Autowired
+    EmployroleService employroleService;
     @RequestMapping("/login.action")
     @CrossOrigin
     @ResponseBody
@@ -111,5 +117,39 @@ public class EmployController {
     @CrossOrigin
     public List<Employ> queryall() {
         return employService.queryAll();
+    }
+
+    @RequestMapping("/employshouquan.action")
+    @ResponseBody
+    @CrossOrigin
+    public Map employshouquan(int empid,String rids) {
+        Employ employ=new Employ();
+        String[] ridss = rids.split(",");
+        List<Integer> ridsss = new ArrayList<>();
+        int num = 0;
+        for (int i = 0; i <= ridss.length - 1; i++) {
+            ridsss.add(Integer.parseInt(ridss[i]));
+        }
+        /*删除原来的角色*/
+         num=employroleService.deleteByempid(empid);
+        /*添加新的角色*/
+        EmployroleInfo employroleInfo=new EmployroleInfo();
+        Employ employ1=new Employ();employ1.setEmpid(empid);
+        for (int i=0;i<ridsss.size();i++){
+            System.out.println(ridsss.get(i));
+            employroleInfo.setEmpid(employ1);
+            RoleInfo roleInfo=new RoleInfo();
+            roleInfo.setRid(ridsss.get(i));
+            employroleInfo.setRid(roleInfo);
+            System.out.println(employroleInfo+"员工角色");
+            int numss=employroleService.insert(employroleInfo);
+        }
+        Map<String, String> map = new HashMap<String, String>();
+        if (num > 0) {
+            map.put("msg", "授权成功");
+        } else {
+            map.put("msg", "授权失败");
+        }
+        return map;
     }
 }

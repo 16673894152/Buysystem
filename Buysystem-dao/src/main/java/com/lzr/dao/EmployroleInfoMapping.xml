@@ -115,21 +115,12 @@
     <!-- 根据EmployroleInfo插入数据方法 -->
     <insert id="insert" parameterType="EmployroleInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into employrole_info (id,rid,empid) 
-        values (#{id},#{rid.rid},#{empid.empid}); 
-    </insert>
-
-    <!-- 根据EmployroleInfo插入多条数据方法 -->
-    <insert id="inserts" parameterType="List" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        insert into employrole_info (id,rid,empid) 
-        values 
-        <foreach collection="employroleinfos" item="item" separator=",">
-            (#{item.id},#{item.rid.rid},#{item.empid.empid}) 
-        </foreach>
+        values (null,#{rid.rid},#{empid.empid});
     </insert>
 
     <!-- 根据EmployroleInfo条件修改单条数据方法,从传入对象获取主键id -->
     <update id="updateById" parameterType="EmployroleInfo">
-        update employrole_info 
+        update employrole_info
         <set>
             <if test="rid != null">
                 <if test="rid.rid != null">rid = #{rid.rid},</if>
@@ -141,57 +132,10 @@
         where id = #{id}
     </update>
 
-    <!-- 根据SetValue条件修改多条数据方法,从传入对象Condition中获取修改的条件 -->
-    <update id="updates">
-        update employrole_info 
-        <set>
-            <if test="SetValue.rid != null">
-                <if test="SetValue.rid.rid != null">rid = #{SetValue.rid.rid},</if>
-            </if>
-            <if test="SetValue.empid != null">
-                <if test="SetValue.empid.empid != null">empid = #{SetValue.empid.empid},</if>
-            </if>
-        </set>
-        <where>
-            <if test="Condition != null">
-                <if test="Condition.id != null"> and id = #{Condition.id}</if>
-                <if test="Condition.rid != null">
-                    <if test="Condition.rid.rid != null"> and rid = #{Condition.rid.rid}</if>
-                </if>
-                <if test="Condition.empid != null">
-                    <if test="Condition.empid.empid != null"> and empid = #{Condition.empid.empid}</if>
-                </if>
-            </if>
-        </where>
-     </update>
 
     <!-- 根据EmployroleInfo条件删除单条数据方法,从传入对象获取id -->
-    <delete id="deleteById" parameterType="int">
-        delete from employrole_info where id = #{id};
+    <delete id="deleteByempid" parameterType="int">
+        delete from employrole_info where empid = #{empid};
     </delete>
-
-    <!-- 根据EmployroleInfo条件删除多条数据方法,从传入对象获取删除条件 -->
-    <delete id="deleteBy">
-        delete from employrole_info 
-        <where>
-            <if test="id == null and rid == null and empid == null "> 1 = 2</if>
-            <if test="id != null"> and id = #{id}</if>
-            <if test="rid != null">
-                 <if test="rid.rid != null"> and rid = #{rid.rid}</if>
-            </if>
-            <if test="empid != null">
-                 <if test="empid.empid != null"> and empid = #{empid.empid}</if>
-            </if> 
-        </where>
-    </delete>
-
-    <!-- 根据EmployroleInfo主键id批量删除多条数据方法 -->
-    <delete id="deletesById" parameterType="List">
-        delete from employrole_info where id in 
-        <foreach collection="ids" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
 
 </mapper>

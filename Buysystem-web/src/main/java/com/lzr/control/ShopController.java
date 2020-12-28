@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -96,5 +97,11 @@ public class ShopController {
         shop.setMaxprice(10000);
         System.out.println(shopService.queryLike(shop, page, rows).getRows());
         return shopService.queryLike(shop, page, rows);
+    }
+    @RequestMapping("/queryall.action")
+    @ResponseBody
+    @CrossOrigin
+    public List<Shop> queryall() {
+        return shopService.queryAll();
     }
 }

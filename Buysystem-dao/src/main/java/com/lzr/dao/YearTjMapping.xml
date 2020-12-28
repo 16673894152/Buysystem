@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.YearTjMapping">
+
+    <!-- resultMap映射 -->
+    <resultMap id="YearTjMap" type="YearTj">
+        <result column="month" property="month"/>
+        <result column="money" property="money"/>
+        <result column="number" property="number"/>
+    </resultMap>
+    <!-- 查询支出 -->
+    <select id="queryZhichu" resultMap="YearTjMap" parameterType="YearTj">
+        SELECT MONTH(TIME) as month, SUM(money) as money
+        FROM cwbaobiao
+        WHERE YEAR(TIME) = #{year}
+          and (TYPE = 1 OR TYPE = 3 OR TYPE = 4)
+        GROUP BY MONTH(TIME)
+    </select>
+    <!-- 查询收入 -->
+    <select id="queryShouru" resultMap="YearTjMap" parameterType="YearTj">
+        SELECT MONTH(TIME) as month, SUM(money) as money
+        FROM cwbaobiao
+        WHERE YEAR(TIME) = #{year}
+          and (TYPE = 2 OR TYPE = 5)
+        GROUP BY MONTH(TIME)
+    </select>
+    <!-- 查询销售 -->
+    <select id="queryXiaoshou" resultMap="YearTjMap" parameterType="YearTj">
+        SELECT MONTH(TIME) AS MONTH,SUM(COUNT) AS number FROM xsbaobiao
+        <where>
+            and YEAR(TIME) = #{year} AND TYPE=1
+            <if test="number!=0">
+                AND shopid=#{number}
+            </if>
+        </where>
+        GROUP BY MONTH(TIME)
+    </select>
+
+</mapper>

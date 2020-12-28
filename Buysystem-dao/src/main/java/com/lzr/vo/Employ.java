@@ -6,7 +6,8 @@ package com.lzr.vo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 
-import java.util.List;
+ import java.util.Arrays;
+ import java.util.List;
 
 /**
  * 表名 :  employ<br/>
@@ -39,10 +40,13 @@ public class Employ implements Serializable {
 	private String password;
 	/**员工人脸*/
 	private Byte[] img;
-	public Employ() {
+	/*角色对象*/
+	private List<RoleInfo> rolelist;
+ 	public Employ() {
 		super();
 	}
-	public Employ(Integer empid,String empname,Integer empsex,String empnumber,String empaddress,String empcard,Date empstarttime,Integer empstate,String empremark,String username,String password,Byte[] img) {
+
+	public Employ(Integer empid, String empname, Integer empsex, String empnumber, String empaddress, String empcard, Date empstarttime, Integer empstate, String empremark, String username, String password, Byte[] img, List<RoleInfo> rolelist) {
 		this.empid = empid;
 		this.empname = empname;
 		this.empsex = empsex;
@@ -55,7 +59,9 @@ public class Employ implements Serializable {
 		this.username = username;
 		this.password = password;
 		this.img = img;
+		this.rolelist = rolelist;
 	}
+
 	/**设置"员工id"*/
 	public void setEmpid(Integer empid){
 		this.empid = empid;
@@ -152,22 +158,32 @@ public class Employ implements Serializable {
 	public Byte[] getImg(){
 		return img;
 	}
+
+	public List<RoleInfo> getRolelist() {
+		return rolelist;
+	}
+
+	public void setRolelist(List<RoleInfo> rolelist) {
+		this.rolelist = rolelist;
+	}
+
 	@Override
 	public String toString() {
-		return "employ[" + 
-			"empid = " + empid + 
-			", empname = " + empname + 
-			", empsex = " + empsex + 
-			", empnumber = " + empnumber + 
-			", empaddress = " + empaddress + 
-			", empcard = " + empcard + 
-			", empstarttime = " + empstarttime + 
-			", empstate = " + empstate + 
-			", empremark = " + empremark + 
-			", username = " + username + 
-			", password = " + password + 
-			", img = " + img +
-			"]";
+		return "Employ{" +
+				"empid=" + empid +
+				", empname='" + empname + '\'' +
+				", empsex=" + empsex +
+				", empnumber='" + empnumber + '\'' +
+				", empaddress='" + empaddress + '\'' +
+				", empcard='" + empcard + '\'' +
+				", empstarttime=" + empstarttime +
+				", empstate=" + empstate +
+				", empremark='" + empremark + '\'' +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", img=" + Arrays.toString(img) +
+				", rolelist=" + rolelist +
+				'}';
 	}
 }
 

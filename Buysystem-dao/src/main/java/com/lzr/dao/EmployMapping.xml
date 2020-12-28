@@ -18,11 +18,26 @@
         <result column="password" property="password"/>
         <result column="img" property="img"/>
     </resultMap>
-
+    <resultMap id="EmployMap1" type="Employ">
+        <id column="empid" property="empid"/>
+        <result column="empname" property="empname"/>
+        <result column="empsex" property="empsex"/>
+        <result column="empnumber" property="empnumber"/>
+        <result column="empaddress" property="empaddress"/>
+        <result column="empcard" property="empcard"/>
+        <result column="empstarttime" property="empstarttime"/>
+        <result column="empstate" property="empstate"/>
+        <result column="empremark" property="empremark"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="img" property="img"/>
+        <collection property="rolelist" javaType="list" ofType="com.lzr.vo.RoleInfo"
+                    column="empid" select="com.lzr.dao.RoleInfoMapping.queryByempid" fetchType="lazy"/>
+    </resultMap>
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="EmployMap">
        select empname,empsex,empid,password,img,empnumber,empaddress,empcard,empstarttime,empremark,empstate,username from employ
-where empstate=1 and empid!=1 and empid!=5;
+        where empstate=1 and empid!=1 ;
     </select>
 
     <!-- 根据主键id查询数据方法 -->
@@ -55,7 +70,7 @@ where empstate=1 and empid!=1 and empid!=5;
         SELECT * FROM employ WHERE empid IN (SELECT empid FROM employrole_info WHERE rid=#{rid} and empid!=5);
     </select>
     <!-- 根据Employ条件模糊查询数据方法    表格显示数据-->
-    <select id="queryLike" resultMap="EmployMap">
+    <select id="queryLike" resultMap="EmployMap1">
         select empname,empsex,empid,password,img,empnumber,empaddress,empcard,empstarttime,empremark,empstate,username
         from employ
         <where>

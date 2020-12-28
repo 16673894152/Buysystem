@@ -13,12 +13,20 @@
         <collection property="employList" javaType="list" ofType="com.lzr.vo.Employ"
                     column="rid" select="com.lzr.dao.EmployMapping.queryEmployByrid" fetchType="lazy"/>
     </resultMap>
-    <!-- 查询所有方法 -->
+    <resultMap id="RoleInfoMap1" type="RoleInfo">
+        <id column="rid" property="rid"/>
+        <result column="rname" property="rname"/>
+        <result column="rremart" property="rremart"/>
+        <result column="rstate" property="rstate"/>
+        <result column="count" property="count"/>
+    </resultMap>
     <select id="queryAll" resultMap="RoleInfoMap">
         select rname, rremart, rid, rstate
-        from role_info;
+        from role_info where rstate=1 and rid!=1;
     </select>
-
+    <select id="queryByempid" resultMap="RoleInfoMap1" parameterType="int">
+        select rname, rremart, rid, rstate from role_info where rid in (SELECT rid FROM employrole_info WHERE empid=#{empid}) and rstate=1; ;
+    </select>
     <!-- 根据主键id查询数据方法 -->
     <select id="queryById" parameterType="int" resultMap="RoleInfoMap">
         select rname, rremart, rid, rstate
@@ -82,5 +90,4 @@
         from role_info
         where rid = #{rid};
     </delete>
-
 </mapper>

@@ -35,7 +35,10 @@ public interface XsbaobiaoService {
    */
   PageVo<Xsbaobiao> queryLike(Xsbaobiao xsbaobiao, int page, int rows);
 
-
+  /**
+   * 根据Xsbaobiao条件模糊查询多条数据方法
+   */
+  PageVo<Xsbaobiao> queryxsbaobiao3(Xsbaobiao xsbaobiao, int page, int rows);
   /**
    * 根据Xsbaobiao插入数据方法
    */

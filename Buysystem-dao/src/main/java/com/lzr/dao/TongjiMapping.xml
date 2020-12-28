@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzr.dao.TongjiMapping">
+
+    <resultMap id="Tongjimap" type="Tongji">
+        <result column="name" property="name"/>
+        <result column="value" property="value"/>
+    </resultMap>
+    <select id="querybaobiao1" resultMap="Tongjimap" parameterType="Tongji">
+        SELECT SUM(`count`) AS value ,warehouse.warename as name FROM ckbaobiao,warehouse
+        <where>
+            <if test="1 != 2">and ckbaobiao.wareid=warehouse.wareid and TIME like concat('%',#{name},'%')</if>
+            <if test="value == 1">and ( type=1 or type=3 or type=5)</if>
+            <if test="value == 2">and ( type=2 or type=4 or type=6)</if>
+        </where>
+        GROUP BY ckbaobiao.wareid;
+    </select>
+    <select id="querycwbaobiao2" resultMap="Tongjimap" parameterType="Tongji">
+        SELECT SUM(`money`) AS VALUE,(CASE TYPE WHEN '1'THEN '采购支出' WHEN '2'THEN '销售收入' WHEN '3'THEN '商户提现' WHEN '4'THEN
+        '用户退货支出' WHEN '5'THEN '库存退货收入' ELSE TYPE END)AS NAME FROM cwbaobiao
+        <where>
+            <if test="1 != 2">and time like concat('%',#{name},'%')</if>
+        </where>
+        GROUP BY TYPE ;
+    </select>
+    <select id="queryxsbaobiao2" resultMap="Tongjimap" parameterType="Tongji">
+        SELECT SUM(`count`) AS value, shoptype.shoptyname AS name
+        FROM xsbaobiao,
+             shop,
+             shoptype
+        WHERE xsbaobiao.`shopid` = shop.`shopid`
+          AND shop.`shoptyid` = shoptype.`shoptyid`
+          and time like concat('%', #{name}, '%')
+        GROUP BY shop.shoptyid;
+    </select>
+</mapper>

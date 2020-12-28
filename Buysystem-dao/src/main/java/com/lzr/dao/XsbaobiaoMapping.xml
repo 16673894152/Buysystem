@@ -68,4 +68,14 @@
         delete from xsbaobiao where xsbbid = #{xsbbid};
     </delete>
 
+    <select id="queryxsbaobiao3" resultMap="XsbaobiaoMap" parameterType="Xsbaobiao">
+        SELECT * FROM xsbaobiao
+        <where>
+        <if test="querytype!=0">
+             and  shopid IN (SELECT shopid FROM shop WHERE shoptyid=#{querytype})
+        </if>
+         <if test="1 != 2">and TIME like concat('%',#{querytime},'%')</if>
+        </where>
+        order by xsbbid desc
+    </select>
 </mapper>

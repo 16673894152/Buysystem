@@ -1,7 +1,10 @@
 package com.lzr.service;
 
 import com.lzr.vo.Ckbaobiao;
+import com.lzr.vo.Cwbaobiao;
 import com.lzr.vo.PageVo;
+import com.lzr.vo.Tongji;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -45,6 +48,5 @@ public interface CkbaobiaoService {
    */
   int deleteById(int id);
 
-
-
+  PageVo<Ckbaobiao> querybaobiao2(Ckbaobiao ckbaobiao,int page, int rows);
 }

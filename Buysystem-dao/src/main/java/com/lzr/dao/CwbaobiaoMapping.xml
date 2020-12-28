@@ -60,4 +60,14 @@
         delete from cwbaobiao where cwbbid = #{cwbbid};
     </delete>
 
+    <select id="querycwbaobiao3" resultMap="CwbaobiaoMap" parameterType="Cwbaobiao">
+        SELECT * FROM cwbaobiao
+        <where>
+            <if test="1 != 2">and TIME like concat('%',#{cwname},'%')</if>
+            <if test="type != 0">
+                <if test="type != null">and type=#{type}</if>
+            </if>
+        </where>
+        order by cwbbid desc
+    </select>
 </mapper>

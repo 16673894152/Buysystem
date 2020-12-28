@@ -22,11 +22,14 @@ public interface XsbaobiaoMapping {
    * 根据主键xsbbid(Xsbaobiao.xsbbid)查询单条数据方法 
    */
   Xsbaobiao queryById(int id);
-
   /**
    * 根据Xsbaobiao条件查询多条数据方法 
    */
   List<Xsbaobiao> query(Xsbaobiao xsbaobiao);
+  /**
+   * 根据Xsbaobiao条件查询多条数据方法
+   */
+  List<Xsbaobiao> queryxsbaobiao3(Xsbaobiao xsbaobiao);
 
   /**
    * 根据Xsbaobiao条件模糊查询多条数据方法 

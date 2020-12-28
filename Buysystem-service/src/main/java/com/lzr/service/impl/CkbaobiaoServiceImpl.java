@@ -2,9 +2,9 @@ package com.lzr.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.lzr.dao.CkbaobiaoMapping;
+import com.lzr.dao.TongjiMapping;
 import com.lzr.service.CkbaobiaoService;
-import com.lzr.vo.Ckbaobiao;
-import com.lzr.vo.PageVo;
+import com.lzr.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,8 @@ import java.util.List;
 public class CkbaobiaoServiceImpl implements CkbaobiaoService {
      @Autowired
      CkbaobiaoMapping ckbaobiaoMapping;
-
+     @Autowired
+    TongjiMapping tongjiMapping;
 
     @Override
     public List<Ckbaobiao> queryAll() {
@@ -52,5 +53,18 @@ public class CkbaobiaoServiceImpl implements CkbaobiaoService {
     @Override
     public int deleteById(int id) {
         return ckbaobiaoMapping.deleteById(id);
+    }
+    @Override
+    public PageVo<Ckbaobiao> querybaobiao2(Ckbaobiao ckbaobiao, int page, int rows) {
+        PageVo<Ckbaobiao> pageVo=new PageVo<>();
+        List<Ckbaobiao> employList=ckbaobiaoMapping.querybaobiao2(ckbaobiao);
+        //在需要分页的代码调用前 执行以下代码
+        PageHelper.startPage(page, rows);
+        //获取分页后 显示的数据集合
+        pageVo.setRows(ckbaobiaoMapping.querybaobiao2(ckbaobiao));
+        //获取总的记录数量
+        pageVo.setTotal(ckbaobiaoMapping.querybaobiao2(ckbaobiao).size());
+
+        return pageVo;
     }
 }

@@ -13,6 +13,10 @@ public interface RoleInfoMapping {
   List<RoleInfo> queryAll();
 
   /**
+   * 通过员工id查看角色
+   */
+  List<RoleInfo> queryByempid(int empid);
+  /**
    * 根据主键rid查询单条数据方法
    */
   RoleInfo queryById(int id);

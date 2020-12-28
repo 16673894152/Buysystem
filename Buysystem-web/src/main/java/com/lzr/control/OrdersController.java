@@ -45,6 +45,7 @@ public class OrdersController {
                                       @RequestParam(value = "rows", defaultValue = "5") int rows) {
         String starttime1 = "";
         String endtime1 = "";
+        System.out.println(time+"时间");
         if (time != "") {
             //如果不等于空
             String[] shopids = time.split(",");
