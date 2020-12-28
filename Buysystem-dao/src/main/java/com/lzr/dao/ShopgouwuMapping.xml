@@ -38,10 +38,9 @@
                  <if test="userid.userid != null"> and userid = #{userid.userid}</if>
             </if>
             <if test="shopputid != null">
-                <if test="shopputid.shopid != null">
-                    <if test="shopputid.shopid.shopid != null">
-                    and shopputid = #{shopputid.shopid.shopid}
-                </if></if>
+                <if test="shopputid.shopputid != null">
+                    and shopputid = #{shopputid.shopputid}
+                </if>
             </if>
             <if test="number != null"> and number = #{number}</if>
             <if test="price != 0.0"> and price = #{price}</if>
@@ -54,17 +53,14 @@
         from shopgouwu
         <where>
             <if test="shopgwid != null"> and shopgwid like concat('%',#{shopgwid},'%')</if>
-            <if test="shopid != null"> and shopid like concat('%',#{shopid},'%')</if>
             <if test="userid != null">
                  <if test="userid.userid != null"> and userid like concat('%',#{userid.userid},'%')</if>
             </if>
             <if test="shopputid != null">
-                <if test="shopputid.shopid != null">
-                    <if test="shopputid.shopid.shopid != null">
-                        and shopputid like concat('%',#{shopputid.shopid.shopid},'%')
-                    </if></if>
+                <if test="shopputid.shopputid != null">
+                    and shopputid = #{shopputid.shopputid}
+                </if>
             </if>
-
             <if test="number != null"> and number like concat('%',#{number},'%')</if>
             <if test="price != 0.0"> and price like concat('%',#{price},'%')</if>
         </where>

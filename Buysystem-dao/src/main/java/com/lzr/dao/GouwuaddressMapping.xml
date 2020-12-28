@@ -9,11 +9,12 @@
         <result column="beizhu" property="beizhu"/>
         <result column="telephone" property="telephone"/>
         <result column="nicheng" property="nicheng"/>
+        <result column="delivery" property="delivery"/>
         <association property="userid" column="userid"
                      select="com.lzr.dao.UserMapping.queryById1" javaType="User" fetchType="lazy"/>
         <association property="shid" column="shid"
                      select="com.lzr.dao.UserMapping.queryById1" javaType="User" fetchType="lazy"/>
-         </resultMap>
+    </resultMap>
 
     <!-- 根据外键userid查询数据方法 -->
     <select id="queryById" parameterType="int" resultMap="AdressMap">
@@ -21,12 +22,12 @@
     </select>
 
 
-    <!-- 根据Orders条件修改单条数据方法,从传入对象获取主键id -->
+    <!-- 根据Gouwuaddress条件修改单条数据方法,从传入对象获取主键id -->
     <update id="updateById" parameterType="Gouwuaddress">
         UPDATE s3xiangmu4.gouwuaddress
         <set>
             <if test="shid != null">
-                <if test="shid.shid != null">shid = #{shid.shid},</if>
+                <if test="shid.shid != null">shid = #{shid.userid},</if>
             </if>
             <if test="beizhu != null">beizhu = #{beizhu},</if>
             <if test="telephone != null">telephone = #{telephone},</if>
@@ -34,10 +35,17 @@
         </set>
         where addressid = #{addressid}
     </update>
-    <!-- 根据Orders条件删除单条数据方法,从传入对象获取id -->
+    <!-- 根据Gouwuaddress条件删除单条数据方法,从传入对象获取id -->
     <delete id="deleteById" parameterType="int">
         delete from gouwuaddress where addressid = #{id};
     </delete>
+
+    <!--根据Gouwuaddress条件插入单条数据方法,从传入对象获取数据-->
+    <insert id="insert" parameterType="Gouwuaddress" useGeneratedKeys="true" keyColumn="addressid"
+            keyProperty="addressid">
+        INSERT INTO gouwuaddress (userid, shid, beizhu, telephone, nicheng, delivery)
+        VALUES (#{userid.userid}, #{shid.userid}, #{beizhu}, #{telephone}, #{nicheng},0);
+    </insert>
 
 
 </mapper>
