@@ -33,4 +33,14 @@ public class GouwuaddressServiceImpl implements GouwuaddressService {
     public int deleteById(int id) {
         return addressMapping.deleteById(id);
     }
+
+    @Override
+    public int clearDelivery(Gouwuaddress gouwuaddress) {
+        return addressMapping.clearDelivery(gouwuaddress);
+    }
+
+    @Override
+    public int setDelivery(Gouwuaddress gouwuaddress) {
+        return addressMapping.setDelivery(gouwuaddress);
+    }
 }

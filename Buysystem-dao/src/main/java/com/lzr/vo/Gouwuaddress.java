@@ -58,6 +58,19 @@ public class Gouwuaddress {
         this.delivery = delivery;
     }
 
+    @Override
+    public String toString() {
+        return "Gouwuaddress{" +
+                "addressid=" + addressid +
+                ", userid=" + userid +
+                ", shid=" + shid +
+                ", beizhu='" + beizhu + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", nicheng='" + nicheng + '\'' +
+                ", delivery=" + delivery +
+                '}';
+    }
+
     public boolean isDelivery() {
         return delivery;
     }

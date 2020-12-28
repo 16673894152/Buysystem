@@ -47,5 +47,25 @@
         VALUES (#{userid.userid}, #{shid.userid}, #{beizhu}, #{telephone}, #{nicheng},0);
     </insert>
 
+    <!--将用户的地址全部改为未选择-->
+    <update id="clearDelivery"  parameterType="Gouwuaddress">
+        UPDATE s3xiangmu4.gouwuaddress
+        <set>
+            <if test="userid.userid != null">
+                delivery = 0
+            </if>
+        </set>
+        where userid = #{userid.userid}
+    </update>
 
+    <!--根据地址id修改地址选择状态-->
+    <update id="setDelivery"  parameterType="Gouwuaddress">
+        UPDATE s3xiangmu4.gouwuaddress
+        <set>
+            <if test="addressid != null">
+                delivery = 1
+            </if>
+        </set>
+        where addressid = #{addressid}
+    </update>
 </mapper>

@@ -246,6 +246,14 @@
       <artifactId>slf4j-nop</artifactId>
       <version>1.7.2</version>
     </dependency>
+
+    <!-- 支付宝依赖 -->
+    <dependency>
+      <groupId>com.alipay.sdk</groupId>
+      <artifactId>alipay-sdk-java</artifactId>
+      <version>4.10.167.ALL</version>
+    </dependency>
+
   </dependencies>
 
   <build>

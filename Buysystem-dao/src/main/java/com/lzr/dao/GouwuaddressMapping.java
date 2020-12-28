@@ -29,4 +29,14 @@ public interface GouwuaddressMapping {
    */
   int deleteById(int id);
 
+  /*
+  * 根据Ckbaobiao条件修改多条数据方法,从传入对象获取id
+  * */
+  int clearDelivery(Gouwuaddress gouwuaddress);
+
+  /*
+  * 根据Ckbaobiao条件修改单条数据方法,从传入对象获取id
+  * */
+  int setDelivery(Gouwuaddress gouwuaddress);
+
 }

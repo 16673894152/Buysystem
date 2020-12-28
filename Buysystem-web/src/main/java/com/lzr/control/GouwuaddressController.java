@@ -17,7 +17,9 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("/shopcardaddress")
 public class GouwuaddressController {
-
+    /*
+    * Gouwuaddress表 控制层
+    * */
     @Autowired
     GouwuaddressService addressService;
 
@@ -32,7 +34,7 @@ public class GouwuaddressController {
     }
 
     /*
-     * 购物车添加商品
+     * 用户添加购物地址
      * */
     @RequestMapping("/insertAddress.action")
     @ResponseBody
@@ -50,4 +52,39 @@ public class GouwuaddressController {
         }
     }
 
+    /*
+    * 清除选中的地址
+    * */
+    @RequestMapping("/clearDel.action")
+    @ResponseBody
+    public Map clearDel(Gouwuaddress gouwuaddress){
+        Map<String,String> map =new HashMap<String,String>();
+        System.out.println(gouwuaddress);
+        int num = addressService.clearDelivery(gouwuaddress);
+        if (num > 0) {
+            map.put("msg", "修改成功");
+            return map;
+        } else {
+            map.put("msg", "修改失败");
+            return map;
+        }
+    }
+
+    /*
+    * 根据地址id选中一个地址
+    * */
+    @RequestMapping("/setDel.action")
+    @ResponseBody
+    public Map setDel(Gouwuaddress gouwuaddress){
+        Map<String,String> map =new HashMap<String,String>();
+        System.out.println(gouwuaddress);
+        int num = addressService.setDelivery(gouwuaddress);
+        if (num > 0) {
+            map.put("msg", "修改成功");
+            return map;
+        } else {
+            map.put("msg", "修改失败");
+            return map;
+        }
+    }
 }
