@@ -152,7 +152,6 @@
             <if test="shaddress != null">shaddress = #{shaddress},</if>
             <if test="shzhucetime != null">shzhucetime =#{shzhucetime},</if>
             <if test="shstate != null">shstate = #{shstate},</if>
-            <if test="shmoney != null">shmoney = #{shmoney},</if>
             <if test="storename != null">storename = #{storename},</if>
             <if test="useraddress != null">useraddress = #{useraddress},</if>
             <if test="shname != null">shname = #{shname},</if>
@@ -229,10 +228,10 @@
     </update>
 
     <!-- 根据id修改商户冻结状态,从传入对象获取主键id -->
-    <update id="updateIsdelete" parameterType="User">
+    <update id="updateshstate" parameterType="User">
         update user
         <set>
-            isdelete = #{isdelete}
+            shstate = #{shstate}
         </set>
         where userid = #{userid}
     </update>
@@ -270,6 +269,15 @@
         <set>
             shstate =3,
             usertype=2
+        </set>
+        where userid = #{userid}
+    </update>
+
+    <!-- 根据id修改商户收入,从传入对象获取主键id -->
+    <update id="qdtx" parameterType="User">
+        update user
+        <set>
+            shmoney =shmoney- #{shmoney}
         </set>
         where userid = #{userid}
     </update>

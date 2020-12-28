@@ -2,7 +2,9 @@ package com.lzr.control;
 
 
 
+import com.lzr.service.CwbaobiaoService;
 import com.lzr.service.UserService;
+import com.lzr.vo.Cwbaobiao;
 import com.lzr.vo.PageVo;
 import com.lzr.vo.User;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -26,6 +28,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    CwbaobiaoService cwbaobiaoService;
     /*用户登录*/
     @RequestMapping("/login.action")
     @ResponseBody
@@ -251,9 +255,7 @@ public class UserController {
             map.put("msg", "该商户被冻结");
             map.put("code", "0");
         } else {
-            map.put("shlat",userList1.get(0).getShlat());
-            map.put("shlng",userList1.get(0).getShlng());
-            map.put("storename", userList1.get(0).getStorename());
+            map.put("shname",user.getUsername());
             map.put("id", userList1.get(0).getUserid().toString());
             map.put("msg", "登录成功,欢迎你:"+user.getUsername());
             map.put("code", "1");
@@ -266,7 +268,11 @@ public class UserController {
     @CrossOrigin
     public User querById(User user) {
         int userid=user.getUserid();
-        return userService.queryById(userid);
+        User user1=userService.queryById(userid);
+        String str=user1.getShyhcard();
+        String strsub1=str.substring(str.length()- 4,str.length());;
+        user1.setShyhcard("*"+strsub1);
+        return user1;
 
     }
 
@@ -275,7 +281,7 @@ public class UserController {
     @ResponseBody
     public Map updateUser1(User user) {
         Map<String, String> map = new HashMap<String, String>();
-        System.out.println(user + "修改的用户");
+        System.out.println(user + "修改的用户222");
         Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUsername(), 5);
         user.setUserpass(md5Hash.toString());
         int num = userService.updateById(user);
@@ -316,14 +322,14 @@ public class UserController {
     //商户修改
     @RequestMapping("/shdj.action")
     @ResponseBody
-    public Map updateIsdelete(User user) {
+    public Map updateShstate(User user) {
         Map<String, String> map = new HashMap<String, String>();
-        if(user.getIsdelete()==1){
-            user.setIsdelete(0);
+        if(user.getShstate()==5){
+            user.setShstate(3);
         }else{
-            user.setIsdelete(1);
+            user.setShstate(5);
         }
-        int num = userService.updateIsdelete(user);
+        int num = userService.updateshstate(user);
         if (num > 0) {
             map.put("msg", "成功");
         } else {
@@ -368,4 +374,22 @@ public class UserController {
         return userService.queryById(userid);
     }
 
+    //商户修改
+    @RequestMapping("/qdtx.action")
+    @ResponseBody
+    public Map qdtx(User user) {
+        Map<String, String> map = new HashMap<String, String>();
+        Cwbaobiao cwbaobiao=new Cwbaobiao();
+        cwbaobiao.setCwname(user.getShname());
+        cwbaobiao.setMoney(user.getShmoney());
+        cwbaobiao.setType(3);
+        cwbaobiaoService.insert(cwbaobiao);
+        int num = userService.qdtx(user);
+        if (num > 0) {
+            map.put("msg", "提现成功");
+        } else {
+            map.put("msg", "提现失败");
+        }
+        return map;
+    }
 }

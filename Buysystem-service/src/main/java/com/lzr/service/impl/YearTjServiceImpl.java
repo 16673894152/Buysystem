@@ -33,4 +33,12 @@ public class YearTjServiceImpl implements YearTjService {
         yearTj1.setXiaoshous(queryXiaoshou);
         return yearTj1;
     }
+
+    @Override
+    public YearTj queryShshrs(YearTj yearTj) {
+        YearTj yearTj1 = new YearTj();
+        List<YearTj> queryShshrs= yearTjMapping.queryShshrs(yearTj);
+        yearTj1.setShshrs(queryShshrs);
+        return yearTj1;
+    }
 }

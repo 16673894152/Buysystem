@@ -107,8 +107,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateIsdelete(User user) {
-        return userMapping.updateIsdelete(user);
+    public int updateshstate(User user) {
+        return userMapping.updateshstate(user);
     }
     /*修改个人信息*/
     @Override
@@ -147,6 +147,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int shshty(User user) {
         return userMapping.shshty(user);
+    }
+
+    @Override
+    public int qdtx(User user) {
+        return userMapping.qdtx(user);
     }
 
     /*申请商户*/

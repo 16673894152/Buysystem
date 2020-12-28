@@ -16,4 +16,6 @@ public interface YearTjMapping {
   List<YearTj> queryZhichu(YearTj yearTj);
 
   List<YearTj> queryXiaoshou(YearTj yearTj);
+
+  List<YearTj> queryShshrs(YearTj yearTj);
 }

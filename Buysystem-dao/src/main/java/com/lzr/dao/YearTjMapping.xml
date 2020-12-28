@@ -38,4 +38,14 @@
         GROUP BY MONTH(TIME)
     </select>
 
+    <!-- 查询销售 -->
+    <select id="queryShshrs" resultMap="YearTjMap" parameterType="YearTj">
+        SELECT MONTH(ordertime) AS MONTH,SUM(shshouru) AS number FROM orders
+        <where>
+            AND YEAR(ordertime) = #{year} AND (orderstate=6 OR orderstate=7)
+            AND shid=#{shid}
+        </where>
+        GROUP BY MONTH(ordertime)
+    </select>
+
 </mapper>

@@ -18,4 +18,6 @@ public interface YearTjService {
   YearTj queryBaobiao(YearTj yearTj);
 
   YearTj queryXiaoshou(YearTj yearTj);
+
+  YearTj queryShshrs(YearTj yearTj);
 }

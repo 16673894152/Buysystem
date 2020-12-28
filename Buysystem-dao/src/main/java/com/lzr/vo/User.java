@@ -41,14 +41,12 @@ public class User {
     private String storenumber;
     //用户收货地址
     private String useraddress;
-    //门店横坐标
-    private String shlat;
-    //门店纵坐标
-    private String shlng;
+    //商户银行卡号
+    private String shyhcard;
     public User() {
     }
 
-    public User(Integer userid, Timestamp zhucetime, String username, Integer sex, String userpass, String usernumber, String usercard, String userimg, Huiyuan hyid, Integer usertype, String shaddress, double shmoney, Integer shstate, String shstatehuifu, Integer isdelete, Timestamp shzhucetime, String name, List<Orders> userorderss, List<Shopgouwu> shopgouwus, List<Shoppingjia> shoppingjias, List<Orders> shhuorderss, String shname, String storename, String storenumber, String useraddress, String shlat, String shlng) {
+    public User(Integer userid, Timestamp zhucetime, String username, Integer sex, String userpass, String usernumber, String usercard, String userimg, Huiyuan hyid, Integer usertype, String shaddress, double shmoney, Integer shstate, String shstatehuifu, Integer isdelete, Timestamp shzhucetime, String name, List<Orders> userorderss, List<Shopgouwu> shopgouwus, List<Shoppingjia> shoppingjias, List<Orders> shhuorderss, String shname, String storename, String storenumber, String useraddress, String shyhcard) {
         this.userid = userid;
         this.zhucetime = zhucetime;
         this.username = username;
@@ -74,8 +72,7 @@ public class User {
         this.storename = storename;
         this.storenumber = storenumber;
         this.useraddress = useraddress;
-        this.shlat = shlat;
-        this.shlng = shlng;
+        this.shyhcard = shyhcard;
     }
 
     public Integer getUserid() {
@@ -278,20 +275,12 @@ public class User {
         this.useraddress = useraddress;
     }
 
-    public String getShlat() {
-        return shlat;
+    public String getShyhcard() {
+        return shyhcard;
     }
 
-    public void setShlat(String shlat) {
-        this.shlat = shlat;
-    }
-
-    public String getShlng() {
-        return shlng;
-    }
-
-    public void setShlng(String shlng) {
-        this.shlng = shlng;
+    public void setShyhcard(String shyhcard) {
+        this.shyhcard = shyhcard;
     }
 
     @Override
@@ -322,8 +311,7 @@ public class User {
                 ", storename='" + storename + '\'' +
                 ", storenumber='" + storenumber + '\'' +
                 ", useraddress='" + useraddress + '\'' +
-                ", shlat='" + shlat + '\'' +
-                ", shlng='" + shlng + '\'' +
+                ", shyhcard='" + shyhcard + '\'' +
                 '}';
     }
 }

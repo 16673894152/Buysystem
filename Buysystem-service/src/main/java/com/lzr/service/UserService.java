@@ -64,7 +64,7 @@ public interface UserService {
   /**
    * 根据Id修改商户冻结状态,从传入对象获取id
    */
-  int updateIsdelete(User user);
+  int updateshstate(User user);
   /*修改个人信息*/
   public int getusername(User user);
   public int xiugaimima(User user);
@@ -89,5 +89,10 @@ public interface UserService {
    * 商户审核拒绝,从传入对象获取id
    */
   int shshty(User user);
+
+  /**
+   * 提现,从传入对象获取id
+   */
+  int qdtx(User user);
 
 }
