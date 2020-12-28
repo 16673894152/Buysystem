@@ -41,27 +41,29 @@ public class Gouwuaddress {
     * */
     private String nicheng;
 
+    /*
+     * 是否选择
+     * */
+    private boolean delivery;
+
     public Gouwuaddress() {}
 
-    public Gouwuaddress(Integer addressid, User userid, User shid, String beizhu, String telephone, String nicheng) {
+    public Gouwuaddress(Integer addressid, User userid, User shid, String beizhu, String telephone, String nicheng, boolean delivery) {
         this.addressid = addressid;
         this.userid = userid;
         this.shid = shid;
         this.beizhu = beizhu;
         this.telephone = telephone;
         this.nicheng = nicheng;
+        this.delivery = delivery;
     }
 
-    @Override
-    public String toString() {
-        return "Gouwuaddress{" +
-                "addressid=" + addressid +
-                ", userid=" + userid +
-                ", shid=" + shid +
-                ", beizhu=" + beizhu +
-                ", telephone='" + telephone + '\'' +
-                ", nicheng='" + nicheng + '\'' +
-                '}';
+    public boolean isDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(boolean delivery) {
+        this.delivery = delivery;
     }
 
     public Integer getAddressid() {

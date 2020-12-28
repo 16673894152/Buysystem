@@ -1,6 +1,5 @@
 package com.lzr.dao;
 
-import com.lzr.vo.Ckbaobiao;
 import com.lzr.vo.Gouwuaddress;
 import org.springframework.stereotype.Repository;
 

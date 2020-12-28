@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @CrossOrigin
@@ -27,6 +29,25 @@ public class GouwuaddressController {
     public List<Gouwuaddress> queryByuserid(int userid) {
         System.out.println(userid);
         return addressService.queryById(userid);
+    }
+
+    /*
+     * 购物车添加商品
+     * */
+    @RequestMapping("/insertAddress.action")
+    @ResponseBody
+    @CrossOrigin
+    public Map insert(Gouwuaddress gouwuaddress){
+        Map<String,String> map =new HashMap<String,String>();
+        System.out.println(gouwuaddress);
+        int num = addressService.insert(gouwuaddress);
+        if (num > 0) {
+            map.put("msg", "添加成功");
+            return map;
+        } else {
+            map.put("msg", "加入失败");
+            return map;
+        }
     }
 
 }
