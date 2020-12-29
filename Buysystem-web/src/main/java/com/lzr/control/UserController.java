@@ -1,7 +1,4 @@
 package com.lzr.control;
-
-
-
 import com.lzr.service.CwbaobiaoService;
 import com.lzr.service.UserService;
 import com.lzr.vo.Cwbaobiao;
@@ -28,6 +25,7 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
     @Autowired
     CwbaobiaoService cwbaobiaoService;
     /*用户登录*/
@@ -133,6 +131,7 @@ public class UserController {
         }
         return map;
     }
+
     /*模糊查询查看用户列表信息*/
     @RequestMapping("/querylike.action")
     @ResponseBody
@@ -145,54 +144,49 @@ public class UserController {
         return userService.queryAll(user,page,rows);
 
     }
+
     /*根据用户名查询用户*/
     @RequestMapping("/queryuser.action")
     @ResponseBody
     @CrossOrigin
-    public User queryadmin(User user){
-        System.out.println(user.getUsername());
-        User user1=userService.getall(user);
-       System.out.println(user1);
-        //System.out.println("222");
+    public User queryadmin(User user) {
+        User user1 = userService.getall(user);
         return userService.getall(user);
 
     }
+
     /*实名认证*/
     @RequestMapping("/updatayonghu.action")
     @ResponseBody
     @CrossOrigin
-    public int  getupdata(User user){
-        System.out.println(user.getUsername());
-        int num =userService.getupdata(user);
-
+    public int getupdata(User user) {
+        int num = userService.getupdata(user);
         return userService.getupdata(user);
 
     }
+
     /*修改个人信息*/
     @RequestMapping("/xiugaigeren.action")
     @ResponseBody
     @CrossOrigin
-    public int  getusername(User user){
+    public int getusername(User user) {
         System.out.println(user.getUsername());
-        int num =userService.getusername(user);
-
+        int num = userService.getusername(user);
         return userService.getusername(user);
-
     }
+
     /*修改密码*/
     @RequestMapping("/xiugaimima.action")
     @ResponseBody
     @CrossOrigin
-    public int  getuserpass(User user){
-        System.out.println(user.getUsername());
+    public int getuserpass(User user) {
         Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUsername(), 5);
         user.setUserpass(md5Hash.toString());
-        System.out.println(md5Hash.toString());
-        int num =userService.xiugaimima(user);
-        System.out.println(num);
+        int num = userService.xiugaimima(user);
         return userService.xiugaimima(user);
 
     }
+
     /****************************************   商户 ******************************************************************/
     //注测商户  先登录用户再注册 或者输入用户名
     //用户申请成为商户
@@ -200,19 +194,19 @@ public class UserController {
     @ResponseBody
     public Map shengqingsh(User user) {
         /*用户注册时只需要传输用户名  密码即可*/
-        System.out.println(user + "申请的用户");
         Map<String, String> map = new HashMap<String, String>();
         int num = userService.shshenqing(user);
         if (num > 0) {
             map.put("msg", "申请成功");
-            map.put("code","1");
+            map.put("code", "1");
         } else {
             map.put("msg", "申请失败");
-            map.put("code","0");
+            map.put("code", "0");
         }
 
         return map;
     }
+
     /*模糊查询查看商户列表信息*/
     @RequestMapping("/querylike1.action")
     @ResponseBody
@@ -224,7 +218,6 @@ public class UserController {
         user.setShstate(3);
         //商户
         user.setUsertype(2);
-        System.out.println(user+"条件");
         return userService.queryLike(user, page, rows);
     }
 
@@ -262,7 +255,6 @@ public class UserController {
         }
         return map;
     }
-
     @RequestMapping("/Shanghugrwh.action")
     @ResponseBody
     @CrossOrigin
@@ -281,7 +273,6 @@ public class UserController {
     @ResponseBody
     public Map updateUser1(User user) {
         Map<String, String> map = new HashMap<String, String>();
-        System.out.println(user + "修改的用户222");
         Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUsername(), 5);
         user.setUserpass(md5Hash.toString());
         int num = userService.updateById(user);
@@ -300,8 +291,7 @@ public class UserController {
     public PageVo<User> querylike2(User user,
                                    @RequestParam(value = "page", defaultValue = "1") int page,
                                    @RequestParam(value = "rows", defaultValue = "5") int rows) {
-        System.out.println(user+"条件");
-        return userService.queryLike1(user,page,rows);
+        return userService.queryLike1(user, page, rows);
     }
 
     //商户修改
@@ -309,7 +299,6 @@ public class UserController {
     @ResponseBody
     public Map updateSh(User user) {
         Map<String, String> map = new HashMap<String, String>();
-        System.out.println(user + "修改的商户");
         int num = userService.updateById(user);
         if (num > 0) {
             map.put("msg", "修改成功");
@@ -318,6 +307,7 @@ public class UserController {
         }
         return map;
     }
+
 
     //商户修改
     @RequestMapping("/shdj.action")
@@ -343,7 +333,7 @@ public class UserController {
     @ResponseBody
     @CrossOrigin
     public PageVo<User> queryshshenhe(@RequestParam(value = "page", defaultValue = "1") int page,
-                                   @RequestParam(value = "rows", defaultValue = "5") int rows) {
+                                      @RequestParam(value = "rows", defaultValue = "5") int rows) {
         return userService.queryshshenhe(page,rows);
     }
 

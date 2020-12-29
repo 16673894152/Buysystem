@@ -33,6 +33,11 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    public List<Shop> queryAllshangjia(Shop shop) {
+        return shopMapping.queryAllshangjia(shop);
+    }
+
+    @Override
     public Shop queryById(int id) {
         return shopMapping.queryById(id);
     }

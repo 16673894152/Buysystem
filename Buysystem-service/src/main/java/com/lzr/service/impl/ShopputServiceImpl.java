@@ -3,6 +3,7 @@ package com.lzr.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.lzr.dao.ShopputMapping;
 import com.lzr.service.ShopputService;
+import com.lzr.vo.Orders;
 import com.lzr.vo.PageVo;
 import com.lzr.vo.Shopput;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,18 @@ public class ShopputServiceImpl implements ShopputService {
     @Override
     public List<Shopput> queryAll() {
         return shopputMapping.queryAll();
+    }
+
+    @Override
+    public PageVo<Shopput> queryLikehoutai(Shopput shopput, int page, int rows) {
+        PageVo<Shopput> pageVo = new PageVo<>();
+        //在需要分页的代码调用前 执行以下代码
+        PageHelper.startPage(page, rows);
+        //获取分页后 显示的数据集合
+        pageVo.setRows(shopputMapping.queryLikehoutai(shopput));
+        //获取总的记录数量
+        pageVo.setTotal(shopputMapping.queryLikehoutai(shopput).size());
+        return pageVo;
     }
 
     @Override

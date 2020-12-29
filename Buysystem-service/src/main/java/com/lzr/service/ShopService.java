@@ -17,7 +17,8 @@ public interface ShopService {
      * 查询所有方法
      */
     List<Shop> queryAll();
-
+    /*商品上架*/
+    List<Shop> queryAllshangjia(Shop shop);
     /**
      * 根据主键id(Shopid)查询单条数据方法
      */

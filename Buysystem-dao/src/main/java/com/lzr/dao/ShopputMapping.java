@@ -23,7 +23,8 @@ public interface ShopputMapping {
   * */
   List<Shopput> queryDistilled();
 
-
+  /*后台查询上架*/
+  List<Shopput> queryLikehoutai(Shopput shopput);
   /**
    * 根据主键shopputid(Shopput.shopputid)查询单条数据方法 
    */

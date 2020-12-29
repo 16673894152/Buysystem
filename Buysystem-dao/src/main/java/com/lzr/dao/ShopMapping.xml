@@ -14,40 +14,72 @@
         <result column="isdelete" property="isdelete"/>
         <result column="shopdanwei" property="shopdanwei"/>
         <association property="shoptyid" column="shoptyid"
-           select="com.lzr.dao.ShoptypeMapping.queryById" javaType="Shoptype" fetchType="lazy"/>
+                     select="com.lzr.dao.ShoptypeMapping.queryById" javaType="Shoptype" fetchType="lazy"/>
 
         <collection property="shopxqs" column="shopid"
-                     select="com.lzr.dao.ShopxqMapping.queryByshopid" javaType="list" fetchType="lazy"/>
+                    select="com.lzr.dao.ShopxqMapping.queryByshopid" javaType="list" fetchType="lazy"/>
 
         <collection property="shoppingjias" column="shopid"
-                     select="com.lzr.dao.ShoppingjiaMapping.queryByshopid" javaType="list" fetchType="lazy"/>
+                    select="com.lzr.dao.ShoppingjiaMapping.queryByshopid" javaType="list" fetchType="lazy"/>
 
     </resultMap>
-
+    <resultMap id="ShopMap1" type="Shop">
+        <id column="shopid" property="shopid"/>
+        <result column="shopname" property="shopname"/>
+        <result column="shopmiaoshu" property="shopmiaoshu"/>
+        <result column="shopprice" property="shopprice"/>
+        <result column="shopimg" property="shopimg"/>
+        <result column="isdelete" property="isdelete"/>
+        <result column="shopdanwei" property="shopdanwei"/>
+        <association property="shoptyid" column="shoptyid"
+                     select="com.lzr.dao.ShoptypeMapping.queryById" javaType="Shoptype" fetchType="lazy"/>
+    </resultMap>
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="ShopMap">
-       select shopmiaoshu,shopname,shopimg,shopprice,shopid,isdelete,shoptyid,shopdanwei from shop;
+        select shopmiaoshu,
+               shopname,
+               shopimg,
+               shopprice,
+               shopid,
+               isdelete,
+               shoptyid,
+               shopdanwei
+        from shop;
+    </select>
+    <!-- 查询所有方法 -->
+    <select id="queryAllshangjia" resultMap="ShopMap1">
+        SELECT * FROM shop WHERE shopid NOT IN (SELECT shopid FROM shopput WHERE isdelete=1)
+        <if test="shopname!=null">AND shopid IN (SELECT shopid FROM shop WHERE shopname like concat('%',#{shopname},'%'))</if>
     </select>
 
 
     <!-- 根据主键id查询数据方法 -->
     <select id="queryById" parameterType="Shop" resultMap="ShopMap">
-       select shopmiaoshu,shopname,shopimg,shopprice,shopid,isdelete,shoptyid,shopdanwei from shop where shopid = #{shopid};
+        select shopmiaoshu,
+               shopname,
+               shopimg,
+               shopprice,
+               shopid,
+               isdelete,
+               shoptyid,
+               shopdanwei
+        from shop
+        where shopid = #{shopid};
     </select>
 
     <!-- 根据Shop条件查询数据方法 -->
     <select id="query" resultMap="ShopMap">
         select shopmiaoshu,shopname,shopimg,shopprice,shopid,isdelete,shoptyid,shopdanwei
-        from shop 
+        from shop
         <where>
-            <if test="shopid != null"> and shopid = #{shopid}</if>
-            <if test="shopname != null"> and shopname = #{shopname}</if>
+            <if test="shopid != null">and shopid = #{shopid}</if>
+            <if test="shopname != null">and shopname = #{shopname}</if>
             <if test="shoptyid != null">
-                 <if test="shoptyid.shoptyid != null"> and shoptyid = #{shoptyid.shoptyid}</if>
+                <if test="shoptyid.shoptyid != null">and shoptyid = #{shoptyid.shoptyid}</if>
             </if>
-            <if test="shopmiaoshu != null"> and shopmiaoshu = #{shopmiaoshu}</if>
-            <if test="shopimg != null"> and shopimg = #{shopimg}</if>
-            <if test="isdelete != null"> and isdelete = #{isdelete}</if>
+            <if test="shopmiaoshu != null">and shopmiaoshu = #{shopmiaoshu}</if>
+            <if test="shopimg != null">and shopimg = #{shopimg}</if>
+            <if test="isdelete != null">and isdelete = #{isdelete}</if>
             <if test="shopdanwei != null">shopdanwei = #{shopdanwei}</if>
         </where>
     </select>
@@ -55,32 +87,32 @@
     <!-- 根据Shop条件模糊查询数据方法 -->
     <select id="queryLike" resultMap="ShopMap">
         select shopmiaoshu,shopname,shopimg,shopprice,shopid,isdelete,shoptyid,shopdanwei
-        from shop 
+        from shop
         <where>
-            <if test="1 != 2"> and isdelete=1 </if>
-            <if test="shopid != null"> and shopid like concat('%',#{shopid},'%')</if>
-            <if test="shopname != null"> and shopname like concat('%',#{shopname},'%')</if>
+            <if test="1 != 2">and isdelete=1</if>
+            <if test="shopid != null">and shopid like concat('%',#{shopid},'%')</if>
+            <if test="shopname != null">and shopname like concat('%',#{shopname},'%')</if>
             <if test="shoptyid != null">
-                 <if test="shoptyid.shoptyid != 0"> and shoptyid = #{shoptyid.shoptyid}</if>
+                <if test="shoptyid.shoptyid != 0">and shoptyid = #{shoptyid.shoptyid}</if>
             </if>
-            <if test="shopmiaoshu != null"> and shopmiaoshu like concat('%',#{shopmiaoshu},'%')</if>
-            <if test="shopprice != null"> and shopprice between #{minprice} and #{maxprice}</if>
-            <if test="shopimg != null"> and shopimg like concat('%',#{shopimg},'%')</if>
-            <if test="isdelete != null"> and isdelete like concat('%',#{isdelete},'%')</if>
-            <if test="shopdanwei != null">and shopdanwei  like concat('%',#{shopdanwei},'%')</if>
+            <if test="shopmiaoshu != null">and shopmiaoshu like concat('%',#{shopmiaoshu},'%')</if>
+            <if test="shopprice != null">and shopprice between #{minprice} and #{maxprice}</if>
+            <if test="shopimg != null">and shopimg like concat('%',#{shopimg},'%')</if>
+            <if test="isdelete != null">and isdelete like concat('%',#{isdelete},'%')</if>
+            <if test="shopdanwei != null">and shopdanwei like concat('%',#{shopdanwei},'%')</if>
         </where>
-            order by shopid desc
+        order by shopid desc
     </select>
 
     <!-- 根据Shop插入数据方法 -->
     <insert id="insert" parameterType="Shop" useGeneratedKeys="true" keyColumn="id" keyProperty="shopid">
-        insert into shop (shopid,shopname,shoptyid,shopmiaoshu,shopprice,shopimg,isdelete,shopdanwei)
-        values (null,#{shopname},#{shoptyid.shoptyid},#{shopmiaoshu},#{shopprice},#{shopimg},1,#{shopdanwei});
+        insert into shop (shopid, shopname, shoptyid, shopmiaoshu, shopprice, shopimg, isdelete, shopdanwei)
+        values (null, #{shopname}, #{shoptyid.shoptyid}, #{shopmiaoshu}, #{shopprice}, #{shopimg}, 1, #{shopdanwei});
     </insert>
 
     <!-- 根据Shop条件修改单条数据方法,从传入对象获取主键id -->
     <update id="updateById" parameterType="Shop">
-        update shop 
+        update shop
         <set>
             <if test="shopid != null">shopid = #{shopid},</if>
             <if test="shopname != null">shopname = #{shopname},</if>
@@ -97,6 +129,8 @@
 
     <!-- 根据Shop条件删除单条数据方法,从传入对象获取id -->
     <delete id="deleteById" parameterType="Shop">
-        delete from shop where shopid = #{shopid};
+        delete
+        from shop
+        where shopid = #{shopid};
     </delete>
 </mapper>

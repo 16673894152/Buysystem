@@ -15,22 +15,20 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-     @Autowired
-     UserMapping userMapping;
+    @Autowired
+    UserMapping userMapping;
 
     @Override
-        public PageVo<User> queryAll(User user, int page, int rows) {
-            PageVo<User> pageVo = new PageVo<>();
-            //在需要分页的代码调用前 执行以下代码
-            PageHelper.startPage(page, rows);
-            //获取分页后 显示的数据集合
-            pageVo.setRows(userMapping.queryAll(user));
-            //获取总的记录数量ssou
-        System.out.println("xfcvf"+userMapping.queryAll(user).size());
-            pageVo.setTotal(userMapping.queryAll(user).size());
-
-            return pageVo;
-
+    public PageVo<User> queryAll(User user, int page, int rows) {
+        System.out.println(user+"user");
+        PageVo<User> pageVo = new PageVo<>();
+        //在需要分页的代码调用前 执行以下代码
+        PageHelper.startPage(page, rows);
+        //获取分页后 显示的数据集合
+        pageVo.setRows(userMapping.queryAll(user));
+        //获取总的记录数量ssou
+        pageVo.setTotal(userMapping.queryAll(user).size());
+        return pageVo;
     }
 
     @Override
@@ -110,6 +108,7 @@ public class UserServiceImpl implements UserService {
     public int updateshstate(User user) {
         return userMapping.updateshstate(user);
     }
+
     /*修改个人信息*/
     @Override
     public int getusername(User user) {
@@ -163,7 +162,7 @@ public class UserServiceImpl implements UserService {
         //设置bai日期格式
         System.out.println(df.format(new Date()));
         // new Date()为获取当前系统时间
-        Timestamp sDate =   Timestamp.valueOf(df.format(new Date()));
+        Timestamp sDate = Timestamp.valueOf(df.format(new Date()));
         user.setShzhucetime(sDate);
         return userMapping.shshenqing(user);
     }

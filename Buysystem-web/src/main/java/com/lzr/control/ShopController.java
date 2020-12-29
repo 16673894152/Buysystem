@@ -36,10 +36,8 @@ public class ShopController {
     public Map editshop(Shop shop,String fileurl) {
         Map<String, String> map = new HashMap<String, String>();
         String[] shopxqurl = fileurl.split(",");
-        System.out.println("编辑或添加的商品"+fileurl);
         if(shop.getShopid()==null){//wareshop
             int num = shopService.insert(shop);
-            System.out.println(shop.getShopid()+"添加的商品id");
             for (int i=0;i<shopxqurl.length;i++){
                 Shopxq shopxq=new Shopxq();
                 shopxq.setShopid(shop.getShopid());
@@ -103,5 +101,13 @@ public class ShopController {
     @CrossOrigin
     public List<Shop> queryall() {
         return shopService.queryAll();
+    }
+    @RequestMapping("/queryallshangjia.action")
+    @ResponseBody
+    @CrossOrigin
+    public List<Shop> queryallshangjia(Shop shop) {
+        System.out.println(shop+"shop");
+        System.out.println(shopService.queryAllshangjia(shop).size()+"上架长度");
+        return shopService.queryAllshangjia(shop);
     }
 }

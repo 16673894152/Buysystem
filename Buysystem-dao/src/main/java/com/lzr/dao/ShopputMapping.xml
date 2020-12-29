@@ -108,5 +108,21 @@
             <if test="isdelete != null">and isdelete = #{isdelete}</if>
         </where>
     </delete>
-
+    <!-- 根据Shopput条件模糊查询数据方法  后台展示数据 -->
+    <select id="queryLikehoutai" resultMap="ShopputMap" parameterType="shopput">
+        SELECT * FROM shopput
+        <where>
+        and isdelete=1
+        <if test="shopid != null">
+            and shopid IN(SELECT shopid FROM shop  WHERE shopname like concat('%',#{shopid.shopname},'%')
+            <if test="shopid.shoptyid != null">
+                <if test="shopid.shoptyid.shoptyid != 0">
+                    AND shoptyid IN ( SELECT shoptyid FROM shoptype  WHERE  shoptyid= #{shopid.shoptyid.shoptyid})
+                </if>
+            </if>
+            )
+        </if>
+        </where>
+        order by shopputid desc
+    </select>
 </mapper>

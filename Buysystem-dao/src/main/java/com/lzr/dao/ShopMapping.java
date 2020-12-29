@@ -17,7 +17,7 @@ public interface ShopMapping {
    * 查询所有方法 
    */
   List<Shop> queryAll();
-
+  List<Shop> queryAllshangjia(Shop shop);
   /**
    * 根据主键id(Shop.null)查询单条数据方法 
    */

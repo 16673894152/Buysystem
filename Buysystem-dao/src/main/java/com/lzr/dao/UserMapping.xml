@@ -68,7 +68,13 @@
 
     <!-- 查询所有方法 -->
     <select id="queryAll" resultMap="UserMap1" parameterType="user">
-       select * from user where isdelete !=0
+       select * from user
+        <where>
+            and isdelete !=0
+            <if test="username != null"> and username like concat('%',#{username},'%')</if>
+            <if test="usernumber != null"> and usernumber like concat('%',#{usernumber},'%')</if>
+        </where>
+        order by userid desc
     </select>
 
     <!-- 根据主键id查询数据方法 -->
@@ -106,7 +112,6 @@
     <select id="queryLike" parameterType="user" resultMap="UserMap">
         select *  from user
         <where>
-            <if test="userid != null"> and userid like concat('%',#{userid},'%')</if>
             <if test="zhucetime != null"> and zhucetime like concat('%',#{zhucetime},'%')</if>
             <if test="username != null"> and username like concat('%',#{username},'%')</if>
             <if test="userpass != null"> and userpass like concat('%',#{userpass},'%')</if>

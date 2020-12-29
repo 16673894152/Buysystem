@@ -20,17 +20,28 @@ public class Shopput implements Serializable {
 	private Double shopputprice;
 	/**是否下架删除*/
 	private Integer isdelete;
-
+	private Integer xing;
 	public Shopput() {
 		super();
 	}
-	public Shopput(Integer shopputid,Shop shopid,Double shopzhe,Double shopputprice,Integer isdelete) {
+
+	public Integer getXing() {
+		return xing;
+	}
+
+	public void setXing(Integer xing) {
+		this.xing = xing;
+	}
+
+	public Shopput(Integer shopputid, Shop shopid, Double shopzhe, Double shopputprice, Integer isdelete, Integer xing) {
 		this.shopputid = shopputid;
 		this.shopid = shopid;
 		this.shopzhe = shopzhe;
 		this.shopputprice = shopputprice;
 		this.isdelete = isdelete;
+		this.xing = xing;
 	}
+
 	/**设置"商品上架id"*/
 	public void setShopputid(Integer shopputid){
 		this.shopputid = shopputid;
@@ -69,15 +80,17 @@ public class Shopput implements Serializable {
 	public Integer getIsdelete(){
 		return isdelete;
 	}
+
 	@Override
 	public String toString() {
-		return "shopput[" + 
-			"shopputid = " + shopputid + 
-			", shopid = " + shopid + 
-			", shopzhe = " + shopzhe + 
-			", shopputprice = " + shopputprice + 
-			", isdelete = " + isdelete + 
-			"]";
+		return "Shopput{" +
+				"shopputid=" + shopputid +
+				", shopid=" + shopid +
+				", shopzhe=" + shopzhe +
+				", shopputprice=" + shopputprice +
+				", isdelete=" + isdelete +
+				", xing=" + xing +
+				'}';
 	}
 }
 
