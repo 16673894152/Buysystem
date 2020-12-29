@@ -53,6 +53,9 @@
                 <if test="shopid.shoptyid != null">
                     and shoptyid = #{shopid.shoptyid.shoptyid}
                 </if>
+                <if test="shopid.shopid != null">
+                    and shopid = #{shopid.shopid}
+                </if>
                 <if test="shopid.shopname != null">
                     and  shopname like concat('%',#{shopid.shopname},'%')
                 </if>

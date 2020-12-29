@@ -299,9 +299,9 @@ public class OrdersController {
                 System.out.println("不包含");
             }
 
-            return "http://localhost:10086/#/main";//跳转付款成功页面
+            return "redirect:http://localhost:10086/#/fahuozhong";//跳转付款成功页面
         } else {
-            return "http://localhost:8080/#/main";//跳转付款失败页面
+            return "redirect:http://localhost:10086/#/fahuozhong";//跳转付款失败页面
         }
 
     }
