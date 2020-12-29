@@ -216,11 +216,13 @@ public class OrdersController {
         Map<String, String> map = new HashMap<String, String>();
         NumberFormat nf = NumberFormat.getNumberInstance();
         nf.setMaximumFractionDigits(2);
-        String result = nf.format(orders.getOrdermoney());
+        String result = nf.format(orders.getOrdermoney()*0.05);
         orders.setShshouru(Double.valueOf(result));
         int num = ordersService.insert(orders);
         List<Shopgouwu> gouwus = shopgouwuService.queryByuserid(orders.getUserid().getUserid());
+        System.out.println(gouwus.size()+"购物车长度");
         for(Shopgouwu s : gouwus){
+            System.out.println(s+"订单商品详情");
             Orderxq orderxq =new Orderxq();
             Shop shop = new Shop();
             shop.setShopid(s.getShopid().getShopid().getShopid());
@@ -229,6 +231,7 @@ public class OrdersController {
             orderxq.setOrderxqcount(s.getNumber());
             orderxq.setOrderxqmoney(Double.valueOf(nf.format(s.getPrice())));
             int a = orderXqService.insert(orderxq);
+            System.out.println(a+"執行");
         }
 
         if (num > 0) {

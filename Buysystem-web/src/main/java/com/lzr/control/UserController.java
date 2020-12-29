@@ -303,7 +303,7 @@ public class UserController {
     @CrossOrigin
     public PageVo<User> querylike2(User user,
                                    @RequestParam(value = "page", defaultValue = "1") int page,
-                                   @RequestParam(value = "rows", defaultValue = "5") int rows) {
+                                   @RequestParam(value = "rows", defaultValue = "100") int rows) {
         return userService.queryLike1(user, page, rows);
     }
 

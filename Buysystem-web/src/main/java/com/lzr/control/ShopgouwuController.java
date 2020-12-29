@@ -147,7 +147,7 @@ public class ShopgouwuController {
     @CrossOrigin
     public Map deletebyuserid(int userid){
         Map<String,String> map =new HashMap<String,String>();
-        System.out.println(userid);
+        System.out.println(userid+"删除id");
         int num = shopgouwuService.deleteByUserId(userid);
         if (num > 0) {
             map.put("msg", "删除成功");
