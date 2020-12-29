@@ -23,4 +23,9 @@ public interface OrdersService {
      *  客户根据订单号修改订单状态
      */
     int updatebydingdanbiaohao(Orders orders);
+
+    /**
+     * 根据Orders插入数据方法
+     */
+    int insert(Orders orders);
 }

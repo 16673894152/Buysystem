@@ -50,9 +50,6 @@
         select shopid from shop
         <where>
             <if test="shopid != null">
-                <if test="shopid.shopid != null">
-                    and shopid = #{shopid.shopid}
-                </if>
                 <if test="shopid.shoptyid != null">
                     and shoptyid = #{shopid.shoptyid.shoptyid}
                 </if>

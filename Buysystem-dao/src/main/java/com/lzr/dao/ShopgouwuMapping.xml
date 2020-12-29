@@ -103,7 +103,7 @@
 
     <!-- 根据Shopgouwu条件删除单条数据方法,从传入对象获取id -->
     <delete id="deleteById" parameterType="int">
-        delete from shopgouwu where shopgwid = #{shopgwid};
+        delete from shopgouwu where shopgwid = #{id};
     </delete>
 
     <!--根据用户id删除购物车里面所有的商品-->

@@ -172,8 +172,8 @@
     </select>
     <!-- 根据Orders插入数据方法 -->
     <insert id="insert" parameterType="Orders" useGeneratedKeys="true" keyColumn="orderid" keyProperty="orderid">
-        insert into orders (orderid,userid,shid,ordercount,ordermoney,orderbianhao,ordertime,consigneename,consigneenumber,consigneeaddress,orderstate,isdelete,shshouru,youhuiprice)
-        values (#{orderid},#{userid.userid},#{shid.shid},#{ordercount},#{ordermoney},#{orderbianhao},#{ordertime},#{consigneename},#{consigneenumber},#{consigneeaddress},#{orderstate},#{isdelete},#{shshouru},#{youhuiprice});
+        insert into orders (userid,shid,ordercount,ordermoney,orderbianhao,ordertime,consigneename,consigneenumber,consigneeaddress,orderstate,isdelete,shshouru,youhuiprice)
+        values (#{userid.userid},#{shid.userid},#{ordercount},#{ordermoney},#{orderbianhao},now(),#{consigneename},#{consigneenumber},#{consigneeaddress},1,1,#{shshouru},#{youhuiprice});
     </insert>
 
 

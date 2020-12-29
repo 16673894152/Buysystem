@@ -31,6 +31,7 @@ public class ShopputController {
     @RequestMapping("/querylike.action")
     @ResponseBody
     public List<Shopput> queryLike(Shopput shopput) {
+        System.out.println(shopput);
         return shopputService.queryLike(shopput);
     }
 
