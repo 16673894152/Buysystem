@@ -58,7 +58,7 @@ public class UserController {
             map.put("hyname", userList1.get(0).getHyid().getHyname());
             map.put("hyzhekou", userList1.get(0).getHyid().getHyzhekou().toString());
             System.out.println("用户名" + userList1.get(0).getUsername());
-            map.put("msg", "登录成功,欢迎你:"+user.getUsername());
+            map.put("msg", "登录成功,欢迎你:"+userList1.get(0).getUsername());
             map.put("code", "1");
         }
         return map;

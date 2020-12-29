@@ -203,7 +203,8 @@
 	shzhucetime = #{shzhucetime} ,
 	storename = #{storename} ,
 	storenumber = #{storenumber} ,
-	shname = #{shname}
+	shname = #{shname},
+	shyhcard=#{shyhcard}
 
 	WHERE
 	username=#{username}
