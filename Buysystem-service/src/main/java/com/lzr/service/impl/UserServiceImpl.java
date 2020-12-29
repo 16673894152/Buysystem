@@ -166,4 +166,13 @@ public class UserServiceImpl implements UserService {
         user.setShzhucetime(sDate);
         return userMapping.shshenqing(user);
     }
+    /*查询同一姓名重复身份证号码*/
+    @Override
+    public List<String>  getnamesfh(String shname){
+        List<String> list=userMapping.getnamesfh(shname);
+        for(String lll: list){
+            System.out.println(lll);
+        }
+        return  userMapping.getnamesfh(shname);
+    }
 }

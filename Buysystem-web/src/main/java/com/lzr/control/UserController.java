@@ -191,6 +191,15 @@ public class UserController {
 
     }
 
+    @RequestMapping("/getnamesfh.action")
+    @ResponseBody
+    @CrossOrigin
+    public List<String> getnamesfh(String shname) {
+        System.out.println("123456789"+shname);
+        return userService.getnamesfh(shname);
+
+    }
+
     /****************************************   商户 ******************************************************************/
     //注测商户  先登录用户再注册 或者输入用户名
     //用户申请成为商户

@@ -286,4 +286,10 @@
         </set>
         where userid = #{userid}
     </update>
+
+
+    <select id="getnamesfh" parameterType="String" resultType="String">
+        select usercard from user
+        where shname=#{shname}
+    </select>
 </mapper>

@@ -95,4 +95,8 @@ public interface UserService {
    */
   int qdtx(User user);
 
+
+  /*查询同一姓名重复身份证号码*/
+  public List<String>  getnamesfh(String shname);
+
 }
