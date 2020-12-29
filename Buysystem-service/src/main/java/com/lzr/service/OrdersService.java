@@ -19,5 +19,8 @@ public interface OrdersService {
     //商户提货修改订单状态
     int updatetihuo(Orders orders);
     List<Orderxq> xiangqing(Orders orders);
-
+    /**
+     *  客户根据订单号修改订单状态
+     */
+    int updatebydingdanbiaohao(Orders orders);
 }

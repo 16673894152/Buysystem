@@ -73,4 +73,9 @@ public class ShopgouwuServiceImpl implements ShopgouwuService {
     public int upNumerById(Shopgouwu shopgouwu) {
         return shopgouwuMapping.upNumerById(shopgouwu);
     }
+
+    @Override
+    public int deleteByUserId(int userid) {
+        return shopgouwuMapping.deleteByUserId(userid);
+    }
 }

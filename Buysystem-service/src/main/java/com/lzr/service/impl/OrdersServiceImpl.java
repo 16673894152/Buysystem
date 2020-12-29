@@ -77,6 +77,11 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    public int updatebydingdanbiaohao(Orders orders) {
+        return ordersMapping.updatebydingdanbiaohao(orders);
+    }
+
+    @Override
     public PageVo<Orders> queryLikept(Orders orders, int page, int rows) {
         PageVo<Orders> pageVo = new PageVo<>();
         //在需要分页的代码调用前 执行以下代码

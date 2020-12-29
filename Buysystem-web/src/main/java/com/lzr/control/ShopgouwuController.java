@@ -136,5 +136,25 @@ public class ShopgouwuController {
             return map;
         }
     }
+    /*
+     * 用户提交订单后删除订单
+     * 根据userid删除购物车里面的订单
+     * 提交订单时调用deleteByUserId(userid)方法即可
+     * */
 
+    @RequestMapping("/deletebyuserid.action")
+    @ResponseBody
+    @CrossOrigin
+    public Map deletebyuserid(int userid){
+        Map<String,String> map =new HashMap<String,String>();
+        System.out.println(userid);
+        int num = shopgouwuService.deleteByUserId(userid);
+        if (num > 0) {
+            map.put("msg", "删除成功");
+            return map;
+        } else {
+            map.put("msg", "加入失败");
+            return map;
+        }
+    }
 }

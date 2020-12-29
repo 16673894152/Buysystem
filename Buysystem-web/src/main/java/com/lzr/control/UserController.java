@@ -49,7 +49,10 @@ public class UserController {
         } else if (userList1.size() == 0) {
             map.put("msg", "密码错误,请重新输入");
             map.put("code", "0");
-        } else {
+        } else  if (userList1.get(0).getIsdelete() == 0) {
+            map.put("msg", "账号已被冻结,不能进行登录");
+            map.put("code", "0");
+        }else {
             map.put("username", userList1.get(0).getUsername());
             map.put("userid", userList1.get(0).getUserid().toString());
             map.put("hyname", userList1.get(0).getHyid().getHyname());
@@ -73,6 +76,7 @@ public class UserController {
             Md5Hash md5Hash = new Md5Hash(user.getUserpass(), user.getUsername(), 5);
          /*   System.out.println("加密后的密码：" + md5Hash.toString());*/
             user.setUserpass(md5Hash.toString());
+            user.setSex(1);
             int num = userService.insert(user);
             if (num > 0) {
                 map.put("msg", "注册成功");

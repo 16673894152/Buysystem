@@ -79,4 +79,8 @@ public interface OrdersMapping {
    * 商户提货修改订单状态,从传入对象获取id
    */
   int updatetihuo(Orders orders);
+  /**
+   *  客户根据订单号修改订单状态
+   */
+  int updatebydingdanbiaohao(Orders orders);
 }

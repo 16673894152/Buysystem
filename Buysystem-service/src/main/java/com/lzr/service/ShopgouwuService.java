@@ -64,4 +64,8 @@ public interface ShopgouwuService {
    * 添加商品数量,从传入对象获取id
    * */
   int upNumerById(Shopgouwu shopgouwu);
+  /*
+   * 根据userid该购物车的商品
+   * */
+  int deleteByUserId(int userid);
 }
