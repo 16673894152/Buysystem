@@ -274,9 +274,12 @@ public class UserController {
     public User querById(User user) {
         int userid=user.getUserid();
         User user1=userService.queryById(userid);
-        String str=user1.getShyhcard();
-        String strsub1=str.substring(str.length()- 4,str.length());;
-        user1.setShyhcard("*"+strsub1);
+        System.out.println(user1);
+        if(user1.getShyhcard()!=null){
+            String str=user1.getShyhcard();
+            String strsub1=str.substring(str.length()- 4,str.length());;
+            user1.setShyhcard("*"+strsub1);
+        }
         return user1;
 
     }
