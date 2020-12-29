@@ -70,9 +70,7 @@
     <select id="queryAll" resultMap="UserMap1" parameterType="user">
        select * from user
         <where>
-            and isdelete !=0
             <if test="username != null"> and username like concat('%',#{username},'%')</if>
-            <if test="usernumber != null"> and usernumber like concat('%',#{usernumber},'%')</if>
         </where>
         order by userid desc
     </select>

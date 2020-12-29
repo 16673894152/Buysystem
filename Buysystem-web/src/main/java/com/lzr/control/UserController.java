@@ -77,6 +77,7 @@ public class UserController {
          /*   System.out.println("加密后的密码：" + md5Hash.toString());*/
             user.setUserpass(md5Hash.toString());
             user.setSex(1);
+            user.setShmoney(0);
             int num = userService.insert(user);
             if (num > 0) {
                 map.put("msg", "注册成功");
@@ -135,7 +136,25 @@ public class UserController {
         }
         return map;
     }
-
+    /*删除用户---修改状态*/
+    @RequestMapping("/deluser1.action")
+    @ResponseBody
+    @CrossOrigin
+    public Map delusers1(User user) {
+        Map<String, String> map = new HashMap<String, String>();
+        if(user.getIsdelete()==0){
+            user.setIsdelete(1);
+        }else {
+            user.setIsdelete(0);
+        }
+        int num = userService.updateById(user);
+        if (num > 0) {
+            map.put("msg", "成功");
+        } else {
+            map.put("msg", "失败");
+        }
+        return map;
+    }
     /*模糊查询查看用户列表信息*/
     @RequestMapping("/querylike.action")
     @ResponseBody
@@ -143,8 +162,8 @@ public class UserController {
     public PageVo<User> querall(User user,
                               @RequestParam(value = "page",defaultValue ="1") int page,
                               @RequestParam(value = "rows",defaultValue = "5") int rows){
-        User user1=new User();
-        System.out.println(userService.queryAll(user,page,rows));
+        System.out.println(user);
+        System.out.println(userService.queryAll(user,page,rows).getTotal()+"总计");
         return userService.queryAll(user,page,rows);
 
     }
@@ -274,9 +293,12 @@ public class UserController {
     public User querById(User user) {
         int userid=user.getUserid();
         User user1=userService.queryById(userid);
-        String str=user1.getShyhcard();
-        String strsub1=str.substring(str.length()- 4,str.length());;
-        user1.setShyhcard("*"+strsub1);
+        System.out.println(user1);
+        if(user1.getShyhcard()!=null){
+            String str=user1.getShyhcard();
+            String strsub1=str.substring(str.length()- 4,str.length());;
+            user1.setShyhcard("*"+strsub1);
+        }
         return user1;
 
     }
@@ -303,7 +325,7 @@ public class UserController {
     @CrossOrigin
     public PageVo<User> querylike2(User user,
                                    @RequestParam(value = "page", defaultValue = "1") int page,
-                                   @RequestParam(value = "rows", defaultValue = "5") int rows) {
+                                   @RequestParam(value = "rows", defaultValue = "100") int rows) {
         return userService.queryLike1(user, page, rows);
     }
 

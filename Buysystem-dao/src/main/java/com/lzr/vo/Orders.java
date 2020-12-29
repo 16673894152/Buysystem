@@ -43,7 +43,7 @@ public class Orders implements Serializable {
     /**
      * 订单创建时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp ordertime;
     /**
      * 收货人姓名
