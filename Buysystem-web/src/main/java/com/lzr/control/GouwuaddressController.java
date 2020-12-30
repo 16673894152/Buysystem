@@ -80,7 +80,7 @@ public class GouwuaddressController {
         System.out.println(gouwuaddress);
         int num = addressService.setDelivery(gouwuaddress);
         if (num > 0) {
-            map.put("msg", "修改成功");
+            map.put("msg", "选择成功");
             return map;
         } else {
             map.put("msg", "修改失败");

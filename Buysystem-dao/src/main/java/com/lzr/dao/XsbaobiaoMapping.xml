@@ -60,7 +60,7 @@
     <!-- 根据Xsbaobiao插入数据方法 -->
     <insert id="insert" parameterType="Xsbaobiao" useGeneratedKeys="true" keyColumn="xsbbid" keyProperty="xsbbid">
         insert into xsbaobiao (xsbbid,shopid,count,money,type,time) 
-        values (#{xsbbid},#{shopid.shopid},#{count},#{money},#{type},#{time}); 
+        values (#{xsbbid},#{shopid.shopid},#{count},#{money},#{type},now());
     </insert>
 
     <!-- 根据Xsbaobiao条件删除单条数据方法,从传入对象获取id -->

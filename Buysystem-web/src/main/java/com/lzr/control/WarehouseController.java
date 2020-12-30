@@ -28,7 +28,10 @@ public class WarehouseController {
     CkbaobiaoService ckbaobiaoService;
     @Autowired
     OrdersService ordersService;
-
+    @Autowired
+    CwbaobiaoService cwbaobiaoService;
+    @Autowired
+    ShopService shopService;
     @RequestMapping("/editwarehouse.action")
     @ResponseBody
     @CrossOrigin
@@ -219,6 +222,7 @@ public class WarehouseController {
     @ResponseBody
     @CrossOrigin
     public Map shoptuihuo(String shopcount, String wsshid, String username, String shopid, int wareid) {
+        System.out.println(shopcount+wsshid+username+shopid+wareid);
         String[] shopids = shopid.split(",");
         String[] shopcounts = shopcount.split(",");
         String[] wsshids = wsshid.split(",");
@@ -253,6 +257,16 @@ public class WarehouseController {
             ckbaobiao.setType(3);
             //添加到仓库报表
             ckbaobiaoService.insert(ckbaobiao);
+
+            /**/
+            Cwbaobiao cwbaobiao=new Cwbaobiao();
+            cwbaobiao.setType(5);
+            Shop shop1=shopService.queryById(shopidss.get(i));
+            double money=shopcountss.get(i)*shop1.getShopprice();
+            cwbaobiao.setMoney(money);
+            cwbaobiao.setCwname("供货商");
+            int numss =cwbaobiaoService.insert(cwbaobiao);
+
         }
         Map<String, String> map = new HashMap<String, String>();
         if (num > 0) {
@@ -345,12 +359,19 @@ public class WarehouseController {
             ckshop.setShopid(shopidss.get(i));      //商品id
             ckbaobiao.setShopid(ckshop);
             Warehouse ckwarehouse = new Warehouse();  //仓库id
-            ckwarehouse.setWareid(warehouseidss.get(0));
+            ckwarehouse.setWareid(warehouseidss.get(i));
             ckbaobiao.setWareid(ckwarehouse);
             ckbaobiao.setCount(shopcountss.get(i));    //转入数量
             ckbaobiao.setType(2);                       //转入类型  转移入库
             //添加到仓库报表
             int nums=ckbaobiaoService.insert(ckbaobiao);
+            Cwbaobiao cwbaobiao=new Cwbaobiao();
+            cwbaobiao.setType(1);
+            Shop shop1=shopService.queryById(shopidss.get(i));
+            double money=shopcountss.get(i)*shop1.getShopprice();
+            cwbaobiao.setMoney(money);
+            cwbaobiao.setCwname("供货商");
+            int numss =cwbaobiaoService.insert(cwbaobiao);
         }
         if (num > 0) {
             map.put("msg", "采购成功");

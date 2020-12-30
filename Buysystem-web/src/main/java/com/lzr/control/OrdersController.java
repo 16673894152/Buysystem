@@ -8,10 +8,7 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.request.AlipayTradeQueryRequest;
 import com.lzr.config.AlipayConfig;
-import com.lzr.service.OrderXqService;
-import com.lzr.service.OrdersService;
-import com.lzr.service.ShopgouwuService;
-import com.lzr.service.UserService;
+import com.lzr.service.*;
 import com.lzr.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +38,10 @@ public class OrdersController {
 
     @Autowired
     OrderXqService orderXqService;
-
-
+    @Autowired
+    XsbaobiaoService xsbaobiaoService;
+    @Autowired
+    CwbaobiaoService cwbaobiaoService;
     @RequestMapping("/querylike.action")
     @ResponseBody
     @CrossOrigin
@@ -232,8 +231,14 @@ public class OrdersController {
             orderxq.setOrderxqmoney(Double.valueOf(nf.format(s.getPrice())));
             int a = orderXqService.insert(orderxq);
             System.out.println(a+"執行");
-        }
 
+            Xsbaobiao xsbaobiao=new Xsbaobiao();
+            xsbaobiao.setShopid(shop);
+            xsbaobiao.setCount(s.getNumber());
+            xsbaobiao.setMoney(Double.valueOf(s.getPrice()));
+            xsbaobiao.setType(1);
+            int numsss=xsbaobiaoService.insert(xsbaobiao);
+        }
         if (num > 0) {
             map.put("msg", "创建成功");
             return map;
@@ -298,6 +303,13 @@ public class OrdersController {
             if (result.indexOf("Success") != -1) {
                 orders.setOrderstate(2);
                 ordersService.updatebydingdanbiaohao(orders);
+                Cwbaobiao cwbaobiao=new Cwbaobiao();
+                cwbaobiao.setCwname("商家");
+                cwbaobiao.setMoney(Double.valueOf(total_amount));
+                cwbaobiao.setType(2);
+                int nums=cwbaobiaoService.insert(cwbaobiao);
+                System.out.println("财务信息--"+cwbaobiao);
+                System.out.println("财务"+nums);
             } else {
                 System.out.println("不包含");
             }

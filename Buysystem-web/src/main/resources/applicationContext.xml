@@ -20,9 +20,9 @@
         <!-- 与数据库建立连接的基本信息 -->
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
         <property name="url"
-                  value="jdbc:mysql://rm-bp12j3557106p4p0e1250108m.mysql.rds.aliyuncs.com:3306/s3xiangmu4?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useSSL=false"></property>
-        <property name="username" value="zhangyong"></property>
-        <property name="password" value="Aa123456"></property>
+                  value="jdbc:mysql://localhost:3306/s3xiangmu4?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useSSL=false"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="123456"></property>
         <!-- 关于数据库连接池的基本信息 -->
         <property name="maxActive" value="50"></property>
         <property name="initialSize" value="5"></property>

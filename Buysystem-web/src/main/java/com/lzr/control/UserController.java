@@ -58,7 +58,7 @@ public class UserController {
             map.put("hyname", userList1.get(0).getHyid().getHyname());
             map.put("hyzhekou", userList1.get(0).getHyid().getHyzhekou().toString());
             System.out.println("用户名" + userList1.get(0).getUsername());
-            map.put("msg", "登录成功,欢迎你:"+userList1.get(0).getUsername());
+            map.put("msg", "登录成功");
             map.put("code", "1");
         }
         return map;
@@ -95,6 +95,7 @@ public class UserController {
         /*用户修改只需修改传输    密码userpass 手机号usernumber  用户头像:userimg   性别:sex 即可*/
         Map<String, String> map = new HashMap<String, String>();
         System.out.println(user + "编辑的用户");
+        user.setShmoney(0);
         int num = userService.getuser(user);
         if (num > 0) {
             map.put("msg", "修改成功");

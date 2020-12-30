@@ -74,7 +74,7 @@
         select empname,empsex,empid,password,img,empnumber,empaddress,empcard,empstarttime,empremark,empstate,username
         from employ
         <where>
-            <if test="1!=2">and empstate=1 and empid!=5</if>
+            <if test="1!=2">and empstate=1 and empid!=5 and empid!=1</if>
             <if test="empid != null"> and empid like concat('%',#{empid},'%')</if>
             <if test="empname != null"> and empname like concat('%',#{empname},'%')</if>
             <if test="empsex != null"> and empsex like concat('%',#{empsex},'%')</if>

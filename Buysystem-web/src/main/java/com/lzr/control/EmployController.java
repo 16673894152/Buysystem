@@ -2,11 +2,8 @@ package com.lzr.control;
 
 import com.lzr.service.EmployService;
 import com.lzr.service.EmployroleService;
-import com.lzr.vo.Employ;
-import com.lzr.vo.EmployroleInfo;
-import com.lzr.vo.PageVo;
+import com.lzr.vo.*;
 
-import com.lzr.vo.RoleInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,5 +148,14 @@ public class EmployController {
             map.put("msg", "授权失败");
         }
         return map;
+    }
+
+    /*模糊查询查看用户列表信息*/
+    @RequestMapping("/query.action")
+    @ResponseBody
+    @CrossOrigin
+    public List<Employ> querall(Employ employ){
+        System.out.println(employ);
+        return employService.query(employ);
     }
 }
